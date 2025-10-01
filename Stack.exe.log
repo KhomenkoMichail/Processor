@@ -1,0 +1,1592 @@
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#8: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x77631BFA в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x041904E3 в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x5DC4 (Main), errno: 12 (Visual C++ CRT: Not enough memory to complete call to strerror.). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x77631BFA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77670993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x7761F7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 3 0x771A9151 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+# 4 0x771A880A in C:\WINDOWS\System32\msvcrt.dll: calloc()
+
+TXLib печалится: Нет информации об исходных файлах. Вы не забыли опцию -g при компиляции?
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 1 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 2 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 3 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 4 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 5 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 6 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 7 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 8 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 9 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12431:
+
+  12429: 
+  12430: $       DWORD ofs = 0;
+=>12431: $       _TX_CALL (LIB_::SymGetLineFromAddr64, (process, (uintptr_t) addr, &ofs, &line64));
+  12432: 
+  12433: $       *line = &line64;
+
+#10 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#11 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#12 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#13 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#14 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#15 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#16 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#17 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#18 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:29:
+
+     27:     stack->nameOfStack = nameOfStack;
+     28:     stack->errorCode = noErrors;
+=>   29:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     30: 
+     31:     stack->stackInfo.nameOfFunct = creationInfo.nameOfFunct;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 27 2025 11:26:33, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 27 2025 11:26:59
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#8: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x77631BFA в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x041904E3 в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#3: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x5DC4 (Main), errno: 12 (Visual C++ CRT: Not enough memory to complete call to strerror.). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x77631BFA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77670993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x7761F7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 3 0x771A9151 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+# 4 0x771A880A in C:\WINDOWS\System32\msvcrt.dll: calloc()
+
+TXLib печалится: Нет информации об исходных файлах. Вы не забыли опцию -g при компиляции?
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 1 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 2 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 3 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 4 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 5 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 6 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 7 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 8 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 9 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12431:
+
+  12429: 
+  12430: $       DWORD ofs = 0;
+=>12431: $       _TX_CALL (LIB_::SymGetLineFromAddr64, (process, (uintptr_t) addr, &ofs, &line64));
+  12432: 
+  12433: $       *line = &line64;
+
+#10 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#11 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#12 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#13 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#14 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#15 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#16 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#17 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#18 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:29:
+
+     27:     stack->nameOfStack = nameOfStack;
+     28:     stack->errorCode = noErrors;
+=>   29:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     30: 
+     31:     stack->stackInfo.nameOfFunct = creationInfo.nameOfFunct;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 27 2025 11:26:33, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 27 2025 11:27:00
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#11: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x77631BFA в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x041904E3 в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x2E90 (Main), errno: 12 (Visual C++ CRT: Not enough memory to complete call to strerror.). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x77631BFA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77670993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x7761F7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 3 0x771A9151 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+# 4 0x771A880A in C:\WINDOWS\System32\msvcrt.dll: calloc()
+
+TXLib печалится: Нет информации об исходных файлах. Вы не забыли опцию -g при компиляции?
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 1 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 2 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 3 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 4 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 5 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 6 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 7 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 8 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 9 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#10 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#11 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#12 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#13 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#14 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#15 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#16 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#17 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#18 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12431:
+
+  12429: 
+  12430: $       DWORD ofs = 0;
+=>12431: $       _TX_CALL (LIB_::SymGetLineFromAddr64, (process, (uintptr_t) addr, &ofs, &line64));
+  12432: 
+  12433: $       *line = &line64;
+
+#19 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#20 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#21 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#22 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#23 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#24 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#25 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#26 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#27 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:29:
+
+     27:     stack->nameOfStack = nameOfStack;
+     28:     stack->errorCode = noErrors;
+=>   29:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     30: 
+     31:     stack->stackInfo.nameOfFunct = creationInfo.nameOfFunct;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 27 2025 12:57:04, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 27 2025 12:57:39
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#11: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x77631BFA в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x041904E3 в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#3: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x2E90 (Main), errno: 12 (Visual C++ CRT: Not enough memory to complete call to strerror.). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x77631BFA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77670993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x7761F7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 3 0x771A9151 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+# 4 0x771A880A in C:\WINDOWS\System32\msvcrt.dll: calloc()
+
+TXLib печалится: Нет информации об исходных файлах. Вы не забыли опцию -g при компиляции?
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 1 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 2 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 3 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 4 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 5 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 6 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 7 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 8 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 9 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#10 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#11 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#12 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#13 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#14 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#15 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#16 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#17 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#18 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12431:
+
+  12429: 
+  12430: $       DWORD ofs = 0;
+=>12431: $       _TX_CALL (LIB_::SymGetLineFromAddr64, (process, (uintptr_t) addr, &ofs, &line64));
+  12432: 
+  12433: $       *line = &line64;
+
+#19 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#20 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#21 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#22 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#23 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#24 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#25 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#26 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#27 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:29:
+
+     27:     stack->nameOfStack = nameOfStack;
+     28:     stack->errorCode = noErrors;
+=>   29:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     30: 
+     31:     stack->stackInfo.nameOfFunct = creationInfo.nameOfFunct;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 27 2025 12:57:04, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 27 2025 12:57:38
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#8: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x77631BFA в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x041904E3 в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x4EE0 (Main), errno: 12 (Visual C++ CRT: Not enough memory to complete call to strerror.). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x77631BFA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77670993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x7761F7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 3 0x771A9151 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+# 4 0x771A880A in C:\WINDOWS\System32\msvcrt.dll: calloc()
+
+TXLib печалится: Нет информации об исходных файлах. Вы не забыли опцию -g при компиляции?
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 1 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 2 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 3 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 4 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 5 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 6 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 7 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 8 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 9 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12431:
+
+  12429: 
+  12430: $       DWORD ofs = 0;
+=>12431: $       _TX_CALL (LIB_::SymGetLineFromAddr64, (process, (uintptr_t) addr, &ofs, &line64));
+  12432: 
+  12433: $       *line = &line64;
+
+#10 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#11 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#12 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#13 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#14 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#15 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#16 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#17 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#18 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:29:
+
+     27:     stack->nameOfStack = nameOfStack;
+     28:     stack->errorCode = noErrors;
+=>   29:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     30: 
+     31:     stack->stackInfo.nameOfFunct = creationInfo.nameOfFunct;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 27 2025 13:17:26, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 27 2025 13:17:36
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#8: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x77631BFA в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x041904E3 в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#3: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x4EE0 (Main), errno: 12 (Visual C++ CRT: Not enough memory to complete call to strerror.). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x77631BFA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77670993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x7761F7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 3 0x771A9151 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+# 4 0x771A880A in C:\WINDOWS\System32\msvcrt.dll: calloc()
+
+TXLib печалится: Нет информации об исходных файлах. Вы не забыли опцию -g при компиляции?
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 1 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 2 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 3 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 4 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 5 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 6 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+# 7 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+# 8 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+# 9 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12431:
+
+  12429: 
+  12430: $       DWORD ofs = 0;
+=>12431: $       _TX_CALL (LIB_::SymGetLineFromAddr64, (process, (uintptr_t) addr, &ofs, &line64));
+  12432: 
+  12433: $       *line = &line64;
+
+#10 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#11 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#12 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#13 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#14 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#15 in bool {anonymous}::TX::_txSymGetFromAddr(void*, {anonymous}::TX::Win32::SYMBOL_INFO**, {anonymous}::TX::Win32::IMAGEHLP_LINE64**, const char**, const char**, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12417:
+
+  12415: $       unsigned long long ofs = 0;
+  12416: 
+=>12417: $       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+  12418: 
+  12419:         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
+
+#16 in const char* {anonymous}::TX::_txCaptureStackBackTrace(int, bool, CONTEXT*, EXCEPTION_POINTERS*, HANDLE) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12152:
+
+  12150: $       bool                    inTX   = false;
+  12151: 
+=>12152:         if (addr)                {$ inTX = _txSymGetFromAddr ((char*) addr - 1, &sym, &line, &module);          }
+  12153:         if (readSource && !inTX) {$        _txSymGetFromAddr ((void*) 1,        NULL, NULL,  NULL, &source, 2); }  //-V566
+  12154: 
+
+#17 in long int {anonymous}::TX::_txOnExceptionSEH(EXCEPTION_POINTERS*, const char*) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:11645:
+
+  11643: $       unsigned err = GetLastError();
+  11644: 
+=>11645: $       const char* stackTrace = _txCaptureStackBackTrace (0, true, exc->ContextRecord, exc);
+  11646: 
+  11647: $       _txDumpExceptionSEH (_txDumpSE,  (intptr_t) sizeof (_txDumpSE)  - 1, exc->ExceptionRecord, func);
+
+#18 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:29:
+
+     27:     stack->nameOfStack = nameOfStack;
+     28:     stack->errorCode = noErrors;
+=>   29:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     30: 
+     31:     stack->stackInfo.nameOfFunct = creationInfo.nameOfFunct;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 27 2025 13:17:26, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 27 2025 13:17:36
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0042ED36 в функции djb2Hash() в файле C:/Users/Admin/Desktop/Stack/stackFunctions.cpp на строке 374. Попытка прочесть данные по адресу NULL в модуле C:\Users\Admin\Desktop\Stack\Stack.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x66F0 (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042ED36 in C:\Users\Admin\Desktop\Stack\Stack.exe: djb2Hash() at C:/Users/Admin/Desktop/Stack/stackFunctions.cpp:374:
+
+    372:     #ifdef CANARY_PROTECTION
+    373:         for(ssize_t numOfElement = 0; numOfElement < stack->capacity + 2; numOfElement++)
+=>  374:             hash = ((hash << 5) + hash) + stack->data[numOfElement];
+    375:     #endif
+    376: 
+
+# 1 0x0042DA70 in C:\Users\Admin\Desktop\Stack\Stack.exe: stackCtor() at C:/Users/Admin/Desktop/Stack/stackFunctions.cpp:30:
+
+     28: 
+     29:     #ifdef HASH_PROTECTION
+=>   30:         stack->hash = djb2Hash(stack);
+     31:     #endif
+     32: 
+
+# 2 0x00401488 in C:\Users\Admin\Desktop\Stack\Stack.exe: main() at C:/Users/Admin/Desktop/Stack/main.cpp:15:
+
+     13:     FILE* logFile = fopen("writeDump.log", "w");
+     14: 
+=>   15:     STACK_CTOR(stk, stackInfo, 1);
+     16: 
+     17:     printf("hash = %llu\n", stk.hash);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:27:
+
+     25:     stack->nameOfStack = nameOfStack;
+     26:     stack->errorCode = noErrors;
+=>   27:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     28: 
+     29:     #ifdef HASH_PROTECTION
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 29 2025 17:32:19, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 29 2025 17:34:16
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0042ED36 в функции djb2Hash() в файле C:/Users/Admin/Desktop/Stack/stackFunctions.cpp на строке 374. Попытка прочесть данные по адресу NULL в модуле C:\Users\Admin\Desktop\Stack\Stack.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x66F0 (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042ED36 in C:\Users\Admin\Desktop\Stack\Stack.exe: djb2Hash() at C:/Users/Admin/Desktop/Stack/stackFunctions.cpp:374:
+
+    372:     #ifdef CANARY_PROTECTION
+    373:         for(ssize_t numOfElement = 0; numOfElement < stack->capacity + 2; numOfElement++)
+=>  374:             hash = ((hash << 5) + hash) + stack->data[numOfElement];
+    375:     #endif
+    376: 
+
+# 1 0x0042DA70 in C:\Users\Admin\Desktop\Stack\Stack.exe: stackCtor() at C:/Users/Admin/Desktop/Stack/stackFunctions.cpp:30:
+
+     28: 
+     29:     #ifdef HASH_PROTECTION
+=>   30:         stack->hash = djb2Hash(stack);
+     31:     #endif
+     32: 
+
+# 2 0x00401488 in C:\Users\Admin\Desktop\Stack\Stack.exe: main() at C:/Users/Admin/Desktop/Stack/main.cpp:15:
+
+     13:     FILE* logFile = fopen("writeDump.log", "w");
+     14: 
+=>   15:     STACK_CTOR(stk, stackInfo, 1);
+     16: 
+     17:     printf("hash = %llu\n", stk.hash);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:27:
+
+     25:     stack->nameOfStack = nameOfStack;
+     26:     stack->errorCode = noErrors;
+=>   27:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     28: 
+     29:     #ifdef HASH_PROTECTION
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 29 2025 17:32:19, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 29 2025 17:34:17
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0042EB3D в функции djb2Hash() в файле C:/Users/Admin/Desktop/Stack/stackFunctions.cpp на строке 369. Попытка прочесть данные по адресу NULL в модуле C:\Users\Admin\Desktop\Stack\Stack.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x31C8 (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042EB3D in C:\Users\Admin\Desktop\Stack\Stack.exe: djb2Hash() at C:/Users/Admin/Desktop/Stack/stackFunctions.cpp:369:
+
+    367:     #ifndef CANARY_PROTECTION
+    368:         for(ssize_t numOfElement = 0; numOfElement < stack->capacity; numOfElement++)
+=>  369:             hash = ((hash << 5) + hash) + stack->data[numOfElement];
+    370:     #endif
+    371: 
+
+# 1 0x0042DA70 in C:\Users\Admin\Desktop\Stack\Stack.exe: stackCtor() at C:/Users/Admin/Desktop/Stack/stackFunctions.cpp:30:
+
+     28: 
+     29:     #ifdef HASH_PROTECTION
+=>   30:         stack->hash = djb2Hash(stack);
+     31:     #endif
+     32: 
+
+# 2 0x00401488 in C:\Users\Admin\Desktop\Stack\Stack.exe: main() at C:/Users/Admin/Desktop/Stack/main.cpp:15:
+
+     13:     FILE* logFile = fopen("writeDump.log", "w");
+     14: 
+=>   15:     STACK_CTOR(stk, stackInfo, 1);
+     16: 
+     17:     printf("hash = %llu\n", stk.hash);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:27:
+
+     25:     stack->nameOfStack = nameOfStack;
+     26:     stack->errorCode = noErrors;
+=>   27:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     28: 
+     29:     #ifdef HASH_PROTECTION
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 29 2025 17:36:11, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 29 2025 17:36:17
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\Stack.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0042EB3D в функции djb2Hash() в файле C:/Users/Admin/Desktop/Stack/stackFunctions.cpp на строке 369. Попытка прочесть данные по адресу NULL в модуле C:\Users\Admin\Desktop\Stack\Stack.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050A1DC (32-bit), Flags: Cmdre0, Thread: 0x31C8 (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042EB3D in C:\Users\Admin\Desktop\Stack\Stack.exe: djb2Hash() at C:/Users/Admin/Desktop/Stack/stackFunctions.cpp:369:
+
+    367:     #ifndef CANARY_PROTECTION
+    368:         for(ssize_t numOfElement = 0; numOfElement < stack->capacity; numOfElement++)
+=>  369:             hash = ((hash << 5) + hash) + stack->data[numOfElement];
+    370:     #endif
+    371: 
+
+# 1 0x0042DA70 in C:\Users\Admin\Desktop\Stack\Stack.exe: stackCtor() at C:/Users/Admin/Desktop/Stack/stackFunctions.cpp:30:
+
+     28: 
+     29:     #ifdef HASH_PROTECTION
+=>   30:         stack->hash = djb2Hash(stack);
+     31:     #endif
+     32: 
+
+# 2 0x00401488 in C:\Users\Admin\Desktop\Stack\Stack.exe: main() at C:/Users/Admin/Desktop/Stack/main.cpp:15:
+
+     13:     FILE* logFile = fopen("writeDump.log", "w");
+     14: 
+=>   15:     STACK_CTOR(stk, stackInfo, 1);
+     16: 
+     17:     printf("hash = %llu\n", stk.hash);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at stackFunctions.cpp:27:
+
+     25:     stack->nameOfStack = nameOfStack;
+     26:     stack->errorCode = noErrors;
+=>   27:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     28: 
+     29:     #ifdef HASH_PROTECTION
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 29 2025 17:36:11, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Sep 29 2025 17:36:17
+
+Run file:	C:\Users\Admin\Desktop\Stack\Stack.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------

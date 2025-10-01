@@ -1,0 +1,82 @@
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\Assembler.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00401451 в функции main() в файле C:/Users/Admin/Desktop/Stack/mainAssembler.cpp на строке 18. Попытка прочесть данные по адресу NULL в модуле C:\Users\Admin\Desktop\Stack\Assembler.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005081DC (32-bit), Flags: Cmdre0, Thread: 0x3494 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00401451 in C:\Users\Admin\Desktop\Stack\Assembler.exe: main() at C:/Users/Admin/Desktop/Stack/mainAssembler.cpp:18:
+
+     16: 
+     17:     for(size_t i = 0; i < Cmd.numberOfStrings; i++)
+=>   18:         printf("%d\n", buffer[i]);
+     19: 
+     20: }
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  1 2025 22:43:05, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 01 2025 22:43:13
+
+Run file:	C:\Users\Admin\Desktop\Stack\Assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\Assembler.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00401451 в функции main() в файле C:/Users/Admin/Desktop/Stack/mainAssembler.cpp на строке 18. Попытка прочесть данные по адресу NULL в модуле C:\Users\Admin\Desktop\Stack\Assembler.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005081DC (32-bit), Flags: Cmdre0, Thread: 0x3494 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00401451 in C:\Users\Admin\Desktop\Stack\Assembler.exe: main() at C:/Users/Admin/Desktop/Stack/mainAssembler.cpp:18:
+
+     16: 
+     17:     for(size_t i = 0; i < Cmd.numberOfStrings; i++)
+=>   18:         printf("%d\n", buffer[i]);
+     19: 
+     20: }
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  1 2025 22:43:05, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 01 2025 22:43:13
+
+Run file:	C:\Users\Admin\Desktop\Stack\Assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------

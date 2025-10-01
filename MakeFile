@@ -1,0 +1,21 @@
+CFLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wno-missing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
+
+mainAssembler.o: assemblerFunctions.cpp
+	g++ $(CFLAGS) -c mainAssembler.cpp
+assemblerFunctions.o: assemblerFunctions.cpp
+	g++ $(CFLAGS) -c assemblerFunctions.cpp
+Assembler.exe: mainAssembler.o assemblerFunctions.o
+	g++ $(CFLAGS) mainAssembler.o assemblerFunctions.o -o Assembler
+build asm: Assembler.exe
+
+main.o: main.cpp
+	g++ $(CFLAGS) -c main.cpp
+stackFunctions.o: stackFunctions.cpp
+	g++ $(CFLAGS) -c stackFunctions.cpp
+calcFunctions.o: calcFunctions.cpp
+	g++ $(CFLAGS) -c calcFunctions.cpp
+Stack.exe: main.o stackFunctions.o calcFunctions.o
+	g++ $(CFLAGS) main.o stackFunctions.o calcFunctions.o -o Stack
+clean:
+	rm main.o stackFunctions.o calcFunctions.o assemblerFunctions.o mainAssembler.o
+build stack: Stack.exe
