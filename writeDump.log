@@ -1,10 +1,10 @@
-stackDump() from stackPop at calcFunctions.cpp:147
-stack <int> [007BFEB0] from main at main.cpp:15
+stackDump() from stackPop at PROCESSOR/calcFunctions.cpp:147
+stack <int> [007BFEA8] from main at PROCESSOR/main.cpp:20
 _______________________ERROR! STACK HAS NO ELEMENTS FOR POP!(64)
 {
      size = 0
      capacity = 1
-     data [013AB5C8]
+     data [0153B650]
      {
           [0] = "BEEFFACE" (CANARY)
           [1] = "BADBABE" (POISON)

@@ -1,21 +1,64 @@
-CFLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wno-missing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
+#CFLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wno-missing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 
-mainAssembler.o: assemblerFunctions.cpp
-	g++ $(CFLAGS) -c mainAssembler.cpp
-assemblerFunctions.o: assemblerFunctions.cpp
-	g++ $(CFLAGS) -c assemblerFunctions.cpp
-Assembler.exe: mainAssembler.o assemblerFunctions.o
-	g++ $(CFLAGS) mainAssembler.o assemblerFunctions.o -o Assembler
-build asm: Assembler.exe
+#mainAssembler.o: assemblerFunctions.cpp
+#	g++ $(CFLAGS) -c mainAssembler.cpp
+#assemblerFunctions.o: assemblerFunctions.cpp
+#	g++ $(CFLAGS) -c assemblerFunctions.cpp
+#Assembler.exe: mainAssembler.o assemblerFunctions.o
+#	g++ $(CFLAGS) mainAssembler.o assemblerFunctions.o -o Assembler
+#build asm: Assembler.exe
 
-main.o: main.cpp
-	g++ $(CFLAGS) -c main.cpp
-stackFunctions.o: stackFunctions.cpp
-	g++ $(CFLAGS) -c stackFunctions.cpp
-calcFunctions.o: calcFunctions.cpp
-	g++ $(CFLAGS) -c calcFunctions.cpp
-Stack.exe: main.o stackFunctions.o calcFunctions.o
-	g++ $(CFLAGS) main.o stackFunctions.o calcFunctions.o -o Stack
-clean:
-	rm main.o stackFunctions.o calcFunctions.o assemblerFunctions.o mainAssembler.o
-build stack: Stack.exe
+#main.o: main.cpp
+#	g++ $(CFLAGS) -c main.cpp
+#stackFunctions.o: stackFunctions.cpp
+#calcFunctions.o: calcFunctions.cpp
+#	g++ $(CFLAGS) -c calcFunctions.cpp
+#Stack.exe: main.o stackFunctions.o calcFunctions.o
+#	g++ $(CFLAGS) main.o stackFunctions.o calcFunctions.o -o Stack
+#clean:
+#	rm main.o stackFunctions.o calcFunctions.o assemblerFunctions.o mainAssembler.o
+#build stack: Stack.exe
+
+# Запуск всей программы
+all: processor assembler
+
+# Флаги компиляции .cpp
+flags = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wno-missing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
+
+# Общие файлы
+common_all = COMMON/commandsNames.h
+
+# Файлы .cpp для сборки processor
+proc_cpp = PROCESSOR/main.cpp PROCESSOR/calcFunctions.cpp PROCESSOR/stackFunctions.cpp PROCESSOR/processorFunctions.cpp
+
+# Файлы processor
+proc_all = PROCESSOR/stackFunctions.h PROCESSOR/calcFunctions.h PROCESSOR/structAndEnums.h PROCESSOR/processorFunctions.h $(proc_cpp)
+
+# Файлы .cpp assembler
+asmb_cpp = ASSEMBLER/mainAssembler.cpp ASSEMBLER/assemblerFunctions.cpp
+
+# Файлы assembler
+asmb_all = ASSEMBLER/assemblerFunctions.h ASSEMBLER/textStructs.h $(asmb_cpp)
+
+# Текстовые файлы
+text_file = TEXT_FILE/bin_code.bin TEXT_FILE/input.txt TEXT_FILE/text_code.asm
+
+# Компиляция processor
+processor: $(proc_cpp) $(proc_headers) $(common_headers)
+	@echo -------------------------------------------------------------------------
+	g++ $(proc_cpp) $(common_cpp) $(flags) -o EXE/processor.exe
+
+# Компиляция assembler
+assembler: $(asmb_cpp) $(asmb_headers) $(common_headers)
+	@echo -------------------------------------------------------------------------
+	g++ $(asmb_cpp) $(common_cpp) $(flags) -o EXE/assembler.exe
+
+# Запуск assembler
+run-a:
+	@echo -------------------------------------------------------------------------
+	./EXE/assembler.exe
+
+# Запуск processor
+run-p:
+	@echo -------------------------------------------------------------------------
+	./EXE/processor.exe
