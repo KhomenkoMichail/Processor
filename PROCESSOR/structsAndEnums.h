@@ -47,5 +47,12 @@ struct stack {
 
 typedef struct stack stack_t;
 
+struct spu {
+    int* commandCode;
+    int pc;
+    stack_t stk;
+    int regs[6];
+};
+
 #endif
 

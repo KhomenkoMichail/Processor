@@ -7,28 +7,23 @@
 #include "calcFunctions.h"
 #include "processorFunctions.h"
 #include "../COMMON/commonFunctions.h"
+#include "../COMMON/commandsNames.h"
 
-int main(int argc, char* argv[]) {
+
+int main(void) {
     const char* nameOfDumpFile = "writeDump.log";
-    //const char* nameOfByteCodeFile = "binByteCode.bin";
+    const char* nameOfByteCodeFile = "binByteCode.bin";
 
-    struct stack stk = {};
-    struct info stackInfo = {};
+    struct spu processor = {};
+    processorCtor (&processor, nameOfByteCodeFile);
+
     struct info dumpInfo = {};
-
     FILE* logFile = fopen(nameOfDumpFile, "w");
 
-    STACK_CTOR(stk, stackInfo, 1);
+    executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
 
-    if(argc == 2) {
-        int* commandBuffer = makeCommandBuffer(argv[1]);
-        executeBufferCommands (&stk, logFile, &dumpInfo, commandBuffer, argv[1]);
-        free(commandBuffer);
-    }
-    else
-        readCommands(&stk, logFile, &dumpInfo);
-
-
+    free(processor.stk.data);
+    free(processor.commandCode);
     fclose(logFile);
 
     return 0;

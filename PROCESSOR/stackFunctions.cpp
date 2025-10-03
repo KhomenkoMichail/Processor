@@ -148,9 +148,13 @@ int stackPop (stack_t* stack, stackElement_t* ptrToVariable, FILE* file, struct 
     *ptrToVariable = stack->data[stack->size ON_CANARY (+1)];
     stack->data[stack->size ON_CANARY (+1)] = POISON;
 
-    if (stack->size == stack->capacity/4) {
+/*
+    if ((stack->size == stack->capacity/4) && stack->capacity > 4) {
         stack->capacity /= 2;
+        int lastValue = (stack->data)[stack->size - 1 ON_CANARY (+1)];
         realloc(stack->data, stack->capacity ON_CANARY (+2));
+        (stack->data)[stack->size - 1 ON_CANARY (+1)] = lastValue;
+
 
         if (stack->data == NULL)
             stack->errorCode = badRealloc;
@@ -158,6 +162,7 @@ int stackPop (stack_t* stack, stackElement_t* ptrToVariable, FILE* file, struct 
         else
             ON_CANARY (stack->data[stack->capacity + 1] = CANARY);
     }
+*/
 
     ON_HASH_PROTECTION (stack->hash = djb2Hash(stack));
 

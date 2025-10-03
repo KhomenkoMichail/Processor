@@ -3,9 +3,8 @@
 
 #include "structsAndEnums.h"
 
-//int* makeCommandBuffer (const char* nameOfBinCodeFile);
+void processorCtor (struct spu* processor, const char* nameOfByteCodeFile);
 
-void executeBufferCommands (stack_t* stack, FILE* dumpFile, struct info* dumpInfo, int* commandBuffer, const char* nameOfBinCodeFile);
-
+void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile);
 
 #endif

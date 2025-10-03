@@ -6,52 +6,64 @@
 #include "structsAndEnums.h"
 #include "calcFunctions.h"
 #include "../COMMON/commandsNames.h"
+#include "../COMMON/commonFunctions.h"
 
-void executeBufferCommands (stack_t* stack, FILE* dumpFile, struct info* dumpInfo, int* commandBuffer, const char* nameOfBinCodeFile) {
+void processorCtor (struct spu* processor, const char* nameOfByteCodeFile) {
+    assert(processor);
+    assert(nameOfByteCodeFile);
+
+    struct info stackInfo = {};
+    STACK_CTOR(processor->stk, stackInfo, 10);
+
+    processor->commandCode = makeCommandBuffer(nameOfByteCodeFile);
+}
+
+
+void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile) {
     assert(dumpFile);
     assert(dumpInfo);
 
     int errorCode = noErrors;
 
-    for (size_t numOfElement = 0; commandBuffer[numOfElement] != END_OF_COMMANDS; numOfElement++) {
-        switch (commandBuffer[numOfElement]) {
+    for (size_t numOfElement = 0; (processor->commandCode)[numOfElement] != END_OF_COMMANDS; numOfElement++) {
+        switch ((processor->commandCode)[numOfElement]) {
 
             case PUSHcmd:
                 numOfElement++;
-                if (commandBuffer[numOfElement] == END_OF_COMMANDS) {
+                if ((processor->commandCode)[numOfElement] == END_OF_COMMANDS) {
                     fprintf(dumpFile, "ERROR PUSH COMMAND!  NO PUSH VALUE!\n");
                     printf("ERROR PUSH COMMAND! BAD OR NO PUSH VALUE!\n");
                     return;
                 }
-                STACK_PUSH(stack, commandBuffer[numOfElement], dumpFile, dumpInfo);
+                STACK_PUSH(&(processor->stk), (processor->commandCode)[numOfElement], dumpFile, dumpInfo);
                 break;
 
             case ADDcmd:
-                errorCode = stackAdd(stack, dumpFile, dumpInfo);
+                errorCode = stackAdd(&(processor->stk), dumpFile, dumpInfo);
                 break;
 
             case SUBcmd:
-                errorCode = stackSub(stack, dumpFile, dumpInfo);
+                errorCode = stackSub(&(processor->stk), dumpFile, dumpInfo);
                 break;
 
             case MULcmd:
-                errorCode = stackMul(stack, dumpFile, dumpInfo);
+                errorCode = stackMul(&(processor->stk), dumpFile, dumpInfo);
                 break;
 
             case DIVcmd:
-                errorCode = stackDiv(stack, dumpFile, dumpInfo);
+                errorCode = stackDiv(&(processor->stk), dumpFile, dumpInfo);
                 break;
 
             case POWcmd:
-                errorCode = stackPow(stack, dumpFile, dumpInfo);
+                errorCode = stackPow(&(processor->stk), dumpFile, dumpInfo);
                 break;
 
             case SQRTcmd:
-                errorCode = stackSqrt(stack, dumpFile, dumpInfo);
+                errorCode = stackSqrt(&(processor->stk), dumpFile, dumpInfo);
                 break;
 
             case OUTcmd:
-                errorCode = stackOut(stack, dumpFile, dumpInfo);
+                errorCode = stackOut(&(processor->stk), dumpFile, dumpInfo);
                 break;
 
             case HLTcmd:
@@ -60,11 +72,10 @@ void executeBufferCommands (stack_t* stack, FILE* dumpFile, struct info* dumpInf
                 break;
 
             default:
-                printf("ERROR! UNKNOWN COMMAND: \"%d\" number %d from %s\n", commandBuffer[numOfElement], numOfElement + 1, nameOfBinCodeFile);
+                printf("ERROR! UNKNOWN COMMAND: \"%d\" number %d from %s\n", (processor->commandCode)[numOfElement], numOfElement + 1, nameOfBinCodeFile);
         }
 
         if (errorCode)
             break;
     }
 }
-
