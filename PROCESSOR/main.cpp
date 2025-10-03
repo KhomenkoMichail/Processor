@@ -6,10 +6,11 @@
 #include "stackFunctions.h"
 #include "calcFunctions.h"
 #include "processorFunctions.h"
+#include "../COMMON/commonFunctions.h"
 
-int main(void) {
+int main(int argc, char* argv[]) {
     const char* nameOfDumpFile = "writeDump.log";
-    const char* nameOfByteCodeFile = "binByteCode.bin";
+    //const char* nameOfByteCodeFile = "binByteCode.bin";
 
     struct stack stk = {};
     struct info stackInfo = {};
@@ -19,11 +20,16 @@ int main(void) {
 
     STACK_CTOR(stk, stackInfo, 1);
 
-    int* commandBuffer = makeCommandBuffer(nameOfByteCodeFile);
-    executeBufferCommands (&stk, logFile, &dumpInfo, commandBuffer, nameOfByteCodeFile);
+    if(argc == 2) {
+        int* commandBuffer = makeCommandBuffer(argv[1]);
+        executeBufferCommands (&stk, logFile, &dumpInfo, commandBuffer, argv[1]);
+        free(commandBuffer);
+    }
+    else
+        readCommands(&stk, logFile, &dumpInfo);
+
 
     fclose(logFile);
-    free(commandBuffer);
 
     return 0;
 }

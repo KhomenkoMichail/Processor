@@ -3,7 +3,7 @@
 
 #include "structsAndEnums.h"
 
-int* makeCommandBuffer (const char* nameOfBinCodeFile);
+//int* makeCommandBuffer (const char* nameOfBinCodeFile);
 
 void executeBufferCommands (stack_t* stack, FILE* dumpFile, struct info* dumpInfo, int* commandBuffer, const char* nameOfBinCodeFile);
 

@@ -15,4 +15,6 @@ enum comandsNames {
     ERROR_COMMANDcmd = 12,
 };
 
+const int END_OF_COMMANDS = 0xEDA;
+
 #endif
