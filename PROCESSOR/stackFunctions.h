@@ -35,8 +35,10 @@
     assert(dumpInfoAddress);\
     (dumpInfoAddress)->nameOfFile = __FILE__; \
     (dumpInfoAddress)->numOfLine = __LINE__;\
-    if (stackPop(stackAddress, ptrToVariable, filePtr, dumpInfoAddress))\
-        return (stackAddress)->errorCode;\
+    stackPop(stackAddress, ptrToVariable, filePtr, dumpInfoAddress);\
+
+//    if (stackPop(stackAddress, ptrToVariable, filePtr, dumpInfoAddress))
+//        return (stackAddress)->errorCode;
 
 int stackCtor (stack_t* stack, ssize_t capacity, const char* nameOfStack, struct info stackCreationInfo);
 

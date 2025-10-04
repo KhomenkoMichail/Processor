@@ -16,10 +16,12 @@ int main (void) {
 
     getStructComands (&Cmd, inputFile);
 
+    for (size_t line = 0; line < Cmd.numberOfStrings; line++)
+        commentsCleaner((Cmd.arrOfStringStructs[line]).ptrToString);
+
     int* commandBuffer = commandRewriter (&Cmd, &numOfBufferElements, inputFile);
 
     writeTextByteCode(commandBuffer, outputTextFile);
-
     writeBinByteCode(commandBuffer, numOfBufferElements, outputBinFile);
 
     return 0;

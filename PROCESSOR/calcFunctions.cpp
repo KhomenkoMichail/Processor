@@ -222,4 +222,3 @@ int executeCommand (const char* command, stack_t* stack, FILE* file, struct info
     printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS!\n", command);
     return 0;
 }
-

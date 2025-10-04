@@ -15,15 +15,14 @@ int main(void) {
     const char* nameOfByteCodeFile = "binByteCode.bin";
 
     struct spu processor = {};
-    processorCtor (&processor, nameOfByteCodeFile);
+    PROCESSOR_CTOR(processor, nameOfByteCodeFile);
 
     struct info dumpInfo = {};
     FILE* logFile = fopen(nameOfDumpFile, "w");
 
     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
 
-    free(processor.stk.data);
-    free(processor.commandCode);
+    processorDtor(&processor);
     fclose(logFile);
 
     return 0;

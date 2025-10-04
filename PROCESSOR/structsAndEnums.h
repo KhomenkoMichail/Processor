@@ -6,6 +6,8 @@ typedef int stackElement_t;
 #define CANARY_PROTECTION
 #define HASH_PROTECTION
 
+const int NUM_OF_REGS = 6;
+
 enum stackErr_t {
     noErrors = 0b0,
     badStackPtr= 0b1,
@@ -21,6 +23,17 @@ enum stackErr_t {
     badSqrt = 0b10000000000,
     incorrectHash = 0b100000000000,
 };
+
+enum processorErr_t {
+    badCodeSignature = 0b1000000000000,
+    badVersion = 0b10000000000000,
+    unknownCommand = 0b100000000000000,
+    badPc = 0b1000000000000000,
+    codeBufferOverflow = 0b10000000000000000,
+    badRegsPtr = 0b100000000000000000,
+    badCommandCodePtr = 0b1000000000000000000,
+};
+
 
 struct info {
     const char* nameOfFile;
@@ -49,9 +62,13 @@ typedef struct stack stack_t;
 
 struct spu {
     int* commandCode;
-    int pc;
+    size_t pc;
     stack_t stk;
-    int regs[6];
+    int regs[NUM_OF_REGS];
+
+    const char* nameOfSpu;
+    struct info spuInfo;
+    int spuErrorCode;
 };
 
 #endif

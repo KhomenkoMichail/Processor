@@ -1,6 +1,10 @@
 #ifndef COMANDS_NAMES_H
 #define COMANDS_NAMES_H
 
+const int version = 4;
+const int signature = 0xDED;
+const int END_OF_COMMANDS = 0xEDA;
+
 enum comandsNames {
     PUSHcmd = 1,
     ADDcmd = 2,
@@ -13,8 +17,10 @@ enum comandsNames {
     HLTcmd = 9,
     REALLOC_DOWNcmd = 10,
     ERROR_COMMANDcmd = 12,
+    INcmd = 13,
+    JMPcmd = 20,
+    PUSHREGcmd = 33,
+    POPREGcmd = 52,
 };
-
-const int END_OF_COMMANDS = 0xEDA;
 
 #endif

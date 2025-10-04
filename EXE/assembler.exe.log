@@ -268,3 +268,48 @@ Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
 Directory:	C:\Users\Admin\Desktop\Stack
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe, файл: ASSEMBLER/assemblerFunctions.cpp, строка: 219, функция: void writeTextByteCode(int*, const char*),
+
+Сообщение: ВНЕЗАПНО: Логическая ошибка: Неверно, что "codeBuffer".
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005091DC (32-bit), Flags: Cmdre0, Thread: 0x4CB0 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042E58A in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: writeTextByteCode() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:219:
+
+    217: 
+    218: void writeTextByteCode (int* codeBuffer, const char* nameOfFile) {
+=>  219:     assert(codeBuffer);
+    220:     assert(nameOfFile);
+    221: 
+
+# 1 0x00401496 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:24:
+
+     22:     int* commandBuffer = commandRewriter (&Cmd, &numOfBufferElements, inputFile);
+     23: 
+=>   24:     writeTextByteCode(commandBuffer, outputTextFile);
+     25:     writeBinByteCode(commandBuffer, numOfBufferElements, outputBinFile);
+     26: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  4 2025 15:19:11, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 04 2025 15:19:15
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------

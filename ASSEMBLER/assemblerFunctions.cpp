@@ -29,6 +29,7 @@ char* copyFileContent (struct comands* structAddress, const char* fileName) {
 
     size_t numOfReadSymbols = read(fileDescriptor, fileCopyBuffer, sizeOfFile);
     fileCopyBuffer[numOfReadSymbols] = '\0';
+    //commentsCleaner(fileCopyBuffer);
 
     if(close(fileDescriptor) != 0) {
         fprintf(stderr, "Error of closing file \"%s\"", fileName);
@@ -119,11 +120,17 @@ size_t getNumberOfSymbols (char* text, char searchedSymbol) {
 int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements, const char* nameOfFile) {
     assert(structAddress);
 
-    int* commandBuffer = (int*)calloc((structAddress->numberOfStrings)*2 + 1, sizeof(int));
-    size_t numberOfSymbols = 0;
+    int* commandBuffer = (int*)calloc((structAddress->numberOfStrings)*2 + 4, sizeof(int));
+    size_t numberOfSymbols = 3;
 
     char commandString[10] = {};
+    char regNameString[5] = {};
+
     int commandNumber = 0;
+
+    commandBuffer[0] = signature;
+    commandBuffer[1] = signature;
+    commandBuffer[2] = version;
 
     for (size_t line = 0; line < structAddress->numberOfStrings; line++) {
         sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString, "%s", commandString);
@@ -143,12 +150,38 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
             }
         commandBuffer[numberOfSymbols++] = commandNumber;
         }
+
+        if (commandNumber == PUSHREGcmd) {
+            if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 7, "%s", regNameString) != 1) {
+                printf("ERROR PUSHREG COMMAND! BAD OR NO PUSHREG VALUE! %s:%d\n", nameOfFile, (line+1));
+                return NULL;
+            }
+        commandNumber = getNumberOfReg(regNameString);
+        commandBuffer[numberOfSymbols++] = commandNumber;
+        }
+
+        if (commandNumber == POPREGcmd) {
+            if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 6, "%s", regNameString) != 1) {
+                printf("ERROR POPREG COMMAND! BAD OR NO POPREG VALUE! %s:%d\n", nameOfFile, (line+1));
+                return NULL;
+            }
+        commandNumber = getNumberOfReg(regNameString);
+        commandBuffer[numberOfSymbols++] = commandNumber;
+        }
+
+        if (commandNumber == JMPcmd) {
+                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 4, "%d", &commandNumber) != 1) || (commandNumber < 0)){
+                    printf("ERROR JMP COMMAND! BAD OR NO JMP VALUE! %s:%d\n", nameOfFile, (line+1));
+                    return NULL;
+                }
+            commandBuffer[numberOfSymbols++] = commandNumber;
+        }
     }
 
+    commandBuffer[numberOfSymbols] = END_OF_COMMANDS;
     *numOfBufferElements = numberOfSymbols;
     return commandBuffer;
 }
-
 
 int commandComparator (char* command) {
     assert(command);
@@ -182,6 +215,18 @@ int commandComparator (char* command) {
     if (strcmp(command, "REALLOC_DOWN") == 0)
         return REALLOC_DOWNcmd;
 
+    if (strcmp(command, "PUSHREG") == 0)
+        return PUSHREGcmd;
+
+    if (strcmp(command, "POPREG") == 0)
+        return POPREGcmd;
+
+    if (strcmp(command, "IN") == 0)
+        return INcmd;
+
+    if (strcmp(command, "JMP") == 0)
+        return JMPcmd;
+
     return ERROR_COMMANDcmd;
 }
 
@@ -196,7 +241,7 @@ void writeTextByteCode (int* codeBuffer, const char* nameOfFile) {
         return;
     }
 
-    for (size_t numOfElement = 0; codeBuffer[numOfElement] != 0; numOfElement++)
+    for (size_t numOfElement = 0; codeBuffer[numOfElement] != END_OF_COMMANDS; numOfElement++)
         fprintf (byteCodeFile, "%d ", codeBuffer[numOfElement]);
 
     if(fclose(byteCodeFile) != 0) {
@@ -226,4 +271,20 @@ void writeBinByteCode (int* codeBuffer, size_t numOfBufferElements, const char* 
         fprintf(stderr, "Error of closing file \"%s\"", nameOfFile);
         perror("");
     }
+}
+
+int getNumberOfReg(const char* nameOfReg) {
+    assert(nameOfReg);
+
+    char firstLetter = 0;
+    sscanf(nameOfReg, "%c", &firstLetter);
+    return (int)(firstLetter - 'A');
+}
+
+void commentsCleaner(char* str) {
+    assert(str);
+
+    char* commentPtr = NULL;
+    while ((commentPtr = strchr(str, ';')) != NULL)
+        *commentPtr = '\0';
 }

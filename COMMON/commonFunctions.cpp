@@ -8,8 +8,6 @@
 int* makeCommandBuffer (const char* nameOfBinCodeFile) {
     assert(nameOfBinCodeFile);
 
-    const size_t MAX_BUFFER_SIZE = 500;
-
     int* commandBuffer = (int*)calloc(MAX_BUFFER_SIZE, sizeof(int));
     assert(commandBuffer);
 

@@ -67,15 +67,12 @@ disassembler: $(disasmb_cpp) $(disasmb_headers) $(common_headers)
 
 # Запуск assembler
 run-a:
-	@echo -------------------------------------------------------------------------
 	./EXE/assembler.exe
 
 # Запуск disassembler
 run-d:
-	@echo -------------------------------------------------------------------------
 	./EXE/disassembler.exe
 
 # Запуск processor
 run-p:
-	@echo -------------------------------------------------------------------------
 	./EXE/processor.exe

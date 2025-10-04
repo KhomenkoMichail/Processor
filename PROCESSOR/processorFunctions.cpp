@@ -8,9 +8,12 @@
 #include "../COMMON/commandsNames.h"
 #include "../COMMON/commonFunctions.h"
 
-void processorCtor (struct spu* processor, const char* nameOfByteCodeFile) {
+
+void processorCtor (struct spu* processor, const char* processorName, const char* nameOfByteCodeFile) {
     assert(processor);
     assert(nameOfByteCodeFile);
+
+    processor->nameOfSpu = processorName;
 
     struct info stackInfo = {};
     STACK_CTOR(processor->stk, stackInfo, 10);
@@ -25,57 +28,231 @@ void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* 
 
     int errorCode = noErrors;
 
-    for (size_t numOfElement = 0; (processor->commandCode)[numOfElement] != END_OF_COMMANDS; numOfElement++) {
-        switch ((processor->commandCode)[numOfElement]) {
+    for (processor->pc = 0; (processor->commandCode)[processor->pc + 3] != END_OF_COMMANDS; ) {
+        switch ((processor->commandCode)[processor->pc + 3]) {
 
             case PUSHcmd:
-                numOfElement++;
-                if ((processor->commandCode)[numOfElement] == END_OF_COMMANDS) {
-                    fprintf(dumpFile, "ERROR PUSH COMMAND!  NO PUSH VALUE!\n");
+                processor->pc++;
+                if ((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) {
+                    fprintf(dumpFile, "ERROR PUSH COMMAND! BAD OR NO PUSH VALUE!\n");
                     printf("ERROR PUSH COMMAND! BAD OR NO PUSH VALUE!\n");
                     return;
                 }
-                STACK_PUSH(&(processor->stk), (processor->commandCode)[numOfElement], dumpFile, dumpInfo);
+                STACK_PUSH(&(processor->stk), (processor->commandCode)[processor->pc + 3], dumpFile, dumpInfo);
+                processor->pc++;
+                break;
+
+            case PUSHREGcmd:
+                processor->pc++;
+                if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+                    fprintf(dumpFile, "ERROR PUSHREG COMMAND! BAD OR NO PUSHREG VALUE!\n");
+                    printf("ERROR PUSHREG COMMAND! BAD OR NO PUSHREG VALUE!\n");
+                    return;
+                }
+                STACK_PUSH(&(processor->stk), (processor->regs)[((processor->commandCode)[processor->pc + 3])], dumpFile, dumpInfo);
+                processor->pc++;
+                break;
+
+            case POPREGcmd:
+                processor->pc++;
+                if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+                    fprintf(dumpFile, "ERROR POPREG COMMAND! BAD OR NO POPREG VALUE!\n");
+                    printf("ERROR POPREG COMMAND! BAD OR NO POPREG VALUE!\n");
+                    return;
+                }
+                STACK_POP(&(processor->stk), (processor->regs) + (processor->commandCode)[processor->pc + 3], dumpFile, dumpInfo);
+                processor->pc++;
                 break;
 
             case ADDcmd:
                 errorCode = stackAdd(&(processor->stk), dumpFile, dumpInfo);
+                processor->pc++;
                 break;
 
             case SUBcmd:
                 errorCode = stackSub(&(processor->stk), dumpFile, dumpInfo);
+                processor->pc++;
                 break;
 
             case MULcmd:
                 errorCode = stackMul(&(processor->stk), dumpFile, dumpInfo);
+                processor->pc++;
                 break;
 
             case DIVcmd:
                 errorCode = stackDiv(&(processor->stk), dumpFile, dumpInfo);
+                processor->pc++;
                 break;
 
             case POWcmd:
                 errorCode = stackPow(&(processor->stk), dumpFile, dumpInfo);
+                processor->pc++;
                 break;
 
             case SQRTcmd:
                 errorCode = stackSqrt(&(processor->stk), dumpFile, dumpInfo);
+                processor->pc++;
                 break;
 
             case OUTcmd:
                 errorCode = stackOut(&(processor->stk), dumpFile, dumpInfo);
+                processor->pc++;
+                break;
+
+            case INcmd: {
+                int pushValue = 0;
+                scanf("%d", &pushValue);
+                STACK_PUSH(&(processor->stk), pushValue, dumpFile, dumpInfo);
+                processor->pc++;
+                break;
+            }
+
+            case JMPcmd:
+                processor->pc++;
+                if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+                    fprintf(dumpFile, "ERROR JMP COMMAND! BAD NO JMP VALUE!\n");
+                    printf("ERROR JMP COMMAND! BAD OR NO JMP VALUE!\n");
+                    return;
+                }
+                processor->pc = (processor->commandCode)[processor->pc + 3];
                 break;
 
             case HLTcmd:
             case REALLOC_DOWNcmd:
                 errorCode = 1;
+                processor->pc++;
                 break;
 
             default:
-                printf("ERROR! UNKNOWN COMMAND: \"%d\" number %d from %s\n", (processor->commandCode)[numOfElement], numOfElement + 1, nameOfBinCodeFile);
+                printf("ERROR! UNKNOWN COMMAND: \"%d\" number %d from %s\n", (processor->commandCode)[processor->pc + 3], processor->pc + 3, nameOfBinCodeFile);
+                processor->spuErrorCode |= unknownCommand;
+                processor->pc++;
+                break;
         }
+        //PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+        //processorDump (processor, , *dumpInfo);
+        //getchar();
 
         if (errorCode)
             break;
     }
 }
+
+int processorVerifier (struct spu* processor) {
+    assert(processor);
+
+    if (((processor->commandCode)[0] != signature) || ((processor->commandCode)[1] != signature))
+        processor->spuErrorCode |= badCodeSignature;
+
+    if ((processor->commandCode)[2] != version)
+        processor->spuErrorCode |= badVersion;
+
+    if (processor->pc >= MAX_BUFFER_SIZE)
+        processor->spuErrorCode |= badPc;
+
+    if (processor->commandCode == NULL)
+        processor->spuErrorCode |= badCommandCodePtr;
+
+    if (processor->regs == NULL)
+        processor->spuErrorCode |= badRegsPtr;
+
+    if ((processor->commandCode)[MAX_BUFFER_SIZE - 1] != 0)
+        processor->spuErrorCode |= codeBufferOverflow;
+
+    int stackErrorCode = stackVerifier (&(processor->stk));
+    processor->spuErrorCode |= stackErrorCode;
+
+    return processor->spuErrorCode;
+}
+
+void processorDump (struct spu* processor, FILE* file, struct info dumpInfo) {
+    assert(processor);
+    assert(file);
+
+    fprintf(file, "----------------------------------------------------------------------------------------------\n");
+    fprintf(file, "----------------------------------------------------------------------------------------------\n");
+
+    fprintf(file, "processorDump() from %s at %s:%d\n", dumpInfo.nameOfFunct, dumpInfo.nameOfFile, dumpInfo.numOfLine);
+    fprintf(file, "processor [%p] from %s at %s:%d\n\n", processor, processor->spuInfo.nameOfFunct, processor->spuInfo.nameOfFile, processor->spuInfo.numOfLine);
+
+    fprintfErrorForProcessorDump(processor, file);
+    fprintf(file, "program counter == %d\n\n", processor->pc);
+    fprintfCommandCode(processor, file);
+    fprintfProcessorRegs (processor, file);
+
+    fprintf(file, "----------------------------------------------------------------------------------------------\n");
+    stackDump (&(processor->stk), file, dumpInfo);
+    fprintf(file, "----------------------------------------------------------------------------------------------\n");
+    fprintf(file, "----------------------------------------------------------------------------------------------\n");
+}
+
+void fprintfErrorForProcessorDump (struct spu* processor, FILE* file) {
+    assert(processor);
+    assert(file);
+
+    if (processor->spuErrorCode & badCodeSignature)
+        fprintf(file, "_______________________ERROR! WRONG CODE SIGNATURE(%d)\n", badCodeSignature);
+
+    if (processor->spuErrorCode & badVersion)
+        fprintf(file, "_______________________ERROR! WRONG PROCESSOR VERSION(%d)\n", badVersion);
+
+    if (processor->spuErrorCode & unknownCommand)
+        fprintf(file, "_______________________ERROR! UNKNOWN COMMAND(%d)\n", unknownCommand);
+
+    if (processor->spuErrorCode & badPc)
+        fprintf(file, "_______________________ERROR! BAD PROGRAM COUNTER(%d)\n", badPc);
+
+    if (processor->spuErrorCode & codeBufferOverflow)
+        fprintf(file, "_______________________ERROR! CODE BUFFER IS OVERFLOW(%d)\n", codeBufferOverflow);
+
+    if (processor->spuErrorCode & badRegsPtr)
+        fprintf(file, "_______________________ERROR! REGS POINTER IS NULL(%d)\n", badRegsPtr);
+
+    if (processor->spuErrorCode & badCommandCodePtr)
+        fprintf(file, "_______________________ERROR! COMMAND CODE POINTER IS NULL(%d)\n", badCommandCodePtr);
+}
+
+void fprintfCommandCode(struct spu* processor, FILE* file) {
+    assert(processor);
+    assert(file);
+
+    fprintf(file, "signature == %X %X\n", (processor->commandCode)[0], (processor->commandCode)[1]);
+    if (processor->spuErrorCode & badCodeSignature)
+        fprintf(file, "(BAD CODE SIGNATURE!");
+
+    fprintf(file, "version == %d\n", (processor->commandCode)[2]);
+    if (processor->spuErrorCode & badVersion)
+        fprintf(file, "(BAD PROCESSOR VERSION!");
+
+    fprintf (file, "Command code:\n");
+    for(size_t numOfElement = 3; (processor->commandCode)[numOfElement] != END_OF_COMMANDS; numOfElement++)
+        fprintf(file, "%05d ", (processor->commandCode)[numOfElement]);
+
+    fprintf (file, "\n");
+
+    for (size_t numOfElement = 0; numOfElement < processor->pc; numOfElement++)
+        fprintf(file, "      ");
+    fprintf(file, "^^^^^\n");
+}
+
+void fprintfProcessorRegs (struct spu* processor, FILE* file) {
+    assert(processor);
+    assert(file);
+
+    fprintf(file, "REGS [%p] :\n", processor->regs);
+
+    for(size_t numOfReg = 0; numOfReg < NUM_OF_REGS; numOfReg++)
+        fprintf(file, "%cx : %05d\n", 'A' + numOfReg, (processor->regs)[numOfReg]);
+}
+
+void processorDtor(struct spu* processor) {
+    assert(processor);
+
+    free(processor->commandCode);
+    free(processor->stk.data);
+}
+
+
+
+
+
