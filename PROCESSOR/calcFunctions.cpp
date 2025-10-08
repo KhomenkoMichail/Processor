@@ -5,6 +5,8 @@
 #include "stackFunctions.h"
 #include "structsAndEnums.h"
 #include "calcFunctions.h"
+#include "../COMMON/commandsNames.h"
+#include "../COMMON/commonFunctions.h"
 
 int stackAdd (stack_t* stack, FILE* file, struct info* dumpInfo) {
     assert(file);
@@ -222,3 +224,135 @@ int executeCommand (const char* command, stack_t* stack, FILE* file, struct info
     printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS!\n", command);
     return 0;
 }
+
+int jumpB (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+
+    processor->pc++;
+    if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+        printf("ERROR JB COMMAND! BAD OR NO JB VALUE!\n");
+        return 1;
+    }
+    int a = 0;
+    int b = 0;
+
+    STACK_POP(&(processor->stk), &a, dumpFile, dumpInfo);
+    STACK_POP(&(processor->stk), &b, dumpFile, dumpInfo);
+
+    if (a < b)
+        processor->pc = (processor->commandCode)[processor->pc + 3];
+    else processor->pc++;
+
+    return 0;
+}
+
+int jumpBE (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+
+    processor->pc++;
+    if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+        printf("ERROR JBE COMMAND! BAD OR NO JBE VALUE!\n");
+        return 1;
+    }
+    int a = 0;
+    int b = 0;
+
+    STACK_POP(&(processor->stk), &a, dumpFile, dumpInfo);
+    STACK_POP(&(processor->stk), &b, dumpFile, dumpInfo);
+
+    if (a <= b)
+        processor->pc = (processor->commandCode)[processor->pc + 3];
+    else processor->pc++;
+
+    return 0;
+}
+
+int jumpA (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+
+    processor->pc++;
+    if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+        printf("ERROR JA COMMAND! BAD OR NO JA VALUE!\n");
+        return 1;
+    }
+    int a = 0;
+    int b = 0;
+
+    STACK_POP(&(processor->stk), &a, dumpFile, dumpInfo);
+    STACK_POP(&(processor->stk), &b, dumpFile, dumpInfo);
+
+    if (a > b)
+        processor->pc = (processor->commandCode)[processor->pc + 3];
+    else processor->pc++;
+
+    return 0;
+}
+
+int jumpAE (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+
+    processor->pc++;
+    if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+        printf("ERROR JAE COMMAND! BAD OR NO JAE VALUE!\n");
+        return 1;
+    }
+    int a = 0;
+    int b = 0;
+
+    STACK_POP(&(processor->stk), &a, dumpFile, dumpInfo);
+    STACK_POP(&(processor->stk), &b, dumpFile, dumpInfo);
+
+    if (a >= b)
+        processor->pc = (processor->commandCode)[processor->pc + 3];
+    else processor->pc++;
+
+    return 0;
+}
+
+int jumpE (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+
+    processor->pc++;
+    if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+        printf("ERROR JE COMMAND! BAD OR NO JE VALUE!\n");
+        return 1;
+    }
+    int a = 0;
+    int b = 0;
+
+    STACK_POP(&(processor->stk), &a, dumpFile, dumpInfo);
+    STACK_POP(&(processor->stk), &b, dumpFile, dumpInfo);
+
+    if (a == b)
+        processor->pc = (processor->commandCode)[processor->pc + 3];
+    else processor->pc++;
+
+    return 0;
+}
+
+int jumpNE (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+
+    processor->pc++;
+    if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+        printf("ERROR JNE COMMAND! BAD OR NO JNE VALUE!\n");
+        return 1;
+    }
+    int a = 0;
+    int b = 0;
+
+    STACK_POP(&(processor->stk), &a, dumpFile, dumpInfo);
+    STACK_POP(&(processor->stk), &b, dumpFile, dumpInfo);
+
+    if (a != b)
+        processor->pc = (processor->commandCode)[processor->pc + 3];
+    else processor->pc++;
+
+    return 0;
+}
+
+
+
+
+
+

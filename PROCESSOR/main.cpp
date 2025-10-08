@@ -8,6 +8,7 @@
 #include "processorFunctions.h"
 #include "../COMMON/commonFunctions.h"
 #include "../COMMON/commandsNames.h"
+#include <string.h>
 
 
 int main(void) {

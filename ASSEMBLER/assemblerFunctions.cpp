@@ -123,7 +123,6 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
     int* commandBuffer = (int*)calloc((structAddress->numberOfStrings)*2 + 4, sizeof(int));
     size_t numberOfSymbols = 3;
 
-    char commandString[10] = {};
     char regNameString[5] = {};
 
     int commandNumber = 0;
@@ -133,9 +132,14 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
     commandBuffer[2] = version;
 
     for (size_t line = 0; line < structAddress->numberOfStrings; line++) {
+        char commandString[10] = {};
         sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString, "%s", commandString);
 
         commandNumber = commandComparator(commandString);
+
+        if (commandNumber == emptyString)
+            continue;
+
         commandBuffer[numberOfSymbols++] = commandNumber;
 
         if (commandNumber == ERROR_COMMANDcmd) {
@@ -149,6 +153,7 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
                 return NULL;
             }
         commandBuffer[numberOfSymbols++] = commandNumber;
+        continue;
         }
 
         if (commandNumber == PUSHREGcmd) {
@@ -158,6 +163,7 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
             }
         commandNumber = getNumberOfReg(regNameString);
         commandBuffer[numberOfSymbols++] = commandNumber;
+        continue;
         }
 
         if (commandNumber == POPREGcmd) {
@@ -167,6 +173,7 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
             }
         commandNumber = getNumberOfReg(regNameString);
         commandBuffer[numberOfSymbols++] = commandNumber;
+        continue;
         }
 
         if (commandNumber == JMPcmd) {
@@ -175,6 +182,61 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
                     return NULL;
                 }
             commandBuffer[numberOfSymbols++] = commandNumber;
+            continue;
+        }
+
+        if (commandNumber == JBcmd) {
+                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 3, "%d", &commandNumber) != 1) || (commandNumber < 0)){
+                    printf("ERROR JB COMMAND! BAD OR NO JB VALUE! %s:%d\n", nameOfFile, (line+1));
+                    return NULL;
+                }
+            commandBuffer[numberOfSymbols++] = commandNumber;
+            continue;
+        }
+
+        if (commandNumber == JBEcmd) {
+                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 4, "%d", &commandNumber) != 1) || (commandNumber < 0)){
+                    printf("ERROR JBE COMMAND! BAD OR NO JBE VALUE! %s:%d\n", nameOfFile, (line+1));
+                    return NULL;
+                }
+            commandBuffer[numberOfSymbols++] = commandNumber;
+            continue;
+        }
+
+        if (commandNumber == JAcmd) {
+                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 3, "%d", &commandNumber) != 1) || (commandNumber < 0)){
+                    printf("ERROR JA COMMAND! BAD OR NO JA VALUE! %s:%d\n", nameOfFile, (line+1));
+                    return NULL;
+                }
+            commandBuffer[numberOfSymbols++] = commandNumber;
+            continue;
+        }
+
+        if (commandNumber == JAEcmd) {
+                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 4, "%d", &commandNumber) != 1) || (commandNumber < 0)){
+                    printf("ERROR JAE COMMAND! BAD OR NO JAE VALUE! %s:%d\n", nameOfFile, (line+1));
+                    return NULL;
+                }
+            commandBuffer[numberOfSymbols++] = commandNumber;
+            continue;
+        }
+
+        if (commandNumber == JEcmd) {
+                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 3, "%d", &commandNumber) != 1) || (commandNumber < 0)){
+                    printf("ERROR JE COMMAND! BAD OR NO JE VALUE! %s:%d\n", nameOfFile, (line+1));
+                    return NULL;
+                }
+            commandBuffer[numberOfSymbols++] = commandNumber;
+            continue;
+        }
+
+        if (commandNumber == JNEcmd) {
+                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 4, "%d", &commandNumber) != 1) || (commandNumber < 0)){
+                    printf("ERROR JNE COMMAND! BAD OR NO JNE VALUE! %s:%d\n", nameOfFile, (line+1));
+                    return NULL;
+                }
+            commandBuffer[numberOfSymbols++] = commandNumber;
+            continue;
         }
     }
 
@@ -185,6 +247,9 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
 
 int commandComparator (char* command) {
     assert(command);
+    if (strcmp(command, "") == 0)
+        return emptyString;
+
     if (strcmp(command, "PUSH") == 0)
         return PUSHcmd;
 
@@ -212,9 +277,6 @@ int commandComparator (char* command) {
     if (strcmp(command, "HLT") == 0)
         return HLTcmd;
 
-    if (strcmp(command, "REALLOC_DOWN") == 0)
-        return REALLOC_DOWNcmd;
-
     if (strcmp(command, "PUSHREG") == 0)
         return PUSHREGcmd;
 
@@ -226,6 +288,24 @@ int commandComparator (char* command) {
 
     if (strcmp(command, "JMP") == 0)
         return JMPcmd;
+
+    if (strcmp(command, "JB") == 0)
+        return JBcmd;
+
+    if (strcmp(command, "JBE") == 0)
+        return JBEcmd;
+
+    if (strcmp(command, "JA") == 0)
+        return JAcmd;
+
+    if (strcmp(command, "JAE") == 0)
+        return JAEcmd;
+
+    if (strcmp(command, "JE") == 0)
+        return JEcmd;
+
+    if (strcmp(command, "JNE") == 0)
+        return JNEcmd;
 
     return ERROR_COMMANDcmd;
 }
@@ -286,5 +366,8 @@ void commentsCleaner(char* str) {
 
     char* commentPtr = NULL;
     while ((commentPtr = strchr(str, ';')) != NULL)
+        *commentPtr = '\0';
+
+    while ((commentPtr = strchr(str, '\n')) != NULL)
         *commentPtr = '\0';
 }

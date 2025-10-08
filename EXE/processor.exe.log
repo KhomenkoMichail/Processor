@@ -1,0 +1,392 @@
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00431B3C в функции executeBufferCommands() в файле C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp на строке 31. Попытка прочесть данные по адресу 0x0000000B в модуле C:\Users\Admin\Desktop\Stack\EXE\processor.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050B1DC (32-bit), Flags: Cmdre0, Thread: 0x72C (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00431B3C in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:31:
+
+     29:     int errorCode = noErrors;
+     30: 
+=>   31:     for (processor->pc = 0; (processor->commandCode)[processor->pc + 3] != END_OF_COMMANDS; ) {
+     32:         switch ((processor->commandCode)[processor->pc + 3]) {
+     33: 
+
+# 1 0x004014C3 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23:     FILE* logFile = fopen(nameOfDumpFile, "w");
+     24: 
+=>   25:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at PROCESSOR/stackFunctions.cpp:36:
+
+     34:     stack->nameOfStack = nameOfStack;
+     35:     stack->errorCode = noErrors;
+=>   36:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     37: 
+     38:     stack->stackInfo = creationInfo;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  4 2025 19:16:22, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 04 2025 19:16:27
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00431B3C в функции executeBufferCommands() в файле C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp на строке 31. Попытка прочесть данные по адресу 0x0000000B в модуле C:\Users\Admin\Desktop\Stack\EXE\processor.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050B1DC (32-bit), Flags: Cmdre0, Thread: 0x72C (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00431B3C in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:31:
+
+     29:     int errorCode = noErrors;
+     30: 
+=>   31:     for (processor->pc = 0; (processor->commandCode)[processor->pc + 3] != END_OF_COMMANDS; ) {
+     32:         switch ((processor->commandCode)[processor->pc + 3]) {
+     33: 
+
+# 1 0x004014C3 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23:     FILE* logFile = fopen(nameOfDumpFile, "w");
+     24: 
+=>   25:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at PROCESSOR/stackFunctions.cpp:36:
+
+     34:     stack->nameOfStack = nameOfStack;
+     35:     stack->errorCode = noErrors;
+=>   36:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     37: 
+     38:     stack->stackInfo = creationInfo;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  4 2025 19:16:22, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 04 2025 19:16:28
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00431B3C в функции executeBufferCommands() в файле C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp на строке 31. Попытка прочесть данные по адресу 0x0000000C в модуле C:\Users\Admin\Desktop\Stack\EXE\processor.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050B1DC (32-bit), Flags: Cmdre0, Thread: 0x1044 (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00431B3C in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:31:
+
+     29:     int errorCode = noErrors;
+     30: 
+=>   31:     for (processor->pc = 0; (processor->commandCode)[processor->pc + 3] != END_OF_COMMANDS; ) {
+     32:         switch ((processor->commandCode)[processor->pc + 3]) {
+     33: 
+
+# 1 0x004014C3 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23:     FILE* logFile = fopen(nameOfDumpFile, "w");
+     24: 
+=>   25:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at PROCESSOR/stackFunctions.cpp:36:
+
+     34:     stack->nameOfStack = nameOfStack;
+     35:     stack->errorCode = noErrors;
+=>   36:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     37: 
+     38:     stack->stackInfo = creationInfo;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  4 2025 19:18:00, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 04 2025 19:18:04
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00431B3C в функции executeBufferCommands() в файле C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp на строке 31. Попытка прочесть данные по адресу 0x0000000C в модуле C:\Users\Admin\Desktop\Stack\EXE\processor.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050B1DC (32-bit), Flags: Cmdre0, Thread: 0x1044 (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00431B3C in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:31:
+
+     29:     int errorCode = noErrors;
+     30: 
+=>   31:     for (processor->pc = 0; (processor->commandCode)[processor->pc + 3] != END_OF_COMMANDS; ) {
+     32:         switch ((processor->commandCode)[processor->pc + 3]) {
+     33: 
+
+# 1 0x004014C3 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23:     FILE* logFile = fopen(nameOfDumpFile, "w");
+     24: 
+=>   25:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at PROCESSOR/stackFunctions.cpp:36:
+
+     34:     stack->nameOfStack = nameOfStack;
+     35:     stack->errorCode = noErrors;
+=>   36:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     37: 
+     38:     stack->stackInfo = creationInfo;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  4 2025 19:18:00, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 04 2025 19:18:04
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0042F5C7 в функции stackVerifier() в файле C:/Users/Admin/Desktop/Stack/PROCESSOR/stackFunctions.cpp на строке 188. Попытка прочесть данные по адресу 0xFFFFFFFB в модуле C:\Users\Admin\Desktop\Stack\EXE\processor.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050B1DC (32-bit), Flags: Cmdre0, Thread: 0x22D0 (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042F5C7 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: stackVerifier() at C:/Users/Admin/Desktop/Stack/PROCESSOR/stackFunctions.cpp:188:
+
+    186: 
+    187:     #ifdef CANARY_PROTECTION
+=>  188:         if (stack->data[0] != CANARY)
+    189:             stack->errorCode |= deadFirstCanary;
+    190: 
+
+# 1 0x0042EE7B in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: stackPush() at C:/Users/Admin/Desktop/Stack/PROCESSOR/stackFunctions.cpp:66:
+
+     64:     if (stackPtrIsNull (stack, file))
+     65:         return badStackPtr;
+=>   66:     STACK_ERRORS_CHECK(stack, file, dumpInfo);
+     67: 
+     68:     stack->data[stack->size ON_CANARY (+1)] = value;
+
+# 2 0x00431542 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:41:
+
+     39:                     return;
+     40:                 }
+=>   41:                 STACK_PUSH(&(processor->stk), (processor->commandCode)[processor->pc + 3], dumpFile, dumpInfo);
+     42:                 processor->pc++;
+     43:                 break;
+
+# 3 0x004014AF in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:26:
+
+     24:     FILE* logFile = fopen(nameOfDumpFile, "w");
+     25: 
+=>   26:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     27: 
+     28:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at PROCESSOR/stackFunctions.cpp:36:
+
+     34:     stack->nameOfStack = nameOfStack;
+     35:     stack->errorCode = noErrors;
+=>   36:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     37: 
+     38:     stack->stackInfo = creationInfo;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  4 2025 19:27:20, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 04 2025 19:27:25
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0042F5C7 в функции stackVerifier() в файле C:/Users/Admin/Desktop/Stack/PROCESSOR/stackFunctions.cpp на строке 188. Попытка прочесть данные по адресу 0xFFFFFFFB в модуле C:\Users\Admin\Desktop\Stack\EXE\processor.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050B1DC (32-bit), Flags: Cmdre0, Thread: 0x22D0 (Main), GetLastError(): 183 (Невозможно создать файл, так как он уже существует). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042F5C7 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: stackVerifier() at C:/Users/Admin/Desktop/Stack/PROCESSOR/stackFunctions.cpp:188:
+
+    186: 
+    187:     #ifdef CANARY_PROTECTION
+=>  188:         if (stack->data[0] != CANARY)
+    189:             stack->errorCode |= deadFirstCanary;
+    190: 
+
+# 1 0x0042EE7B in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: stackPush() at C:/Users/Admin/Desktop/Stack/PROCESSOR/stackFunctions.cpp:66:
+
+     64:     if (stackPtrIsNull (stack, file))
+     65:         return badStackPtr;
+=>   66:     STACK_ERRORS_CHECK(stack, file, dumpInfo);
+     67: 
+     68:     stack->data[stack->size ON_CANARY (+1)] = value;
+
+# 2 0x00431542 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:41:
+
+     39:                     return;
+     40:                 }
+=>   41:                 STACK_PUSH(&(processor->stk), (processor->commandCode)[processor->pc + 3], dumpFile, dumpInfo);
+     42:                 processor->pc++;
+     43:                 break;
+
+# 3 0x004014AF in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:26:
+
+     24:     FILE* logFile = fopen(nameOfDumpFile, "w");
+     25: 
+=>   26:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     27: 
+     28:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in int stackCtor(stack_t*, ssize_t, const char*, info) at PROCESSOR/stackFunctions.cpp:36:
+
+     34:     stack->nameOfStack = nameOfStack;
+     35:     stack->errorCode = noErrors;
+=>   36:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     37: 
+     38:     stack->stackInfo = creationInfo;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  4 2025 19:27:20, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 04 2025 19:27:25
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------

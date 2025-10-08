@@ -1,7 +1,6 @@
 #ifndef CALC_FUNCTIONS_H
 #define CALC_FUNCTIONS_H
 
-
 int stackAdd (stack_t* stack, FILE* file, struct info* dumpInfo);
 
 int stackSub (stack_t* stack, FILE* file, struct info* dumpInfo);
@@ -19,5 +18,17 @@ int stackOut (stack_t* stack, FILE* file, struct info* dumpInfo);
 void readCommands (stack_t* stack, FILE* file, struct info* dumpInfo);
 
 int executeCommand (const char* command, stack_t* stack, FILE* file, struct info* dumpInfo);
+
+int jumpB (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
+int jumpBE (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
+int jumpA (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
+int jumpAE (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
+int jumpE (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
+int jumpNE (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
 
 #endif

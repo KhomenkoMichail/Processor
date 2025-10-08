@@ -25,20 +25,16 @@
     assert(dumpInfoAddress);\
     (dumpInfoAddress)->nameOfFile = __FILE__; \
     (dumpInfoAddress)->numOfLine = __LINE__;\
-    stackPush(stackAddress, value, filePtr, dumpInfoAddress);\
-
-//   if (stackPush(stackAddress, value, filePtr, dumpInfoAddress))
-//     return (stackAddress)->errorCode;
+    if (stackPush(stackAddress, value, filePtr, dumpInfoAddress))\
+        return (stackAddress)->errorCode;\
 
 #define STACK_POP(stackAddress, ptrToVariable, filePtr, dumpInfoAddress)\
     assert(filePtr);\
     assert(dumpInfoAddress);\
     (dumpInfoAddress)->nameOfFile = __FILE__; \
     (dumpInfoAddress)->numOfLine = __LINE__;\
-    stackPop(stackAddress, ptrToVariable, filePtr, dumpInfoAddress);\
-
-//    if (stackPop(stackAddress, ptrToVariable, filePtr, dumpInfoAddress))
-//        return (stackAddress)->errorCode;
+    if (stackPop(stackAddress, ptrToVariable, filePtr, dumpInfoAddress))\
+        return (stackAddress)->errorCode;\
 
 int stackCtor (stack_t* stack, ssize_t capacity, const char* nameOfStack, struct info stackCreationInfo);
 

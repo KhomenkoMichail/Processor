@@ -6,7 +6,7 @@ typedef int stackElement_t;
 #define CANARY_PROTECTION
 #define HASH_PROTECTION
 
-const int NUM_OF_REGS = 6;
+const int NUM_OF_REGS = 8;
 
 enum stackErr_t {
     noErrors = 0b0,

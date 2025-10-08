@@ -16,11 +16,12 @@
     if(processorVerifier(processorAddress)) { \
         processorDump(processorAddress, filePtr, *dumpInfoAddress);\
         processorDump(processorAddress, stdout, *dumpInfoAddress);\
+        return 1;\
     };\
 
 void processorCtor (struct spu* processor, const char* processorName, const char* nameOfByteCodeFile);
 
-void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile);
+int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile);
 
 int processorVerifier (struct spu* processor);
 

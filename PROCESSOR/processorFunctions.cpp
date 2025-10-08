@@ -22,13 +22,15 @@ void processorCtor (struct spu* processor, const char* processorName, const char
 }
 
 
-void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile) {
+int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile) {
     assert(dumpFile);
     assert(dumpInfo);
 
     int errorCode = noErrors;
 
     for (processor->pc = 0; (processor->commandCode)[processor->pc + 3] != END_OF_COMMANDS; ) {
+        PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+
         switch ((processor->commandCode)[processor->pc + 3]) {
 
             case PUSHcmd:
@@ -36,7 +38,7 @@ void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* 
                 if ((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) {
                     fprintf(dumpFile, "ERROR PUSH COMMAND! BAD OR NO PUSH VALUE!\n");
                     printf("ERROR PUSH COMMAND! BAD OR NO PUSH VALUE!\n");
-                    return;
+                    return 1;
                 }
                 STACK_PUSH(&(processor->stk), (processor->commandCode)[processor->pc + 3], dumpFile, dumpInfo);
                 processor->pc++;
@@ -47,7 +49,7 @@ void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* 
                 if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
                     fprintf(dumpFile, "ERROR PUSHREG COMMAND! BAD OR NO PUSHREG VALUE!\n");
                     printf("ERROR PUSHREG COMMAND! BAD OR NO PUSHREG VALUE!\n");
-                    return;
+                    return 1;
                 }
                 STACK_PUSH(&(processor->stk), (processor->regs)[((processor->commandCode)[processor->pc + 3])], dumpFile, dumpInfo);
                 processor->pc++;
@@ -58,7 +60,7 @@ void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* 
                 if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
                     fprintf(dumpFile, "ERROR POPREG COMMAND! BAD OR NO POPREG VALUE!\n");
                     printf("ERROR POPREG COMMAND! BAD OR NO POPREG VALUE!\n");
-                    return;
+                    return 1;
                 }
                 STACK_POP(&(processor->stk), (processor->regs) + (processor->commandCode)[processor->pc + 3], dumpFile, dumpInfo);
                 processor->pc++;
@@ -112,15 +114,37 @@ void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* 
                 if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
                     fprintf(dumpFile, "ERROR JMP COMMAND! BAD NO JMP VALUE!\n");
                     printf("ERROR JMP COMMAND! BAD OR NO JMP VALUE!\n");
-                    return;
+                    return 1;
                 }
                 processor->pc = (processor->commandCode)[processor->pc + 3];
                 break;
 
+            case JBcmd:
+                errorCode = jumpB(processor, dumpFile, dumpInfo);
+                break;
+
+            case JBEcmd:
+                errorCode = jumpBE(processor, dumpFile, dumpInfo);
+                break;
+
+            case JAcmd:
+                errorCode = jumpA(processor, dumpFile, dumpInfo);
+                break;
+
+            case JAEcmd:
+                errorCode = jumpAE(processor, dumpFile, dumpInfo);
+                break;
+
+            case JEcmd:
+                errorCode = jumpE(processor, dumpFile, dumpInfo);
+                break;
+
+            case JNEcmd:
+                errorCode = jumpNE(processor, dumpFile, dumpInfo);
+                break;
+
             case HLTcmd:
-            case REALLOC_DOWNcmd:
-                errorCode = 1;
-                processor->pc++;
+                return 0;
                 break;
 
             default:
@@ -129,13 +153,13 @@ void executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* 
                 processor->pc++;
                 break;
         }
-        //PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
-        //processorDump (processor, , *dumpInfo);
-        //getchar();
+        PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
 
         if (errorCode)
-            break;
+            return errorCode;
     }
+
+    return 0;
 }
 
 int processorVerifier (struct spu* processor) {

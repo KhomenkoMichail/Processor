@@ -7,7 +7,7 @@
 
 int main (void) {
 
-    const char* inputFile = "source.asm";
+    const char* inputFile = "source2.asm";
     const char* outputTextFile = "textByteCode.txt";
     const char* outputBinFile = "binByteCode.bin";
 
