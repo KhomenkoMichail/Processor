@@ -1,0 +1,11 @@
+PUSH 1
+OUT
+JMP :5
+
+PUSH 2
+OUT
+
+:5
+PUSH 3
+OUT
+HLT

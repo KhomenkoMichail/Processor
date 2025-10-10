@@ -628,3 +628,273 @@ Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
 Directory:	C:\Users\Admin\Desktop\Stack
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe, файл: ASSEMBLER/assemblerFunctions.cpp, строка: 334, функция: void writeTextByteCode(int*, const char*),
+
+Сообщение: ВНЕЗАПНО: Логическая ошибка: Неверно, что "codeBuffer".
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005091DC (32-bit), Flags: Cmdre0, Thread: 0x4570 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042EC00 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: writeTextByteCode() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:334:
+
+    332: 
+    333: void writeTextByteCode (int* codeBuffer, const char* nameOfFile) {
+=>  334:     assert(codeBuffer);
+    335:     assert(nameOfFile);
+    336: 
+
+# 1 0x004014DC in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:26:
+
+     24:     commandBuffer = commandRewriter (&Cmd, labels, &numOfBufferElements, inputFile);
+     25: 
+=>   26:     writeTextByteCode(commandBuffer, outputTextFile);
+     27:     writeBinByteCode(commandBuffer, numOfBufferElements, outputBinFile);
+     28: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  8 2025 17:18:36, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 08 2025 17:18:42
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe, файл: ASSEMBLER/assemblerFunctions.cpp, строка: 334, функция: void writeTextByteCode(int*, const char*),
+
+Сообщение: ВНЕЗАПНО: Логическая ошибка: Неверно, что "codeBuffer".
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005091DC (32-bit), Flags: Cmdre0, Thread: 0x4C84 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042EC00 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: writeTextByteCode() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:334:
+
+    332: 
+    333: void writeTextByteCode (int* codeBuffer, const char* nameOfFile) {
+=>  334:     assert(codeBuffer);
+    335:     assert(nameOfFile);
+    336: 
+
+# 1 0x004014DC in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:26:
+
+     24:     commandBuffer = commandRewriter (&Cmd, labels, &numOfBufferElements, inputFile);
+     25: 
+=>   26:     writeTextByteCode(commandBuffer, outputTextFile);
+     27:     writeBinByteCode(commandBuffer, numOfBufferElements, outputBinFile);
+     28: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  8 2025 17:18:36, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 08 2025 17:19:31
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe, файл: ASSEMBLER/assemblerFunctions.cpp, строка: 335, функция: void writeTextByteCode(int*, const char*),
+
+Сообщение: ВНЕЗАПНО: Логическая ошибка: Неверно, что "codeBuffer".
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005091DC (32-bit), Flags: Cmdre0, Thread: 0x594 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042EC13 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: writeTextByteCode() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:335:
+
+    333: 
+    334: void writeTextByteCode (int* codeBuffer, const char* nameOfFile) {
+=>  335:     assert(codeBuffer);
+    336:     assert(nameOfFile);
+    337: 
+
+# 1 0x004014DC in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:26:
+
+     24:     commandBuffer = commandRewriter (&Cmd, labels, &numOfBufferElements, inputFile);
+     25: 
+=>   26:     writeTextByteCode(commandBuffer, outputTextFile);
+     27:     writeBinByteCode(commandBuffer, numOfBufferElements, outputBinFile);
+     28: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  8 2025 17:21:02, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 08 2025 17:21:06
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe, файл: ASSEMBLER/assemblerFunctions.cpp, строка: 336, функция: void writeTextByteCode(int*, const char*),
+
+Сообщение: ВНЕЗАПНО: Логическая ошибка: Неверно, что "codeBuffer".
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005091DC (32-bit), Flags: Cmdre0, Thread: 0xFC8 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042EC38 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: writeTextByteCode() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:336:
+
+    334: 
+    335: void writeTextByteCode (int* codeBuffer, const char* nameOfFile) {
+=>  336:     assert(codeBuffer);
+    337:     assert(nameOfFile);
+    338: 
+
+# 1 0x004014DC in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:26:
+
+     24:     commandBuffer = commandRewriter (&Cmd, labels, &numOfBufferElements, inputFile);
+     25: 
+=>   26:     writeTextByteCode(commandBuffer, outputTextFile);
+     27:     writeBinByteCode(commandBuffer, numOfBufferElements, outputBinFile);
+     28: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  8 2025 17:23:11, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 08 2025 17:23:14
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe, файл: ASSEMBLER/assemblerFunctions.cpp, строка: 336, функция: void writeTextByteCode(int*, const char*),
+
+Сообщение: ВНЕЗАПНО: Логическая ошибка: Неверно, что "codeBuffer".
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005091DC (32-bit), Flags: Cmdre0, Thread: 0x1F38 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042EC38 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: writeTextByteCode() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:336:
+
+    334: 
+    335: void writeTextByteCode (int* codeBuffer, const char* nameOfFile) {
+=>  336:     assert(codeBuffer);
+    337:     assert(nameOfFile);
+    338: 
+
+# 1 0x004014DC in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:26:
+
+     24:     commandBuffer = commandRewriter (&Cmd, labels, &numOfBufferElements, inputFile);
+     25: 
+=>   26:     writeTextByteCode(commandBuffer, outputTextFile);
+     27:     writeBinByteCode(commandBuffer, numOfBufferElements, outputBinFile);
+     28: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  8 2025 17:23:38, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 08 2025 17:23:41
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe, файл: ASSEMBLER/assemblerFunctions.cpp, строка: 333, функция: void writeTextByteCode(int*, const char*),
+
+Сообщение: ВНЕЗАПНО: Логическая ошибка: Неверно, что "codeBuffer".
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005091DC (32-bit), Flags: Cmdre0, Thread: 0x5218 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0042EC09 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: writeTextByteCode() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:333:
+
+    331: 
+    332: void writeTextByteCode (int* codeBuffer, const char* nameOfFile) {
+=>  333:     assert(codeBuffer);
+    334:     assert(nameOfFile);
+    335: 
+
+# 1 0x004014DC in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:26:
+
+     24:     commandBuffer = commandRewriter (&Cmd, labels, &numOfBufferElements, inputFile);
+     25: 
+=>   26:     writeTextByteCode(commandBuffer, outputTextFile);
+     27:     writeBinByteCode(commandBuffer, numOfBufferElements, outputBinFile);
+     28: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct  9 2025 23:22:58, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 09 2025 23:23:03
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------

@@ -30,16 +30,16 @@ common_all = COMMON/commandsNames.h
 common_cpp = COMMON/commonFunctions.cpp
 
 # Файлы .cpp для сборки processor
-proc_cpp = PROCESSOR/main.cpp PROCESSOR/calcFunctions.cpp PROCESSOR/stackFunctions.cpp PROCESSOR/processorFunctions.cpp
+proc_cpp = PROCESSOR/main.cpp PROCESSOR/executableCommands.cpp PROCESSOR/stackFunctions.cpp PROCESSOR/processorFunctions.cpp
 
 # Файлы processor
-proc_all = PROCESSOR/stackFunctions.h PROCESSOR/calcFunctions.h PROCESSOR/structAndEnums.h PROCESSOR/processorFunctions.h $(proc_cpp)
+proc_all = PROCESSOR/stackFunctions.h PROCESSOR/executableCommands.h PROCESSOR/structAndEnums.h PROCESSOR/processorFunctions.h $(proc_cpp)
 
 # Файлы .cpp assembler
-asmb_cpp = ASSEMBLER/mainAssembler.cpp ASSEMBLER/assemblerFunctions.cpp
+asmb_cpp = ASSEMBLER/mainAssembler.cpp ASSEMBLER/assemblerFunctions.cpp ASSEMBLER/textTools.cpp
 
 # Файлы assembler
-asmb_all = ASSEMBLER/assemblerFunctions.h ASSEMBLER/textStructs.h $(asmb_cpp)
+asmb_all = ASSEMBLER/assemblerFunctions.h ASSEMBLER/textStructs.h ASSEMBLER/textTools.h $(asmb_cpp)
 
 # Файлы .cpp disassembler
 disasmb_cpp = DISASSEMBLER/mainDisassembler.cpp DISASSEMBLER/disassemblerFunctions.cpp

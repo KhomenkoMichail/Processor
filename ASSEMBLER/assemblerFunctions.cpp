@@ -1,123 +1,13 @@
 #include <stdio.h>
 #include <assert.h>
-#include <TXLib.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "textStructs.h"
 #include "assemblerFunctions.h"
 #include "../COMMON/commandsNames.h"
 
-char* copyFileContent (struct comands* structAddress, const char* fileName) {
-    assert(fileName);
-
-    int fileDescriptor = open(fileName, O_RDONLY, 0);
-    if (fileDescriptor == -1) {
-        fprintf(stderr, "Error of opening file \"%s\"", fileName);
-        perror("");
-        return NULL;
-    }
-
-    ssize_t sizeOfFile = getSizeOfFile(fileDescriptor);
-    if (sizeOfFile < 1) {
-        close(fileDescriptor);
-        return NULL;
-    }
-
-    char* fileCopyBuffer = (char*)calloc(sizeOfFile + 1, sizeof(char));
-
-    size_t numOfReadSymbols = read(fileDescriptor, fileCopyBuffer, sizeOfFile);
-    fileCopyBuffer[numOfReadSymbols] = '\0';
-    //commentsCleaner(fileCopyBuffer);
-
-    if(close(fileDescriptor) != 0) {
-        fprintf(stderr, "Error of closing file \"%s\"", fileName);
-        perror("");
-        return NULL;
-    }
-
-    structAddress->sizeOfText = numOfReadSymbols;
-
-    return fileCopyBuffer;
-}
-
-void getStructComands (struct comands* structAddress, const char* fileName) {
-    assert(structAddress);
-    assert(fileName);
-
-    char* buffer = copyFileContent(structAddress, fileName);
-    assert(buffer);
-
-    size_t numberOfStrings    = getNumberOfSymbols(buffer, '\n');
-    char** arrOfPtrsToStrings = (char**)calloc(numberOfStrings, sizeof(*arrOfPtrsToStrings));
-
-    structAddress->text               = buffer;
-    structAddress->numberOfStrings    = numberOfStrings;
-
-    getArrOfStringStructs(structAddress);
-
-}
-
-void getArrOfStringStructs (struct comands* structAddress) {
-    assert(structAddress);
-
-    structAddress->arrOfStringStructs = (struct line*)calloc(structAddress->numberOfStrings, sizeof(struct line));
-    size_t line = 0;
-    (structAddress->arrOfStringStructs[line]).ptrToString = structAddress->text;
-    //(structAddress->arrOfStringStructs[line]).lengthOfString = myStrlen((structAddress->arrOfStringStructs[line]).ptrToString) + 1;
-    line++;
-
-    size_t numOfCharInText = 0;
-    for( ; (structAddress->text[numOfCharInText] != '\0') && (line < structAddress->numberOfStrings) ; numOfCharInText++) {
-
-        if (structAddress->text[numOfCharInText] == '\n') {
-            (structAddress->arrOfStringStructs[line]).ptrToString = structAddress->text + numOfCharInText + 1;
-            line++;
-        }
-    }
-
-    getLengthOfStrings(structAddress);
-}
-
-void getLengthOfStrings (struct comands* structAddress) {
-    assert(structAddress);
-
-    for(size_t line = 0; line < structAddress->numberOfStrings - 1; line++)
-        (structAddress->arrOfStringStructs[line]).lengthOfString = (size_t)((structAddress->arrOfStringStructs[line+1]).ptrToString - (structAddress->arrOfStringStructs[line]).ptrToString);
-
-    //(structAddress->arrOfStringStructs[structAddress->numberOfStrings - 1]).lengthOfString = myStrlen((structAddress->arrOfStringStructs[structAddress->numberOfStrings - 1]).ptrToString) + 1;
-}
-
-void freeStruct (struct comands* structAddress) {
-    assert(structAddress);
-
-    free(structAddress->text);
-    free(structAddress->arrOfStringStructs);
-}
-
-ssize_t getSizeOfFile (int fileDescriptor) {
-    struct stat fileInfo = {};
-
-    if (fstat(fileDescriptor, &fileInfo) == 0)
-        return fileInfo.st_size;
-
-    perror("Error of getting the size of the file");
-    return -1;
-}
-
-size_t getNumberOfSymbols (char* text, char searchedSymbol) {
-    assert(text);
-
-    size_t numOfSymbolsFound = 0;
-    for(size_t numOfChar = 0; text[numOfChar] != '\0'; numOfChar++)
-        if (text[numOfChar] == searchedSymbol)
-            numOfSymbolsFound++;
-
-    return numOfSymbolsFound;
-}
-
-int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements, const char* nameOfFile) {
+int* commandRewriter (struct comands* structAddress, int* labels, size_t* numOfBufferElements, const char* nameOfFile) {
     assert(structAddress);
 
     int* commandBuffer = (int*)calloc((structAddress->numberOfStrings)*2 + 4, sizeof(int));
@@ -133,12 +23,21 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
 
     for (size_t line = 0; line < structAddress->numberOfStrings; line++) {
         char commandString[10] = {};
-        sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString, "%s", commandString);
+        int offset = 0;
+
+        sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString, "%s%n", commandString, &offset);
 
         commandNumber = commandComparator(commandString);
 
         if (commandNumber == emptyString)
             continue;
+
+        if (commandNumber == labelString) {
+            int numOfLabel = 0;
+            sscanf(commandString, ": %d", &numOfLabel);
+            labels[numOfLabel] = numberOfSymbols - 3;
+            continue;
+        }
 
         commandBuffer[numberOfSymbols++] = commandNumber;
 
@@ -148,92 +47,38 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
         }
 
         if (commandNumber == PUSHcmd) {
-            if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 5, "%d", &commandNumber) != 1) {
+            if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, "%d", &commandNumber) != 1) {
                 printf("ERROR PUSH COMMAND! BAD OR NO PUSH VALUE! %s:%d\n", nameOfFile, (line+1));
                 return NULL;
             }
-        commandBuffer[numberOfSymbols++] = commandNumber;
-        continue;
+            commandBuffer[numberOfSymbols++] = commandNumber;
+            continue;
         }
 
-        if (commandNumber == PUSHREGcmd) {
-            if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 7, "%s", regNameString) != 1) {
-                printf("ERROR PUSHREG COMMAND! BAD OR NO PUSHREG VALUE! %s:%d\n", nameOfFile, (line+1));
+        if ((commandNumber == POPREGcmd) || (commandNumber == PUSHREGcmd)) {
+            if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, "%s", regNameString) != 1) {
+                printf("ERROR %s COMMAND! BAD OR NO %s VALUE! %s:%d\n",commandString, commandString, nameOfFile, (line+1));
                 return NULL;
             }
-        commandNumber = getNumberOfReg(regNameString);
-        commandBuffer[numberOfSymbols++] = commandNumber;
-        continue;
-        }
-
-        if (commandNumber == POPREGcmd) {
-            if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 6, "%s", regNameString) != 1) {
-                printf("ERROR POPREG COMMAND! BAD OR NO POPREG VALUE! %s:%d\n", nameOfFile, (line+1));
-                return NULL;
-            }
-        commandNumber = getNumberOfReg(regNameString);
-        commandBuffer[numberOfSymbols++] = commandNumber;
-        continue;
-        }
-
-        if (commandNumber == JMPcmd) {
-                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 4, "%d", &commandNumber) != 1) || (commandNumber < 0)){
-                    printf("ERROR JMP COMMAND! BAD OR NO JMP VALUE! %s:%d\n", nameOfFile, (line+1));
-                    return NULL;
-                }
+            commandNumber = getNumberOfReg(regNameString);
             commandBuffer[numberOfSymbols++] = commandNumber;
             continue;
         }
 
-        if (commandNumber == JBcmd) {
-                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 3, "%d", &commandNumber) != 1) || (commandNumber < 0)){
-                    printf("ERROR JB COMMAND! BAD OR NO JB VALUE! %s:%d\n", nameOfFile, (line+1));
-                    return NULL;
-                }
-            commandBuffer[numberOfSymbols++] = commandNumber;
-            continue;
-        }
+        if ((commandNumber == JMPcmd) || (commandNumber == JBcmd) ||
+            (commandNumber == JBEcmd) || (commandNumber == JAcmd) ||
+            (commandNumber == JAEcmd) || (commandNumber == JEcmd) ||
+            (commandNumber == JNEcmd)) {
 
-        if (commandNumber == JBEcmd) {
-                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 4, "%d", &commandNumber) != 1) || (commandNumber < 0)){
-                    printf("ERROR JBE COMMAND! BAD OR NO JBE VALUE! %s:%d\n", nameOfFile, (line+1));
-                    return NULL;
-                }
-            commandBuffer[numberOfSymbols++] = commandNumber;
-            continue;
-        }
-
-        if (commandNumber == JAcmd) {
-                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 3, "%d", &commandNumber) != 1) || (commandNumber < 0)){
-                    printf("ERROR JA COMMAND! BAD OR NO JA VALUE! %s:%d\n", nameOfFile, (line+1));
-                    return NULL;
-                }
-            commandBuffer[numberOfSymbols++] = commandNumber;
-            continue;
-        }
-
-        if (commandNumber == JAEcmd) {
-                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 4, "%d", &commandNumber) != 1) || (commandNumber < 0)){
-                    printf("ERROR JAE COMMAND! BAD OR NO JAE VALUE! %s:%d\n", nameOfFile, (line+1));
-                    return NULL;
-                }
-            commandBuffer[numberOfSymbols++] = commandNumber;
-            continue;
-        }
-
-        if (commandNumber == JEcmd) {
-                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 3, "%d", &commandNumber) != 1) || (commandNumber < 0)){
-                    printf("ERROR JE COMMAND! BAD OR NO JE VALUE! %s:%d\n", nameOfFile, (line+1));
-                    return NULL;
-                }
-            commandBuffer[numberOfSymbols++] = commandNumber;
-            continue;
-        }
-
-        if (commandNumber == JNEcmd) {
-                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + 4, "%d", &commandNumber) != 1) || (commandNumber < 0)){
-                    printf("ERROR JNE COMMAND! BAD OR NO JNE VALUE! %s:%d\n", nameOfFile, (line+1));
-                    return NULL;
+                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, "%d", &commandNumber) != 1) || (commandNumber < 0)) {
+                    if (sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, " :%d", &commandNumber) == 1) {
+                        commandBuffer[numberOfSymbols++] = labels[commandNumber];
+                        continue;
+                    }
+                    else {
+                        printf("ERROR %s COMMAND! BAD OR NO %s VALUE! %s:%d\n", commandString, commandString, nameOfFile, (line+1));
+                        return NULL;
+                    }
                 }
             commandBuffer[numberOfSymbols++] = commandNumber;
             continue;
@@ -247,8 +92,12 @@ int* commandRewriter (struct comands* structAddress, size_t* numOfBufferElements
 
 int commandComparator (char* command) {
     assert(command);
+
     if (strcmp(command, "") == 0)
         return emptyString;
+
+    if (command[0] == ':')
+        return labelString;
 
     if (strcmp(command, "PUSH") == 0)
         return PUSHcmd;
@@ -371,3 +220,19 @@ void commentsCleaner(char* str) {
     while ((commentPtr = strchr(str, '\n')) != NULL)
         *commentPtr = '\0';
 }
+
+/*
+int getCmdREGvalue (struct comands* structAddress, int line, int offset, const char* nameOfFile, const char* commandString
+
+    char regNameString[5] = {};
+
+    if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, "%s", regNameString) != 1) {
+        printf("ERROR %s COMMAND! BAD OR NO %s VALUE! %s:%d\n",commandString, commandString, nameOfFile, (line+1));
+        return 1;
+    }
+    int commandNumber = getNumberOfReg(regNameString);
+    commandBuffer[numberOfSymbols++] = commandNumber;
+
+    return 0;
+}
+*/

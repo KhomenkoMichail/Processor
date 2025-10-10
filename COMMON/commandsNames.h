@@ -8,6 +8,8 @@ const int END_OF_COMMANDS = 0xEDA;
 
 const int emptyString = 99;
 
+const int labelString = 98;
+
 enum comandsNames {
     PUSHcmd = 1,
     ADDcmd = 2,
