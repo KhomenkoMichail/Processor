@@ -39,7 +39,7 @@ proc_all = PROCESSOR/stackFunctions.h PROCESSOR/executableCommands.h PROCESSOR/s
 asmb_cpp = ASSEMBLER/mainAssembler.cpp ASSEMBLER/assemblerFunctions.cpp ASSEMBLER/textTools.cpp
 
 # Файлы assembler
-asmb_all = ASSEMBLER/assemblerFunctions.h ASSEMBLER/textStructs.h ASSEMBLER/textTools.h $(asmb_cpp)
+asmb_all = ASSEMBLER/assemblerFunctions.h ASSEMBLER/textStructs.h ASSEMBLER/textTools.h ASSEMBLER/structAssembler.h $(asmb_cpp)
 
 # Файлы .cpp disassembler
 disasmb_cpp = DISASSEMBLER/mainDisassembler.cpp DISASSEMBLER/disassemblerFunctions.cpp

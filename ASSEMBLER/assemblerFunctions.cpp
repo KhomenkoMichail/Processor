@@ -3,91 +3,39 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "structAssembler.h"
 #include "textStructs.h"
 #include "assemblerFunctions.h"
 #include "../COMMON/commandsNames.h"
+#include "textTools.h"
 
-int* commandRewriter (struct comands* structAddress, int* labels, size_t* numOfBufferElements, const char* nameOfFile) {
-    assert(structAddress);
+void assemblerCtor (struct assembler* Asm, const char* inputFile, const char* outputTextFile, const char* outputBinFile) {
+    assert(Asm);
+    assert(inputFile);
+    assert(outputTextFile);
+    assert(outputBinFile);
 
-    int* commandBuffer = (int*)calloc((structAddress->numberOfStrings)*2 + 4, sizeof(int));
-    size_t numberOfSymbols = 3;
+    Asm->nameOfInputFile = inputFile;
+    Asm->nameOfOutputTextFile = outputTextFile;
+    Asm->nameOfOutputBinFile = outputBinFile;
 
-    char regNameString[5] = {};
+    getStructComands (&(Asm->cmds), inputFile);
+    Asm->numOfLine = 0;
 
-    int commandNumber = 0;
+    for (size_t line = 0; line < (Asm->cmds).numberOfStrings; line++)
+        commentsCleaner(((Asm->cmds).arrOfStringStructs[line]).ptrToString);
 
-    commandBuffer[0] = signature;
-    commandBuffer[1] = signature;
-    commandBuffer[2] = version;
+    Asm->commandCounter = 0;
+    for (size_t numOfLabel = 0; numOfLabel < NUM_OF_LABELS; numOfLabel++)
+        (Asm->labels)[numOfLabel] = -1;
+}
 
-    for (size_t line = 0; line < structAddress->numberOfStrings; line++) {
-        char commandString[10] = {};
-        int offset = 0;
+void assemblerDtor (struct assembler* Asm) {
+    assert(Asm);
 
-        sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString, "%s%n", commandString, &offset);
-
-        commandNumber = commandComparator(commandString);
-
-        if (commandNumber == emptyString)
-            continue;
-
-        if (commandNumber == labelString) {
-            int numOfLabel = 0;
-            sscanf(commandString, ": %d", &numOfLabel);
-            labels[numOfLabel] = numberOfSymbols - 3;
-            continue;
-        }
-
-        commandBuffer[numberOfSymbols++] = commandNumber;
-
-        if (commandNumber == ERROR_COMMANDcmd) {
-            printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS! %s:%d\n", commandString, nameOfFile, (line+1));
-            return NULL;
-        }
-
-        if (commandNumber == PUSHcmd) {
-            if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, "%d", &commandNumber) != 1) {
-                printf("ERROR PUSH COMMAND! BAD OR NO PUSH VALUE! %s:%d\n", nameOfFile, (line+1));
-                return NULL;
-            }
-            commandBuffer[numberOfSymbols++] = commandNumber;
-            continue;
-        }
-
-        if ((commandNumber == POPREGcmd) || (commandNumber == PUSHREGcmd)) {
-            if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, "%s", regNameString) != 1) {
-                printf("ERROR %s COMMAND! BAD OR NO %s VALUE! %s:%d\n",commandString, commandString, nameOfFile, (line+1));
-                return NULL;
-            }
-            commandNumber = getNumberOfReg(regNameString);
-            commandBuffer[numberOfSymbols++] = commandNumber;
-            continue;
-        }
-
-        if ((commandNumber == JMPcmd) || (commandNumber == JBcmd) ||
-            (commandNumber == JBEcmd) || (commandNumber == JAcmd) ||
-            (commandNumber == JAEcmd) || (commandNumber == JEcmd) ||
-            (commandNumber == JNEcmd)) {
-
-                if((sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, "%d", &commandNumber) != 1) || (commandNumber < 0)) {
-                    if (sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, " :%d", &commandNumber) == 1) {
-                        commandBuffer[numberOfSymbols++] = labels[commandNumber];
-                        continue;
-                    }
-                    else {
-                        printf("ERROR %s COMMAND! BAD OR NO %s VALUE! %s:%d\n", commandString, commandString, nameOfFile, (line+1));
-                        return NULL;
-                    }
-                }
-            commandBuffer[numberOfSymbols++] = commandNumber;
-            continue;
-        }
-    }
-
-    commandBuffer[numberOfSymbols] = END_OF_COMMANDS;
-    *numOfBufferElements = numberOfSymbols;
-    return commandBuffer;
+    free(Asm->commandBuffer);
+    free((Asm->cmds).text);
+    free((Asm->cmds).arrOfStringStructs);
 }
 
 int commandComparator (char* command) {
@@ -159,45 +107,43 @@ int commandComparator (char* command) {
     return ERROR_COMMANDcmd;
 }
 
-void writeTextByteCode (int* codeBuffer, const char* nameOfFile) {
-    assert(codeBuffer);
-    assert(nameOfFile);
+void writeTextByteCode (struct assembler* Asm) {
+    assert(Asm);
 
-    FILE* byteCodeFile = fopen(nameOfFile, "w");
+    FILE* byteCodeFile = fopen(Asm->nameOfOutputTextFile, "w");
     if(byteCodeFile == NULL) {
-        fprintf(stderr, "Error of opening file \"%s\"", nameOfFile);
+        fprintf(stderr, "Error of opening file \"%s\"", Asm->nameOfOutputTextFile);
         perror("");
         return;
     }
 
-    for (size_t numOfElement = 0; codeBuffer[numOfElement] != END_OF_COMMANDS; numOfElement++)
-        fprintf (byteCodeFile, "%d ", codeBuffer[numOfElement]);
+    for (size_t numOfElement = 0; (Asm->commandBuffer)[numOfElement] != END_OF_COMMANDS; numOfElement++)
+        fprintf (byteCodeFile, "%d ", (Asm->commandBuffer)[numOfElement]);
 
     if(fclose(byteCodeFile) != 0) {
-        fprintf(stderr, "Error of closing file \"%s\"", nameOfFile);
+        fprintf(stderr, "Error of closing file \"%s\"", Asm->nameOfOutputTextFile);
         perror("");
     }
 }
 
-void writeBinByteCode (int* codeBuffer, size_t numOfBufferElements, const char* nameOfFile) {
-    assert(codeBuffer);
-    assert(nameOfFile);
+void writeBinByteCode (struct assembler* Asm) {
+    assert(Asm);
 
-    FILE* byteCodeFile = fopen(nameOfFile, "wb");
+    FILE* byteCodeFile = fopen(Asm->nameOfOutputBinFile, "wb");
 
     if(byteCodeFile == NULL) {
-        fprintf(stderr, "Error of opening file \"%s\"", nameOfFile);
+        fprintf(stderr, "Error of opening file \"%s\"", Asm->nameOfOutputBinFile);
         perror("");
         return;
     }
 
-    if (fwrite(codeBuffer, sizeof(int), numOfBufferElements, byteCodeFile) != numOfBufferElements) {
-        fprintf(stderr, "Error of writing the file \"%s\"", nameOfFile);
+    if (fwrite(Asm->commandBuffer, sizeof(int), Asm->commandCounter, byteCodeFile) != Asm->commandCounter) {
+        fprintf(stderr, "Error of writing the file \"%s\"", Asm->nameOfOutputBinFile);
         perror("");
     }
 
     if(fclose(byteCodeFile) != 0) {
-        fprintf(stderr, "Error of closing file \"%s\"", nameOfFile);
+        fprintf(stderr, "Error of closing file \"%s\"", Asm->nameOfOutputBinFile);
         perror("");
     }
 }
@@ -221,18 +167,120 @@ void commentsCleaner(char* str) {
         *commentPtr = '\0';
 }
 
-/*
-int getCmdREGvalue (struct comands* structAddress, int line, int offset, const char* nameOfFile, const char* commandString
+int commandRewriter(struct assembler* Asm) {
+    assert(Asm);
+
+    Asm->commandBuffer = (int*)calloc(((Asm->cmds).numberOfStrings)*2 + 4, sizeof(int));
+    Asm->commandCounter = 3;
+
+    int commandNumber = 0;
+
+    Asm->commandBuffer[0] = signature;
+    Asm->commandBuffer[1] = signature;
+    Asm->commandBuffer[2] = version;
+
+    for (Asm->numOfLine = 0; Asm->numOfLine < (Asm->cmds).numberOfStrings; Asm->numOfLine++) {
+        char commandString[10] = {};
+        int offset = 0;
+
+        sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString, "%s%n", commandString, &offset);
+
+        commandNumber = commandComparator(commandString);
+
+        if (commandNumber == emptyString)
+            continue;
+
+        if (commandNumber == labelString) {
+            int numOfLabel = 0;
+            sscanf(commandString, ": %d", &numOfLabel);
+            (Asm->labels)[numOfLabel] = Asm->commandCounter - 3;
+            continue;
+        }
+
+        (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
+
+        if (commandNumber == ERROR_COMMANDcmd) {
+            printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS! %s:%d\n", commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
+            return 1;
+        }
+
+        if (commandNumber == PUSHcmd) {
+            if  (getCmdPushValue (Asm, offset, commandString))
+                return 1;
+            continue;
+        }
+
+        if ((commandNumber == POPREGcmd) || (commandNumber == PUSHREGcmd)) {
+            if  (getCmdRegValue (Asm, offset, commandString))
+                return 1;
+            continue;
+        }
+
+        if ((commandNumber == JMPcmd) || (commandNumber == JBcmd) ||
+            (commandNumber == JBEcmd) || (commandNumber == JAcmd) ||
+            (commandNumber == JAEcmd) || (commandNumber == JEcmd) ||
+            (commandNumber == JNEcmd)) {
+
+            if  (getCmdJumpValue (Asm, offset, commandString))
+                return 1;
+            continue;
+        }
+    }
+
+    (Asm->commandBuffer)[Asm->commandCounter] = END_OF_COMMANDS;
+    return 0;
+}
+
+
+int getCmdRegValue (struct assembler* Asm, int offset, char* commandString) {
+    assert(Asm);
+    assert(commandString);
 
     char regNameString[5] = {};
 
-    if(sscanf(((structAddress->arrOfStringStructs)[line]).ptrToString + offset, "%s", regNameString) != 1) {
-        printf("ERROR %s COMMAND! BAD OR NO %s VALUE! %s:%d\n",commandString, commandString, nameOfFile, (line+1));
+    if(sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, "%s", regNameString) != 1) {
+        printf("ERROR %s COMMAND! BAD OR NO %s VALUE! %s:%d\n",commandString, commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
         return 1;
     }
+
     int commandNumber = getNumberOfReg(regNameString);
-    commandBuffer[numberOfSymbols++] = commandNumber;
+    (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
 
     return 0;
 }
-*/
+
+int getCmdJumpValue (struct assembler* Asm, int offset, char* commandString) {
+    assert(Asm);
+    assert(commandString);
+
+    int commandNumber = 0;
+
+    if((sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, "%d", &commandNumber) != 1) || (commandNumber < 0)) {
+        if (sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, " :%d", &commandNumber) == 1) {
+            (Asm->commandBuffer)[Asm->commandCounter++] = (Asm->labels)[commandNumber];
+            return 0;
+        }
+        else {
+            printf("ERROR %s COMMAND! BAD OR NO %s VALUE! %s:%d\n", commandString, commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
+            return 1;
+        }
+    }
+
+    (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
+    return 0;
+}
+
+int getCmdPushValue (struct assembler* Asm, int offset, char* commandString) {
+    assert(Asm);
+    assert(commandString);
+
+    int commandNumber = 0;
+
+    if(sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, "%d", &commandNumber) != 1) {
+        printf("ERROR PUSH COMMAND! BAD OR NO PUSH VALUE! %s:%d\n", Asm->nameOfInputFile, (Asm->numOfLine+1));
+        return 1;
+    }
+
+    (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
+    return 0;
+}
