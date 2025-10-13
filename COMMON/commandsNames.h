@@ -1,7 +1,7 @@
 #ifndef COMANDS_NAMES_H
 #define COMANDS_NAMES_H
 
-const int version = 7;
+const int version = 8;
 const int signature = 0xDED;
 
 const int END_OF_COMMANDS = 0xEDA;
@@ -31,6 +31,8 @@ enum comandsNames {
     JNEcmd = 26,
     PUSHREGcmd = 33,
     POPREGcmd = 52,
+    CALLcmd = 91,
+    RETcmd = 92,
 };
 
 #endif

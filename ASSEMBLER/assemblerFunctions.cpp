@@ -104,6 +104,12 @@ int commandComparator (char* command) {
     if (strcmp(command, "JNE") == 0)
         return JNEcmd;
 
+    if (strcmp(command, "CALL") == 0)
+        return CALLcmd;
+
+    if (strcmp(command, "RET") == 0)
+        return RETcmd;
+
     return ERROR_COMMANDcmd;
 }
 
@@ -219,7 +225,7 @@ int commandRewriter(struct assembler* Asm) {
         if ((commandNumber == JMPcmd) || (commandNumber == JBcmd) ||
             (commandNumber == JBEcmd) || (commandNumber == JAcmd) ||
             (commandNumber == JAEcmd) || (commandNumber == JEcmd) ||
-            (commandNumber == JNEcmd)) {
+            (commandNumber == JNEcmd) || (commandNumber == CALLcmd)) {
 
             if  (getCmdJumpValue (Asm, offset, commandString))
                 return 1;

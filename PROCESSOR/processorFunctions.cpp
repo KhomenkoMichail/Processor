@@ -18,6 +18,8 @@ void processorCtor (struct spu* processor, const char* processorName, const char
     struct info stackInfo = {};
     STACK_CTOR(processor->stk, stackInfo, 10);
 
+    STACK_CTOR(processor->regAddr, stackInfo, 10);
+
     processor->commandCode = makeCommandBuffer(nameOfByteCodeFile);
 }
 
@@ -109,6 +111,14 @@ int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* d
 
             case JNEcmd:
                 errorCode = jumpNE(processor, dumpFile, dumpInfo);
+                break;
+
+            case CALLcmd:
+                errorCode = callCmd(processor, dumpFile, dumpInfo);
+                break;
+
+            case RETcmd:
+                errorCode = retCmd(processor, dumpFile, dumpInfo);
                 break;
 
             case HLTcmd:

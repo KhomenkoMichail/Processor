@@ -41,4 +41,8 @@ int popRegCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
 
 int inCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
 
+int callCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
+int retCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
 #endif

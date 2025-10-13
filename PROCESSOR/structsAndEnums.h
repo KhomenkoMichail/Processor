@@ -69,6 +69,8 @@ struct spu {
     const char* nameOfSpu;
     struct info spuInfo;
     int spuErrorCode;
+
+    stack_t regAddr;
 };
 
 #endif

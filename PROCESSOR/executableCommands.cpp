@@ -457,3 +457,36 @@ int inCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
     return 0;
 }
 
+int callCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+    assert(dumpFile);
+    assert(dumpInfo);
+
+    processor->pc++;
+    STACK_PUSH(&(processor->regAddr), (processor->pc + 1), dumpFile, dumpInfo);
+
+    if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+        fprintf(dumpFile, "ERROR CALL COMMAND! BAD NO CALL VALUE!\n");
+        printf("ERROR CALL COMMAND! BAD OR NO CALL VALUE!\n");
+        return 1;
+    }
+
+    processor->pc = (processor->commandCode)[processor->pc + 3];
+
+    return 0;
+}
+
+int retCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+    assert(dumpFile);
+    assert(dumpInfo);
+
+    int retAddress = 0;
+    STACK_POP(&(processor->regAddr), &retAddress, dumpFile, dumpInfo);
+
+    processor->pc = retAddress;
+
+    return 0;
+}
+
+
