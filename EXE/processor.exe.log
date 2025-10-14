@@ -390,3 +390,238 @@ Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
 Directory:	C:\Users\Admin\Desktop\Stack
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#9: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x76FE16B2 в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x00000009 в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#9: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050E1DC (32-bit), Flags: Cmdre0, Thread: 0x2B24 (Main), errno: 12 (Not enough space). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x76FE16B2 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77020993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x76FCF7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 3 0x75168AC6 in C:\WINDOWS\System32\msvcrt.dll: malloc()
+# 4 0x75168F47 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+# 5 0x75188E61 in C:\WINDOWS\System32\msvcrt.dll: lock()
+# 6 0x751A3C2B in C:\WINDOWS\System32\msvcrt.dll: ungetwc()
+# 7 0x75197495 in C:\WINDOWS\System32\msvcrt.dll: fsopen()
+# 8 0x75197532 in C:\WINDOWS\System32\msvcrt.dll: fopen()
+# 9 0x0041D3CB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txReadSource()
+#10 0x0041DB4A in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txCaptureStackBackTraceTX()
+#11 0x0041E000 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txProcessError()
+#12 0x00414852 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txError()
+#13 0x00415F9F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txOnExceptionSEH()
+#14 0x004156B8 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txVectoredExceptionHandler()
+#15 0x7700369F in C:\WINDOWS\SYSTEM32\ntdll.dll: LdrSetDllManifestProber()
+#16 0x76FFEB04 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlUnwind()
+#17 0x7700B66F in C:\WINDOWS\SYSTEM32\ntdll.dll: KiUserExceptionDispatcher()
+#18 0x77020993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+#19 0x76FCF7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+#20 0x75168AC6 in C:\WINDOWS\System32\msvcrt.dll: malloc()
+#21 0x75168F47 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+#22 0x75188E61 in C:\WINDOWS\System32\msvcrt.dll: lock()
+#23 0x751A3C2B in C:\WINDOWS\System32\msvcrt.dll: ungetwc()
+#24 0x75197495 in C:\WINDOWS\System32\msvcrt.dll: fsopen()
+#25 0x75197532 in C:\WINDOWS\System32\msvcrt.dll: fopen()
+#26 0x0041D3CB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txReadSource()
+#27 0x0041DB4A in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txCaptureStackBackTraceTX()
+#28 0x0041E000 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txProcessError()
+#29 0x00414852 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txError()
+#30 0x00415F9F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txOnExceptionSEH()
+#31 0x004156B8 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txVectoredExceptionHandler()
+#32 0x7700369F in C:\WINDOWS\SYSTEM32\ntdll.dll: LdrSetDllManifestProber()
+#33 0x76FFEB04 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlUnwind()
+#34 0x7700B66F in C:\WINDOWS\SYSTEM32\ntdll.dll: KiUserExceptionDispatcher()
+#35 0x77020993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+#36 0x76FCF7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+#37 0x75168AC6 in C:\WINDOWS\System32\msvcrt.dll: malloc()
+#38 0x75168F47 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+#39 0x75188E61 in C:\WINDOWS\System32\msvcrt.dll: lock()
+#40 0x751A3C2B in C:\WINDOWS\System32\msvcrt.dll: ungetwc()
+#41 0x75197495 in C:\WINDOWS\System32\msvcrt.dll: fsopen()
+#42 0x75197532 in C:\WINDOWS\System32\msvcrt.dll: fopen()
+#43 0x0041D3CB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txReadSource()
+#44 0x0041DB4A in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txCaptureStackBackTraceTX()
+#45 0x0041E000 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txProcessError()
+#46 0x00414852 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txError()
+#47 0x00415F9F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txOnExceptionSEH()
+#48 0x004156B8 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txVectoredExceptionHandler()
+#49 0x7700369F in C:\WINDOWS\SYSTEM32\ntdll.dll: LdrSetDllManifestProber()
+#50 0x76FFEB04 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlUnwind()
+#51 0x7700B66F in C:\WINDOWS\SYSTEM32\ntdll.dll: KiUserExceptionDispatcher()
+#52 0x77020993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+#53 0x76FCF7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+#54 0x75168AC6 in C:\WINDOWS\System32\msvcrt.dll: malloc()
+#55 0x75168F47 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+#56 0x75188E61 in C:\WINDOWS\System32\msvcrt.dll: lock()
+#57 0x751A3C2B in C:\WINDOWS\System32\msvcrt.dll: ungetwc()
+#58 0x75197495 in C:\WINDOWS\System32\msvcrt.dll: fsopen()
+#59 0x75197532 in C:\WINDOWS\System32\msvcrt.dll: fopen()
+#60 0x0041D3CB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txReadSource()
+#61 0x0041DB4A in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txCaptureStackBackTraceTX()
+
+TXLib печалится: Нет информации об исходных файлах. Вы не забыли опцию -g при компиляции?
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 1 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+# 2 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 3 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+# 4 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 5 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+# 6 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 7 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+# 8 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 9 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+#10 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+#11 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+#12 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+#13 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+#14 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+#15 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+#16 in int stackCtor(stack_t*, ssize_t, const char*, info) at PROCESSOR/stackFunctions.cpp:36:
+
+     34:     stack->nameOfStack = nameOfStack;
+     35:     stack->errorCode = noErrors;
+=>   36:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     37: 
+     38:     stack->stackInfo = creationInfo;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 13 2025 17:44:19, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 14 2025 09:45:02
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
