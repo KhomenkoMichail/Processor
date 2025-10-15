@@ -35,6 +35,8 @@ void fprintfProcessorRegs (struct spu* processor, FILE* file);
 
 void processorDtor(struct spu* processor);
 
+void drawRam (int ram[30000]);
+
 #endif
 
 

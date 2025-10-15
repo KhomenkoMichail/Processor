@@ -20,6 +20,7 @@ enum comandsNames {
     SQRTcmd = 7,
     OUTcmd = 8,
     HLTcmd = 9,
+    MODcmd = 10,
     ERROR_COMMANDcmd = 12,
     INcmd = 13,
     JMPcmd = 20,
@@ -31,6 +32,8 @@ enum comandsNames {
     JNEcmd = 26,
     PUSHREGcmd = 33,
     POPREGcmd = 52,
+    PUSHMcmd = 81,
+    POPMcmd = 82,
     CALLcmd = 91,
     RETcmd = 92,
 };

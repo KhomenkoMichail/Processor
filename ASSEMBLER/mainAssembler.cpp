@@ -9,7 +9,7 @@
 
 int main (void) {
 
-    const char* inputFile = "factorial.asm";
+    const char* inputFile = "circle.asm";
     const char* outputTextFile = "textByteCode.txt";
     const char* outputBinFile = "binByteCode.bin";
 

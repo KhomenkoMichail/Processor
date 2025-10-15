@@ -7,6 +7,7 @@
 #include "executableCommands.h"
 #include "../COMMON/commandsNames.h"
 #include "../COMMON/commonFunctions.h"
+#include "processorFunctions.h"
 
 int stackAdd (stack_t* stack, FILE* file, struct info* dumpInfo) {
     assert(file);
@@ -59,6 +60,24 @@ int stackMul (stack_t* stack, FILE* file, struct info* dumpInfo) {
 
     return noErrors;
 }
+
+int stackMod (stack_t* stack, FILE* file, struct info* dumpInfo) {
+    assert(file);
+    assert(dumpInfo);
+
+    stackElement_t firstOperand = 0;
+    stackElement_t secondOperand = 0;
+
+    STACK_POP(stack, &firstOperand, file, dumpInfo);
+    STACK_POP(stack, &secondOperand, file, dumpInfo);
+
+    stackElement_t product = secondOperand % firstOperand;
+
+    STACK_PUSH(stack, product, file, dumpInfo);
+
+    return noErrors;
+}
+
 
 int stackDiv (stack_t* stack, FILE* file, struct info* dumpInfo) {
     assert(file);
@@ -489,4 +508,53 @@ int retCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
     return 0;
 }
 
+int pushMCmd(struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+    assert(dumpFile);
+    assert(dumpInfo);
+
+    processor->pc++;
+
+    if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] < 0)){
+        fprintf(dumpFile, "ERROR PUSHM COMMAND! BAD OR NO PUSHM VALUE!\n");
+        printf("ERROR PUSHM COMMAND! BAD OR NO PUSHM VALUE!\n");
+        return 1;
+    }
+
+    int numOfReg = (processor->commandCode)[processor->pc + 3];
+    int numOfRamElem = (processor->regs)[numOfReg];
+
+    STACK_PUSH(&(processor->stk), (processor->ram)[numOfRamElem], dumpFile, dumpInfo);
+
+    drawRam(processor->ram);
+
+    processor->pc++;
+
+    return 0;
+}
+
+int popMCmd(struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
+    assert(processor);
+    assert(dumpFile);
+    assert(dumpInfo);
+
+    processor->pc++;
+
+    if (((processor->commandCode)[processor->pc + 3] == END_OF_COMMANDS) || ((processor->commandCode)[processor->pc + 3] < 0)){
+        fprintf(dumpFile, "ERROR POPM COMMAND! BAD OR NO POPM VALUE!\n");
+        printf("ERROR POPM COMMAND! BAD OR NO POPM VALUE!\n");
+        return 1;
+    }
+
+    int numOfReg = (processor->commandCode)[processor->pc + 3];
+    int numOfRamElem = (processor->regs)[numOfReg];
+
+    STACK_POP(&(processor->stk), (processor->ram) + numOfRamElem, dumpFile, dumpInfo);
+
+    drawRam(processor->ram);
+
+    processor->pc++;
+
+    return 0;
+}
 

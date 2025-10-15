@@ -625,3 +625,583 @@ Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
 Directory:	C:\Users\Admin\Desktop\Stack
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#9: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x76FE16B2 в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x00000020 в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#9: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0050E1DC (32-bit), Flags: Cmdre0, Thread: 0x42FC (Main), errno: 12 (Not enough space). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x76FE16B2 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77020993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x76FCF7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 3 0x75168AC6 in C:\WINDOWS\System32\msvcrt.dll: malloc()
+# 4 0x75168F47 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+# 5 0x75188E61 in C:\WINDOWS\System32\msvcrt.dll: lock()
+# 6 0x751A3C2B in C:\WINDOWS\System32\msvcrt.dll: ungetwc()
+# 7 0x75197495 in C:\WINDOWS\System32\msvcrt.dll: fsopen()
+# 8 0x75197532 in C:\WINDOWS\System32\msvcrt.dll: fopen()
+# 9 0x0041D3CB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txReadSource()
+#10 0x0041DB4A in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txCaptureStackBackTraceTX()
+#11 0x0041E000 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txProcessError()
+#12 0x00414852 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txError()
+#13 0x00415F9F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txOnExceptionSEH()
+#14 0x004156B8 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txVectoredExceptionHandler()
+#15 0x7700369F in C:\WINDOWS\SYSTEM32\ntdll.dll: LdrSetDllManifestProber()
+#16 0x76FFEB04 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlUnwind()
+#17 0x7700B66F in C:\WINDOWS\SYSTEM32\ntdll.dll: KiUserExceptionDispatcher()
+#18 0x77020993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+#19 0x76FCF7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+#20 0x75168AC6 in C:\WINDOWS\System32\msvcrt.dll: malloc()
+#21 0x75168F47 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+#22 0x75188E61 in C:\WINDOWS\System32\msvcrt.dll: lock()
+#23 0x751A3C2B in C:\WINDOWS\System32\msvcrt.dll: ungetwc()
+#24 0x75197495 in C:\WINDOWS\System32\msvcrt.dll: fsopen()
+#25 0x75197532 in C:\WINDOWS\System32\msvcrt.dll: fopen()
+#26 0x0041D3CB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txReadSource()
+#27 0x0041DB4A in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txCaptureStackBackTraceTX()
+#28 0x0041E000 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txProcessError()
+#29 0x00414852 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txError()
+#30 0x00415F9F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txOnExceptionSEH()
+#31 0x004156B8 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txVectoredExceptionHandler()
+#32 0x7700369F in C:\WINDOWS\SYSTEM32\ntdll.dll: LdrSetDllManifestProber()
+#33 0x76FFEB04 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlUnwind()
+#34 0x7700B66F in C:\WINDOWS\SYSTEM32\ntdll.dll: KiUserExceptionDispatcher()
+#35 0x77020993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+#36 0x76FCF7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+#37 0x75168AC6 in C:\WINDOWS\System32\msvcrt.dll: malloc()
+#38 0x75168F47 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+#39 0x75188E61 in C:\WINDOWS\System32\msvcrt.dll: lock()
+#40 0x751A3C2B in C:\WINDOWS\System32\msvcrt.dll: ungetwc()
+#41 0x75197495 in C:\WINDOWS\System32\msvcrt.dll: fsopen()
+#42 0x75197532 in C:\WINDOWS\System32\msvcrt.dll: fopen()
+#43 0x0041D3CB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txReadSource()
+#44 0x0041DB4A in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txCaptureStackBackTraceTX()
+#45 0x0041E000 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txProcessError()
+#46 0x00414852 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txError()
+#47 0x00415F9F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txOnExceptionSEH()
+#48 0x004156B8 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txVectoredExceptionHandler()
+#49 0x7700369F in C:\WINDOWS\SYSTEM32\ntdll.dll: LdrSetDllManifestProber()
+#50 0x76FFEB04 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlUnwind()
+#51 0x7700B66F in C:\WINDOWS\SYSTEM32\ntdll.dll: KiUserExceptionDispatcher()
+#52 0x77020993 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+#53 0x76FCF7E9 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+#54 0x75168AC6 in C:\WINDOWS\System32\msvcrt.dll: malloc()
+#55 0x75168F47 in C:\WINDOWS\System32\msvcrt.dll: realloc()
+#56 0x75188E61 in C:\WINDOWS\System32\msvcrt.dll: lock()
+#57 0x751A3C2B in C:\WINDOWS\System32\msvcrt.dll: ungetwc()
+#58 0x75197495 in C:\WINDOWS\System32\msvcrt.dll: fsopen()
+#59 0x75197532 in C:\WINDOWS\System32\msvcrt.dll: fopen()
+#60 0x0041D3CB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txReadSource()
+#61 0x0041DB4A in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::_txCaptureStackBackTraceTX()
+
+TXLib печалится: Нет информации об исходных файлах. Вы не забыли опцию -g при компиляции?
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 1 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+# 2 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 3 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+# 4 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 5 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+# 6 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 7 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+# 8 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+# 9 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+#10 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+#11 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+#12 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+#13 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+#14 in intptr_t {anonymous}::TX::_txReadSource(char*, intptr_t, const char*, int, int, int) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12505:
+
+  12503: 
+  12504: $   FILE* f = NULL;
+=>12505: $   fopen_s (&f, file, "r");
+  12506:     if (!f) {$ return 0; }
+  12507: 
+
+#15 in const char* {anonymous}::TX::_txCaptureStackBackTraceTX(int, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:12579:
+
+  12577:                 {
+  12578: $               s += _tx_snprintf_s (s, SZ_, ":\n\n");
+=>12579: $               s += _txReadSource  (s, SZ_, loc->file, loc->line - 2, loc->line + 2, loc->line);
+  12580:                 }
+  12581:             }
+
+#16 in int stackCtor(stack_t*, ssize_t, const char*, info) at PROCESSOR/stackFunctions.cpp:36:
+
+     34:     stack->nameOfStack = nameOfStack;
+     35:     stack->errorCode = noErrors;
+=>   36:     stack->nameOfType = txDemangle(typeid(stackElement_t).name()).c_str();
+     37: 
+     38:     stack->stackInfo = creationInfo;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 13 2025 17:44:19, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 14 2025 09:49:43
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe, файл: c:\users\admin\downloads\codeblocks\mingw\include\txlib.h, строка: 8800, функция: HWND__* {anonymous}::TX::txCreateWindow(double, double, bool),
+
+Сообщение: Окно рисования уже создано!
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0058165C (32-bit), Flags: CMdRe0, Thread: 0x59F0 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00435447 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::txCreateWindow() at c:/users/admin/downloads/codeblocks/mingw/include/txlib.h:8800
+
+# 1 0x0046041F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: drawRam() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:273:
+
+    271:     assert(ram);
+    272: 
+=>  273:     txCreateWindow (900, 900);
+    274:     txSetColor (TX_BLACK);
+    275: 
+
+# 2 0x0045FC59 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:146:
+
+    144:         //processorDump(processor, stdout, *dumpInfo);
+    145:         //getchar();
+=>  146:         drawRam(processor->ram);
+    147: 
+    148: 
+
+# 3 0x004014BD in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:24:
+
+     22:     FILE* logFile = fopen(nameOfDumpFile, "w");
+     23: 
+=>   24:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     25: 
+     26:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in HWND__* {anonymous}::TX::txCreateWindow(double, double, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:8800:
+
+   8798:         {
+   8799: $       SetLastErrorEx (ERROR_INVALID_DATA, 0);
+=> 8800: $       _TX_ON_DEBUG (TX_ERROR ("\a" "Окно рисования уже создано!"));
+   8801: $       return wnd;
+   8802:         }
+
+# 1 in void drawRam(int*) at PROCESSOR/processorFunctions.cpp:273:
+
+    271:     assert(ram);
+    272: 
+=>  273:     txCreateWindow (900, 900);
+    274:     txSetColor (TX_BLACK);
+    275: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 15 2025 19:35:07, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 15 2025 19:35:15
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x76FE06F2 в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x0BADBABE в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0058165C (32-bit), Flags: CMdRe0, Thread: 0x2330 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x76FE06F2 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77021FA0 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x76FCED9A in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 3 0x751688A9 in C:\WINDOWS\System32\msvcrt.dll: free()
+
+# 4 0x004603F4 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:269:
+
+    267: 
+    268:     free(processor->commandCode);
+=>  269:     free(processor->stk.data);
+    270: }
+    271: 
+
+# 5 0x004014C9 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:26:
+
+     24:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     25: 
+=>   26:     processorDtor(&processor);
+     27:     fclose(logFile);
+     28: 
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in void drawRam(int*) at PROCESSOR/processorFunctions.cpp:296:
+
+    294: 
+    295:         txSetFillColor (RGB (ram[i], ram[i+1], ram[i+2]));
+=>  296:         txRectangle (x*10, y*10, x*10+15, y*10+15);
+    297:     }
+    298: }
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 15 2025 19:41:30, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 15 2025 20:30:43
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x76FE06F2 в функции RtlReleaseSRWLockShared(). Попытка прочесть данные по адресу 0x0BADBABE в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0058165C (32-bit), Flags: CMdRe0, Thread: 0x2330 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x76FE06F2 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlReleaseSRWLockShared()
+# 1 0x77021FA0 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetSystemTimeAndBias()
+# 2 0x76FCED9A in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 3 0x751688A9 in C:\WINDOWS\System32\msvcrt.dll: free()
+
+# 4 0x004603F4 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:269:
+
+    267: 
+    268:     free(processor->commandCode);
+=>  269:     free(processor->stk.data);
+    270: }
+    271: 
+
+# 5 0x004014C9 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:26:
+
+     24:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     25: 
+=>   26:     processorDtor(&processor);
+     27:     fclose(logFile);
+     28: 
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in void drawRam(int*) at PROCESSOR/processorFunctions.cpp:296:
+
+    294: 
+    295:         txSetFillColor (RGB (ram[i], ram[i+1], ram[i+2]));
+=>  296:         txRectangle (x*10, y*10, x*10+15, y*10+15);
+    297:     }
+    298: }
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 15 2025 19:41:30, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 15 2025 20:30:43
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe, файл: c:\users\admin\downloads\codeblocks\mingw\include\txlib.h, строка: 13352, функция: HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC),
+
+Сообщение: Окно рисования не создано или не в порядке.
+Если вы указали параметр "dc", то он неверен.
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F7ABC (32-bit), Flags: Cmdre0, Thread: 0x3D34 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0047CB73 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::txSetColor() at c:/users/admin/downloads/codeblocks/mingw/include/txlib.h:13352
+
+# 1 0x0048DBF0 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: drawRam() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:277:
+
+    275:     assert(ram);
+    276: 
+=>  277:     txSetColor (TX_BLACK);
+    278: /*
+    279:     int r_dx = 20;
+
+# 2 0x0042D962 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:41:
+
+     39:             }
+     40:         }
+=>   41:     drawRam(processor.ram);
+     42: 
+     43: 
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:13352:
+
+  13350: HPEN txSetColor (COLORREF color, double thickness /*= 1*/, HDC dc /*= txDC()*/)
+  13351:     {
+=>13352: $1  if (_TX_DEFAULT_HDC_FAILED (dc)) return NULL;
+  13353: 
+  13354: $   HPEN pen = Win32::CreatePen ((color == TX_TRANSPARENT? PS_NULL : PS_SOLID), ROUND (thickness), color);
+
+# 1 in void drawRam(int*) at PROCESSOR/processorFunctions.cpp:277:
+
+    275:     assert(ram);
+    276: 
+=>  277:     txSetColor (TX_BLACK);
+    278: /*
+    279:     int r_dx = 20;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 15 2025 21:25:44, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 15 2025 21:25:49
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe, файл: c:\users\admin\downloads\codeblocks\mingw\include\txlib.h, строка: 8800, функция: HWND__* {anonymous}::TX::txCreateWindow(double, double, bool),
+
+Сообщение: Окно рисования уже создано!
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x0058165C (32-bit), Flags: CMdRe0, Thread: 0x29E4 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00435447 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::txCreateWindow() at c:/users/admin/downloads/codeblocks/mingw/include/txlib.h:8800
+
+# 1 0x0046042F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: drawRam() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:277:
+
+    275:     assert(ram);
+    276: 
+=>  277:     txCreateWindow (900, 900);
+    278: 
+    279:     txSetColor (TX_BLACK);
+
+# 2 0x0045FC59 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:148:
+
+    146:         //processorDump(processor, stdout, *dumpInfo);
+    147:         //getchar();
+=>  148:         drawRam(processor->ram);
+    149: 
+    150: 
+
+# 3 0x004014BD in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23: 
+     24: 
+=>   25:     executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in HWND__* {anonymous}::TX::txCreateWindow(double, double, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:8800:
+
+   8798:         {
+   8799: $       SetLastErrorEx (ERROR_INVALID_DATA, 0);
+=> 8800: $       _TX_ON_DEBUG (TX_ERROR ("\a" "Окно рисования уже создано!"));
+   8801: $       return wnd;
+   8802:         }
+
+# 1 in void drawRam(int*) at PROCESSOR/processorFunctions.cpp:277:
+
+    275:     assert(ram);
+    276: 
+=>  277:     txCreateWindow (900, 900);
+    278: 
+    279:     txSetColor (TX_BLACK);
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 15 2025 21:56:25, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 15 2025 21:56:28
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------

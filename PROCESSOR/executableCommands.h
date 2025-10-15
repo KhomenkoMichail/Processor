@@ -7,6 +7,8 @@ int stackSub (stack_t* stack, FILE* file, struct info* dumpInfo);
 
 int stackMul (stack_t* stack, FILE* file, struct info* dumpInfo);
 
+int stackMod (stack_t* stack, FILE* file, struct info* dumpInfo);
+
 int stackDiv (stack_t* stack, FILE* file, struct info* dumpInfo);
 
 int stackPow (stack_t* stack, FILE* file, struct info* dumpInfo);
@@ -44,5 +46,9 @@ int inCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
 int callCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
 
 int retCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
+int pushMCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
+int popMCmd (struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
 
 #endif

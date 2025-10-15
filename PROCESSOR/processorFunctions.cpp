@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <TXLib.h>
 
 #include "processorFunctions.h"
 #include "stackFunctions.h"
@@ -30,6 +31,8 @@ int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* d
 
     int errorCode = noErrors;
 
+    txCreateWindow (900, 900);
+
     for (processor->pc = 0; (processor->commandCode)[processor->pc + 3] != END_OF_COMMANDS; ) {
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
 
@@ -58,6 +61,11 @@ int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* d
 
             case MULcmd:
                 errorCode = stackMul(&(processor->stk), dumpFile, dumpInfo);
+                processor->pc++;
+                break;
+
+            case MODcmd:
+                errorCode = stackMod(&(processor->stk), dumpFile, dumpInfo);
                 processor->pc++;
                 break;
 
@@ -121,7 +129,16 @@ int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* d
                 errorCode = retCmd(processor, dumpFile, dumpInfo);
                 break;
 
+            case PUSHMcmd:
+                errorCode = pushMCmd(processor, dumpFile, dumpInfo);
+                break;
+
+            case POPMcmd:
+                errorCode = popMCmd(processor, dumpFile, dumpInfo);
+                break;
+
             case HLTcmd:
+                //drawRam(processor->ram);
                 return 0;
                 break;
 
@@ -131,6 +148,8 @@ int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* d
                 break;
         }
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+
+        //drawRam(processor->ram);
 
         if (errorCode)
             return errorCode;
@@ -253,6 +272,22 @@ void processorDtor(struct spu* processor) {
     free(processor->stk.data);
 }
 
+void drawRam (int ram[30000]) {
+    assert(ram);
+    txSetColor (TX_DARKGRAY);
+
+    int x = 0;
+    int y = 0;
+
+    for (int i = 0; i < 30000; i += 3) {
+
+        x = i/3 % 100;
+        y = i/3 / 100;
+
+        txSetFillColor (RGB (ram[i], ram[i+1], ram[i+2]));
+        txRectangle (x*10, y*10, x*10+15, y*10+15);
+    }
+}
 
 
 

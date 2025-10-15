@@ -110,6 +110,15 @@ int commandComparator (char* command) {
     if (strcmp(command, "RET") == 0)
         return RETcmd;
 
+    if (strcmp(command, "PUSHM") == 0)
+        return PUSHMcmd;
+
+    if (strcmp(command, "POPM") == 0)
+        return POPMcmd;
+
+    if (strcmp(command, "MOD") == 0)
+        return MODcmd;
+
     return ERROR_COMMANDcmd;
 }
 
@@ -159,6 +168,10 @@ int getNumberOfReg(const char* nameOfReg) {
 
     char firstLetter = 0;
     sscanf(nameOfReg, "%c", &firstLetter);
+
+    if (firstLetter == '[')
+        sscanf(nameOfReg + 1, "%c", &firstLetter);
+
     return (int)(firstLetter - 'A');
 }
 
@@ -216,7 +229,8 @@ int commandRewriter(struct assembler* Asm) {
             continue;
         }
 
-        if ((commandNumber == POPREGcmd) || (commandNumber == PUSHREGcmd)) {
+        if ((commandNumber == POPREGcmd) || (commandNumber == PUSHREGcmd) ||
+            (commandNumber == POPMcmd) || (commandNumber == PUSHMcmd)) {
             if  (getCmdRegValue (Asm, offset, commandString))
                 return 1;
             continue;
@@ -231,6 +245,7 @@ int commandRewriter(struct assembler* Asm) {
                 return 1;
             continue;
         }
+
     }
 
     (Asm->commandBuffer)[Asm->commandCounter] = END_OF_COMMANDS;
