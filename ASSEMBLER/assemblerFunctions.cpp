@@ -8,6 +8,7 @@
 #include "assemblerFunctions.h"
 #include "../COMMON/commandsNames.h"
 #include "textTools.h"
+#include "../PROCESSOR/executableCommands.h"
 
 void assemblerCtor (struct assembler* Asm, const char* inputFile, const char* outputTextFile, const char* outputBinFile) {
     assert(Asm);

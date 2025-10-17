@@ -22,7 +22,7 @@ int main(void) {
     FILE* logFile = fopen(nameOfDumpFile, "w");
 
 
-    executeBufferCommands (&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+    executeBufferCommands2(&processor, logFile, &dumpInfo, nameOfByteCodeFile);
 
     processorDtor(&processor);
     fclose(logFile);

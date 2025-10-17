@@ -33,7 +33,7 @@ int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* d
 
     txCreateWindow (900, 900);
 
-    for (processor->pc = 0; (processor->commandCode)[processor->pc + 3] != END_OF_COMMANDS; ) {
+    for (processor->pc = 0; ; ) {
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
 
         switch ((processor->commandCode)[processor->pc + 3]) {
@@ -286,6 +286,39 @@ void drawRam (int ram[30000]) {
     }
 }
 
+///////
 
+int executeBufferCommands2 (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile) {
+    assert(dumpFile);
+    assert(dumpInfo);
 
+    int stopExecution = 0;
+    int numOfCmd = 0;
 
+    txCreateWindow (900, 900);
+
+    #include "../COMMON/commandsArray.h"
+
+    for (processor->pc = 0; ; ) {
+        PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+
+        for (numOfCmd = 0; numOfCmd < NUMBER_OF_COMMANDS; numOfCmd++) {
+            if ((processor->commandCode)[processor->pc + 3] == (comandsArray[numOfCmd]).commandCode)
+                break;
+        }
+
+        //printf("numOfCmd == %d\n", numOfCmd);
+        //printf("(comandsArray[numOfCmd]).commandCode == %d\n", (comandsArray[numOfCmd]).commandCode);
+
+        stopExecution = (*((comandsArray[numOfCmd]).commandFunc))((comandsArray[numOfCmd]).commandCode, processor, dumpFile, dumpInfo);
+
+        //processorDump(processor, stdout, *dumpInfo);
+        //getchar();
+        PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+
+        if (stopExecution)
+            break;
+    }
+
+    return 0;
+}

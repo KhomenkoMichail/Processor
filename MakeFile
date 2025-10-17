@@ -36,7 +36,7 @@ proc_cpp = PROCESSOR/main.cpp PROCESSOR/executableCommands.cpp PROCESSOR/stackFu
 proc_all = PROCESSOR/stackFunctions.h PROCESSOR/executableCommands.h PROCESSOR/structAndEnums.h PROCESSOR/processorFunctions.h $(proc_cpp)
 
 # Файлы .cpp assembler
-asmb_cpp = ASSEMBLER/mainAssembler.cpp ASSEMBLER/assemblerFunctions.cpp ASSEMBLER/textTools.cpp
+asmb_cpp = ASSEMBLER/mainAssembler.cpp ASSEMBLER/assemblerFunctions.cpp ASSEMBLER/textTools.cpp PROCESSOR/executableCommands.cpp PROCESSOR/stackFunctions.cpp PROCESSOR/processorFunctions.cpp
 
 # Файлы assembler
 asmb_all = ASSEMBLER/assemblerFunctions.h ASSEMBLER/textStructs.h ASSEMBLER/textTools.h ASSEMBLER/structAssembler.h $(asmb_cpp)

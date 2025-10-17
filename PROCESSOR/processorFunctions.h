@@ -37,6 +37,8 @@ void processorDtor(struct spu* processor);
 
 void drawRam (int ram[30000]);
 
+int executeBufferCommands2 (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile);
+
 #endif
 
 

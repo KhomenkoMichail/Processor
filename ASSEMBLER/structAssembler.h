@@ -21,10 +21,4 @@ struct assembler {
 
 };
 
-struct comand {
-    const char* name;
-    comandsNames commandCode;
-    arguments argType;
-};
-
 #endif
