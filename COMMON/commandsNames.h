@@ -6,7 +6,7 @@ const int signature = 0xDED;
 
 const int END_OF_COMMANDS = 0xEDA;
 
-const int emptyString = 99;
+//const int emptyString = 99;
 
 const int labelString = 98;
 
@@ -36,6 +36,14 @@ enum comandsNames {
     POPMcmd = 82,
     CALLcmd = 91,
     RETcmd = 92,
+    emptyString = 99,
+};
+
+enum arguments {
+    noArg = 0,
+    regArg = 1,
+    labelArg = 2,
+    numArg = 3,
 };
 
 #endif

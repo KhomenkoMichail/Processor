@@ -138,7 +138,6 @@ int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* d
                 break;
 
             case HLTcmd:
-                //drawRam(processor->ram);
                 return 0;
                 break;
 
@@ -148,8 +147,6 @@ int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* d
                 break;
         }
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
-
-        //drawRam(processor->ram);
 
         if (errorCode)
             return errorCode;

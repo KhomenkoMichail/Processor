@@ -17,10 +17,16 @@ void commentsCleaner(char* str);
 
 int commandRewriter(struct assembler* Asm);
 
-int getCmdRegValue (struct assembler* Asm, int offset, char* commandString);
+int getCmdRegArg (struct assembler* Asm, int offset, char* commandString);
 
-int getCmdJumpValue (struct assembler* Asm, int offset, char* commandString);
+int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString);
 
-int getCmdPushValue (struct assembler* Asm, int offset, char* commandString);
+int getCmdNumArg (struct assembler* Asm, int offset, char* commandString);
+
+int commandRewriter2(struct assembler* Asm);
+
+int getCmdArg (arguments argType, struct assembler* Asm, int offset, char* commandString);
+
+int getLabel (const char* commandString, struct assembler* Asm);
 
 #endif

@@ -132,7 +132,7 @@ void writeTextByteCode (struct assembler* Asm) {
         return;
     }
 
-    for (size_t numOfElement = 0; (Asm->commandBuffer)[numOfElement] != END_OF_COMMANDS; numOfElement++)
+    for (size_t numOfElement = 0; numOfElement < Asm->commandCounter; numOfElement++)
         fprintf (byteCodeFile, "%d ", (Asm->commandBuffer)[numOfElement]);
 
     if(fclose(byteCodeFile) != 0) {
@@ -224,14 +224,14 @@ int commandRewriter(struct assembler* Asm) {
         }
 
         if (commandNumber == PUSHcmd) {
-            if  (getCmdPushValue (Asm, offset, commandString))
+            if  (getCmdNumArg (Asm, offset, commandString))
                 return 1;
             continue;
         }
 
         if ((commandNumber == POPREGcmd) || (commandNumber == PUSHREGcmd) ||
             (commandNumber == POPMcmd) || (commandNumber == PUSHMcmd)) {
-            if  (getCmdRegValue (Asm, offset, commandString))
+            if  (getCmdRegArg (Asm, offset, commandString))
                 return 1;
             continue;
         }
@@ -241,7 +241,7 @@ int commandRewriter(struct assembler* Asm) {
             (commandNumber == JAEcmd) || (commandNumber == JEcmd) ||
             (commandNumber == JNEcmd) || (commandNumber == CALLcmd)) {
 
-            if  (getCmdJumpValue (Asm, offset, commandString))
+            if  (getCmdLabelArg (Asm, offset, commandString))
                 return 1;
             continue;
         }
@@ -253,7 +253,7 @@ int commandRewriter(struct assembler* Asm) {
 }
 
 
-int getCmdRegValue (struct assembler* Asm, int offset, char* commandString) {
+int getCmdRegArg (struct assembler* Asm, int offset, char* commandString) {
     assert(Asm);
     assert(commandString);
 
@@ -270,7 +270,7 @@ int getCmdRegValue (struct assembler* Asm, int offset, char* commandString) {
     return 0;
 }
 
-int getCmdJumpValue (struct assembler* Asm, int offset, char* commandString) {
+int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString) {
     assert(Asm);
     assert(commandString);
 
@@ -291,7 +291,7 @@ int getCmdJumpValue (struct assembler* Asm, int offset, char* commandString) {
     return 0;
 }
 
-int getCmdPushValue (struct assembler* Asm, int offset, char* commandString) {
+int getCmdNumArg (struct assembler* Asm, int offset, char* commandString) {
     assert(Asm);
     assert(commandString);
 
@@ -305,3 +305,92 @@ int getCmdPushValue (struct assembler* Asm, int offset, char* commandString) {
     (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
     return 0;
 }
+
+
+
+
+
+////////////////////////////////////////////
+
+
+
+int commandRewriter2(struct assembler* Asm) {
+    assert(Asm);
+
+    Asm->commandBuffer = (int*)calloc(((Asm->cmds).numberOfStrings)*2 + 4, sizeof(int));
+    Asm->commandCounter = 3;
+
+    Asm->commandBuffer[0] = signature;
+    Asm->commandBuffer[1] = signature;
+    Asm->commandBuffer[2] = version;
+
+    #include "../COMMON/commandsArray.h"
+
+    for (Asm->numOfLine = 0; Asm->numOfLine < (Asm->cmds).numberOfStrings; Asm->numOfLine++) {
+
+        char commandString[10] = {};
+        int offset = 0;
+        size_t numOfCmd = 0;
+
+        sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString, "%s%n", commandString, &offset);
+
+        for (numOfCmd = 0; numOfCmd < NUMBER_OF_COMMANDS; numOfCmd++) {
+            if (strcmp(commandString, (comandsArray[numOfCmd]).name ) == 0)
+                break;
+        }
+
+        if ((comandsArray[numOfCmd]).commandCode == emptyString)
+            continue;
+
+        if (getLabel (commandString, Asm))
+            continue;
+
+        if (numOfCmd == NUMBER_OF_COMMANDS) {
+            printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS! %s:%d\n", commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
+            return 1;
+        }
+
+        (Asm->commandBuffer)[Asm->commandCounter++] = (comandsArray[numOfCmd]).commandCode;
+
+        if (getCmdArg ((comandsArray[numOfCmd]).argType, Asm, offset, commandString))
+            return 1;
+    }
+    return 0;
+}
+
+int getCmdArg (arguments argType, struct assembler* Asm, int offset, char* commandString) {
+    assert(Asm);
+    assert(commandString);
+
+    if (argType == noArg)
+        return 0;
+
+    if (argType == numArg)
+        if  (getCmdNumArg (Asm, offset, commandString))
+            return 1;
+
+    if (argType == regArg)
+        if  (getCmdRegArg (Asm, offset, commandString))
+            return 1;
+
+    if (argType == labelArg)
+        if  (getCmdLabelArg (Asm, offset, commandString))
+            return 1;
+
+    return 0;
+}
+
+int getLabel (const char* commandString, struct assembler* Asm) {
+    assert(commandString);
+    assert(Asm);
+
+    if (commandString[0] == ':') {
+        int numOfLabel = 0;
+        sscanf(commandString, ": %d", &numOfLabel);
+        (Asm->labels)[numOfLabel] = Asm->commandCounter - 3;
+        return 1;
+    }
+
+    return 0;
+}
+

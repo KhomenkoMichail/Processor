@@ -17,13 +17,13 @@ int main (void) {
 
     assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile);
 
-    if (commandRewriter(&Asm)) {
+    if (commandRewriter2(&Asm)) {
         assemblerDtor(&Asm);
         return 1;
     }
 
 
-    if (commandRewriter(&Asm)) {
+    if (commandRewriter2(&Asm)) {
         assemblerDtor(&Asm);
         return 1;
     }

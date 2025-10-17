@@ -2,6 +2,7 @@
 #define STRUCT_ASSEMBLER_H
 
 #include "textStructs.h"
+#include "../COMMON/commandsNames.h"
 
 const int NUM_OF_LABELS = 10;
 
@@ -18,6 +19,12 @@ struct assembler {
 
     int labels[NUM_OF_LABELS];
 
+};
+
+struct comand {
+    const char* name;
+    comandsNames commandCode;
+    arguments argType;
 };
 
 #endif
