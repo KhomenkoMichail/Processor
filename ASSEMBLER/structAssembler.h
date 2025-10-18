@@ -10,6 +10,7 @@ struct assembler {
     const char* nameOfInputFile;
     const char* nameOfOutputTextFile;
     const char* nameOfOutputBinFile;
+    const char* nameOfListingFile;
 
     struct comands cmds;
     size_t numOfLine;
@@ -18,7 +19,6 @@ struct assembler {
     size_t commandCounter;
 
     int labels[NUM_OF_LABELS];
-
 };
 
 #endif

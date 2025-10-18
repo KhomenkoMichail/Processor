@@ -1,5 +1,6 @@
 IN
 POPREG Dx
+DRAW
 
 PUSH 0
 POPREG Ax

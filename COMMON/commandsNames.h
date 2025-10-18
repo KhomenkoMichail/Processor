@@ -1,16 +1,12 @@
 #ifndef COMANDS_NAMES_H
 #define COMANDS_NAMES_H
 
-const int version = 8;
+const int version = 9;
 const int signature = 0xDED;
-
-const int END_OF_COMMANDS = 0xEDA;
-
-//const int emptyString = 99;
 
 const int labelString = 98;
 
-enum comandsNames {
+enum commandsNames {
     PUSHcmd = 1,
     ADDcmd = 2,
     SUBcmd = 3,
@@ -36,6 +32,7 @@ enum comandsNames {
     POPMcmd = 82,
     CALLcmd = 91,
     RETcmd = 92,
+    DRAWcmd = 95,
     emptyString = 99,
 };
 

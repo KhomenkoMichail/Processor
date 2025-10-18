@@ -21,8 +21,7 @@ int main(void) {
     struct info dumpInfo = {};
     FILE* logFile = fopen(nameOfDumpFile, "w");
 
-
-    executeBufferCommands2(&processor, logFile, &dumpInfo, nameOfByteCodeFile);
+    executeCommands(&processor, logFile, &dumpInfo);
 
     processorDtor(&processor);
     fclose(logFile);

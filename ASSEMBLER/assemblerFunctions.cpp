@@ -10,15 +10,17 @@
 #include "textTools.h"
 #include "../PROCESSOR/executableCommands.h"
 
-void assemblerCtor (struct assembler* Asm, const char* inputFile, const char* outputTextFile, const char* outputBinFile) {
+void assemblerCtor (struct assembler* Asm, const char* inputFile, const char* outputTextFile, const char* outputBinFile, const char* listingFile) {
     assert(Asm);
     assert(inputFile);
     assert(outputTextFile);
     assert(outputBinFile);
+    assert(listingFile);
 
     Asm->nameOfInputFile = inputFile;
     Asm->nameOfOutputTextFile = outputTextFile;
     Asm->nameOfOutputBinFile = outputBinFile;
+    Asm->nameOfListingFile = listingFile;
 
     getStructComands (&(Asm->cmds), inputFile);
     Asm->numOfLine = 0;
@@ -37,90 +39,6 @@ void assemblerDtor (struct assembler* Asm) {
     free(Asm->commandBuffer);
     free((Asm->cmds).text);
     free((Asm->cmds).arrOfStringStructs);
-}
-
-int commandComparator (char* command) {
-    assert(command);
-
-    if (strcmp(command, "") == 0)
-        return emptyString;
-
-    if (command[0] == ':')
-        return labelString;
-
-    if (strcmp(command, "PUSH") == 0)
-        return PUSHcmd;
-
-    if (strcmp(command, "ADD") == 0)
-        return ADDcmd;
-
-    if (strcmp(command, "SUB") == 0)
-        return SUBcmd;
-
-    if (strcmp(command, "MUL") == 0)
-        return MULcmd;
-
-    if (strcmp(command, "DIV") == 0)
-        return DIVcmd;
-
-    if (strcmp(command, "POW") == 0)
-        return POWcmd;
-
-    if (strcmp(command, "SQRT") == 0)
-        return SQRTcmd;
-
-    if (strcmp(command, "OUT") == 0)
-        return OUTcmd;
-
-    if (strcmp(command, "HLT") == 0)
-        return HLTcmd;
-
-    if (strcmp(command, "PUSHREG") == 0)
-        return PUSHREGcmd;
-
-    if (strcmp(command, "POPREG") == 0)
-        return POPREGcmd;
-
-    if (strcmp(command, "IN") == 0)
-        return INcmd;
-
-    if (strcmp(command, "JMP") == 0)
-        return JMPcmd;
-
-    if (strcmp(command, "JB") == 0)
-        return JBcmd;
-
-    if (strcmp(command, "JBE") == 0)
-        return JBEcmd;
-
-    if (strcmp(command, "JA") == 0)
-        return JAcmd;
-
-    if (strcmp(command, "JAE") == 0)
-        return JAEcmd;
-
-    if (strcmp(command, "JE") == 0)
-        return JEcmd;
-
-    if (strcmp(command, "JNE") == 0)
-        return JNEcmd;
-
-    if (strcmp(command, "CALL") == 0)
-        return CALLcmd;
-
-    if (strcmp(command, "RET") == 0)
-        return RETcmd;
-
-    if (strcmp(command, "PUSHM") == 0)
-        return PUSHMcmd;
-
-    if (strcmp(command, "POPM") == 0)
-        return POPMcmd;
-
-    if (strcmp(command, "MOD") == 0)
-        return MODcmd;
-
-    return ERROR_COMMANDcmd;
 }
 
 void writeTextByteCode (struct assembler* Asm) {
@@ -187,74 +105,7 @@ void commentsCleaner(char* str) {
         *commentPtr = '\0';
 }
 
-int commandRewriter(struct assembler* Asm) {
-    assert(Asm);
-
-    Asm->commandBuffer = (int*)calloc(((Asm->cmds).numberOfStrings)*2 + 4, sizeof(int));
-    Asm->commandCounter = 3;
-
-    int commandNumber = 0;
-
-    Asm->commandBuffer[0] = signature;
-    Asm->commandBuffer[1] = signature;
-    Asm->commandBuffer[2] = version;
-
-    for (Asm->numOfLine = 0; Asm->numOfLine < (Asm->cmds).numberOfStrings; Asm->numOfLine++) {
-        char commandString[10] = {};
-        int offset = 0;
-
-        sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString, "%s%n", commandString, &offset);
-
-        commandNumber = commandComparator(commandString);
-
-        if (commandNumber == emptyString)
-            continue;
-
-        if (commandNumber == labelString) {
-            int numOfLabel = 0;
-            sscanf(commandString, ": %d", &numOfLabel);
-            (Asm->labels)[numOfLabel] = Asm->commandCounter - 3;
-            continue;
-        }
-
-        (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
-
-        if (commandNumber == ERROR_COMMANDcmd) {
-            printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS! %s:%d\n", commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
-            return 1;
-        }
-
-        if (commandNumber == PUSHcmd) {
-            if  (getCmdNumArg (Asm, offset, commandString))
-                return 1;
-            continue;
-        }
-
-        if ((commandNumber == POPREGcmd) || (commandNumber == PUSHREGcmd) ||
-            (commandNumber == POPMcmd) || (commandNumber == PUSHMcmd)) {
-            if  (getCmdRegArg (Asm, offset, commandString))
-                return 1;
-            continue;
-        }
-
-        if ((commandNumber == JMPcmd) || (commandNumber == JBcmd) ||
-            (commandNumber == JBEcmd) || (commandNumber == JAcmd) ||
-            (commandNumber == JAEcmd) || (commandNumber == JEcmd) ||
-            (commandNumber == JNEcmd) || (commandNumber == CALLcmd)) {
-
-            if  (getCmdLabelArg (Asm, offset, commandString))
-                return 1;
-            continue;
-        }
-
-    }
-
-    (Asm->commandBuffer)[Asm->commandCounter] = END_OF_COMMANDS;
-    return 0;
-}
-
-
-int getCmdRegArg (struct assembler* Asm, int offset, char* commandString) {
+int getCmdRegArg (struct assembler* Asm, int offset, char* commandString,  FILE* listingFile) {
     assert(Asm);
     assert(commandString);
 
@@ -266,12 +117,13 @@ int getCmdRegArg (struct assembler* Asm, int offset, char* commandString) {
     }
 
     int commandNumber = getNumberOfReg(regNameString);
+    fprintf(listingFile, "%7d  | ", commandNumber);
     (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
 
     return 0;
 }
 
-int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString) {
+int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString,  FILE* listingFile) {
     assert(Asm);
     assert(commandString);
 
@@ -280,6 +132,7 @@ int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString) {
     if((sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, "%d", &commandNumber) != 1) || (commandNumber < 0)) {
         if (sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, " :%d", &commandNumber) == 1) {
             (Asm->commandBuffer)[Asm->commandCounter++] = (Asm->labels)[commandNumber];
+            fprintf(listingFile, "%7d  | ", commandNumber);
             return 0;
         }
         else {
@@ -288,11 +141,12 @@ int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString) {
         }
     }
 
+    fprintf(listingFile, "%7d  | ", commandNumber);
     (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
     return 0;
 }
 
-int getCmdNumArg (struct assembler* Asm, int offset, char* commandString) {
+int getCmdNumArg (struct assembler* Asm, int offset, char* commandString, FILE* listingFile) {
     assert(Asm);
     assert(commandString);
 
@@ -303,20 +157,15 @@ int getCmdNumArg (struct assembler* Asm, int offset, char* commandString) {
         return 1;
     }
 
+    fprintf(listingFile, "%7d  | ", commandNumber);
     (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
     return 0;
 }
 
-
-
-
-
-////////////////////////////////////////////
-
-
-
-int commandRewriter2(struct assembler* Asm) {
+int compileCommands(struct assembler* Asm) {
     assert(Asm);
+
+    FILE* listingFile = fopen(Asm->nameOfListingFile, "w");
 
     Asm->commandBuffer = (int*)calloc(((Asm->cmds).numberOfStrings)*2 + 4, sizeof(int));
     Asm->commandCounter = 3;
@@ -335,7 +184,7 @@ int commandRewriter2(struct assembler* Asm) {
 
         sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString, "%s%n", commandString, &offset);
 
-        for (numOfCmd = 0; numOfCmd < NUMBER_OF_COMMANDS; numOfCmd++) {
+        for (numOfCmd = 0; numOfCmd < NUMBER_OF_COMMANDS - 1; numOfCmd++) {
             if (strcmp(commandString, (comandsArray[numOfCmd]).name ) == 0)
                 break;
         }
@@ -346,36 +195,44 @@ int commandRewriter2(struct assembler* Asm) {
         if (getLabel (commandString, Asm))
             continue;
 
-        if (numOfCmd == NUMBER_OF_COMMANDS) {
+        if ((comandsArray[numOfCmd]).commandCode == ERROR_COMMANDcmd) {
             printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS! %s:%d\n", commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
             return 1;
         }
 
+        fprintf(listingFile, "[%4d]  | %4d ", Asm->commandCounter, (comandsArray[numOfCmd]).commandCode);
+
         (Asm->commandBuffer)[Asm->commandCounter++] = (comandsArray[numOfCmd]).commandCode;
 
-        if (getCmdArg ((comandsArray[numOfCmd]).argType, Asm, offset, commandString))
+        if (getCmdArg ((comandsArray[numOfCmd]).argType, Asm, offset, commandString, listingFile))
             return 1;
+
+        fprintf(listingFile, "%s\n", (((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString);
     }
+
+    fclose(listingFile);
     return 0;
 }
 
-int getCmdArg (arguments argType, struct assembler* Asm, int offset, char* commandString) {
+int getCmdArg (arguments argType, struct assembler* Asm, int offset, char* commandString, FILE* listingFile) {
     assert(Asm);
     assert(commandString);
 
-    if (argType == noArg)
+    if (argType == noArg) {
+        fprintf(listingFile, "         | ");
         return 0;
+    }
 
     if (argType == numArg)
-        if  (getCmdNumArg (Asm, offset, commandString))
+        if  (getCmdNumArg (Asm, offset, commandString, listingFile))
             return 1;
 
     if (argType == regArg)
-        if  (getCmdRegArg (Asm, offset, commandString))
+        if  (getCmdRegArg (Asm, offset, commandString, listingFile))
             return 1;
 
     if (argType == labelArg)
-        if  (getCmdLabelArg (Asm, offset, commandString))
+        if  (getCmdLabelArg (Asm, offset, commandString, listingFile))
             return 1;
 
     return 0;

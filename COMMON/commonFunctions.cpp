@@ -19,7 +19,6 @@ int* makeCommandBuffer (const char* nameOfBinCodeFile) {
     }
 
     size_t numOfReadSymbols = fread(commandBuffer, sizeof(int), MAX_BUFFER_SIZE - 1, binCodeFile);
-    commandBuffer[numOfReadSymbols] = END_OF_COMMANDS;
 
     if(numOfReadSymbols == MAX_BUFFER_SIZE - 1)
         fprintf(stderr,"ERROR! The command buffer is full, increase it or call fewer commands!\n");

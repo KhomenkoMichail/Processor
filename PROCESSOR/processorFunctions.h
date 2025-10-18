@@ -21,8 +21,6 @@
 
 void processorCtor (struct spu* processor, const char* processorName, const char* nameOfByteCodeFile);
 
-int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile);
-
 int processorVerifier (struct spu* processor);
 
 void processorDump (struct spu* processor, FILE* file, struct info dumpInfo);
@@ -35,9 +33,9 @@ void fprintfProcessorRegs (struct spu* processor, FILE* file);
 
 void processorDtor(struct spu* processor);
 
-void drawRam (int ram[30000]);
+void drawRam (int* ram);
 
-int executeBufferCommands2 (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile);
+int executeCommands(struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
 
 #endif
 

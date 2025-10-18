@@ -1288,3 +1288,401 @@ Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
 Directory:	C:\Users\Admin\Desktop\Stack
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe, файл: c:\users\admin\downloads\codeblocks\mingw\include\txlib.h, строка: 13352, функция: HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC),
+
+Сообщение: Окно рисования не создано или не в порядке.
+Если вы указали параметр "dc", то он неверен.
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F4ADC (32-bit), Flags: Cmdre0, Thread: 0x377C (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0047B2B3 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::txSetColor() at c:/users/admin/downloads/codeblocks/mingw/include/txlib.h:13352
+
+# 1 0x0048BD1F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: drawRam() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:277:
+
+    275: void drawRam (int* ram) {
+    276:     assert(ram);
+=>  277:     txSetColor (TX_DARKGRAY);
+    278: 
+    279:     int x = 0;
+
+# 2 0x0042DEBB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: popFunc() at C:/Users/Admin/Desktop/Stack/PROCESSOR/executableCommands.cpp:541:
+
+    539: 
+    540:         if (processor->drawON)
+=>  541:             drawRam(processor->ram);
+    542:     }
+    543: 
+
+# 3 0x0048C076 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands2() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:313:
+
+    311:         }
+    312: 
+=>  313:         stopExecution = (*((comandsArray[numOfCmd]).commandFunc))((comandsArray[numOfCmd]).commandCode, processor, dumpFile, dumpInfo);
+    314: 
+    315:         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+
+# 4 0x004014A5 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23: 
+     24: 
+=>   25:     executeBufferCommands2(&processor, logFile, &dumpInfo);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:13352:
+
+  13350: HPEN txSetColor (COLORREF color, double thickness /*= 1*/, HDC dc /*= txDC()*/)
+  13351:     {
+=>13352: $1  if (_TX_DEFAULT_HDC_FAILED (dc)) return NULL;
+  13353: 
+  13354: $   HPEN pen = Win32::CreatePen ((color == TX_TRANSPARENT? PS_NULL : PS_SOLID), ROUND (thickness), color);
+
+# 1 in void drawRam(int*) at PROCESSOR/processorFunctions.cpp:277:
+
+    275: void drawRam (int* ram) {
+    276:     assert(ram);
+=>  277:     txSetColor (TX_DARKGRAY);
+    278: 
+    279:     int x = 0;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 18 2025 12:19:57, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 18 2025 12:20:22
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe, файл: c:\users\admin\downloads\codeblocks\mingw\include\txlib.h, строка: 13352, функция: HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC),
+
+Сообщение: Окно рисования не создано или не в порядке.
+Если вы указали параметр "dc", то он неверен.
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F4ADC (32-bit), Flags: Cmdre0, Thread: 0x2838 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0047B2B3 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::txSetColor() at c:/users/admin/downloads/codeblocks/mingw/include/txlib.h:13352
+
+# 1 0x0048BD1F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: drawRam() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:277:
+
+    275: void drawRam (int* ram) {
+    276:     assert(ram);
+=>  277:     txSetColor (TX_DARKGRAY);
+    278: 
+    279:     int x = 0;
+
+# 2 0x0042DEBB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: popFunc() at C:/Users/Admin/Desktop/Stack/PROCESSOR/executableCommands.cpp:541:
+
+    539: 
+    540:         if (processor->drawON)
+=>  541:             drawRam(processor->ram);
+    542:     }
+    543: 
+
+# 3 0x0048C076 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands2() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:313:
+
+    311:         }
+    312: 
+=>  313:         stopExecution = (*((comandsArray[numOfCmd]).commandFunc))((comandsArray[numOfCmd]).commandCode, processor, dumpFile, dumpInfo);
+    314: 
+    315:         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+
+# 4 0x004014A5 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23: 
+     24: 
+=>   25:     executeBufferCommands2(&processor, logFile, &dumpInfo);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:13352:
+
+  13350: HPEN txSetColor (COLORREF color, double thickness /*= 1*/, HDC dc /*= txDC()*/)
+  13351:     {
+=>13352: $1  if (_TX_DEFAULT_HDC_FAILED (dc)) return NULL;
+  13353: 
+  13354: $   HPEN pen = Win32::CreatePen ((color == TX_TRANSPARENT? PS_NULL : PS_SOLID), ROUND (thickness), color);
+
+# 1 in void drawRam(int*) at PROCESSOR/processorFunctions.cpp:277:
+
+    275: void drawRam (int* ram) {
+    276:     assert(ram);
+=>  277:     txSetColor (TX_DARKGRAY);
+    278: 
+    279:     int x = 0;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 18 2025 12:22:26, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 18 2025 12:22:41
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe, файл: c:\users\admin\downloads\codeblocks\mingw\include\txlib.h, строка: 13352, функция: HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC),
+
+Сообщение: Окно рисования не создано или не в порядке.
+Если вы указали параметр "dc", то он неверен.
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F4ADC (32-bit), Flags: Cmdre0, Thread: 0x31E0 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0047B273 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::txSetColor() at c:/users/admin/downloads/codeblocks/mingw/include/txlib.h:13352
+
+# 1 0x0048BCDF in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: drawRam() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:277:
+
+    275: void drawRam (int* ram) {
+    276:     assert(ram);
+=>  277:     txSetColor (TX_DARKGRAY);
+    278: 
+    279:     int x = 0;
+
+# 2 0x0042DEBB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: popFunc() at C:/Users/Admin/Desktop/Stack/PROCESSOR/executableCommands.cpp:541:
+
+    539: 
+    540:         if (processor->drawON)
+=>  541:             drawRam(processor->ram);
+    542:     }
+    543: 
+
+# 3 0x0048C036 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands2() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:314:
+
+    312:         }
+    313: 
+=>  314:         stopExecution = (*((comandsArray[numOfCmd]).commandFunc))((comandsArray[numOfCmd]).commandCode, processor, dumpFile, dumpInfo);
+    315: 
+    316:         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+
+# 4 0x004014A5 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23: 
+     24: 
+=>   25:     executeBufferCommands2(&processor, logFile, &dumpInfo);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:13352:
+
+  13350: HPEN txSetColor (COLORREF color, double thickness /*= 1*/, HDC dc /*= txDC()*/)
+  13351:     {
+=>13352: $1  if (_TX_DEFAULT_HDC_FAILED (dc)) return NULL;
+  13353: 
+  13354: $   HPEN pen = Win32::CreatePen ((color == TX_TRANSPARENT? PS_NULL : PS_SOLID), ROUND (thickness), color);
+
+# 1 in void drawRam(int*) at PROCESSOR/processorFunctions.cpp:277:
+
+    275: void drawRam (int* ram) {
+    276:     assert(ram);
+=>  277:     txSetColor (TX_DARKGRAY);
+    278: 
+    279:     int x = 0;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 18 2025 12:30:40, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 18 2025 12:30:43
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe, файл: c:\users\admin\downloads\codeblocks\mingw\include\txlib.h, строка: 13352, функция: HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC),
+
+Сообщение: Окно рисования не создано или не в порядке.
+Если вы указали параметр "dc", то он неверен.
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F4ADC (32-bit), Flags: Cmdre0, Thread: 0x30F0 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0047B2B3 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::txSetColor() at c:/users/admin/downloads/codeblocks/mingw/include/txlib.h:13352
+
+# 1 0x0048BD1F in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: drawRam() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:277:
+
+    275: void drawRam (int* ram) {
+    276:     assert(ram);
+=>  277:     txSetColor (TX_DARKGRAY);
+    278: 
+    279:     int x = 0;
+
+# 2 0x0042DEBB in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: popFunc() at C:/Users/Admin/Desktop/Stack/PROCESSOR/executableCommands.cpp:541:
+
+    539: 
+    540:         if (processor->drawON)
+=>  541:             drawRam(processor->ram);
+    542:     }
+    543: 
+
+# 3 0x0048C076 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands2() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:311:
+
+    309:         }
+    310: 
+=>  311:         stopExecution = (*((comandsArray[numOfCmd]).commandFunc))((comandsArray[numOfCmd]).commandCode, processor, dumpFile, dumpInfo);
+    312: 
+    313:         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+
+# 4 0x004014A5 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23: 
+     24: 
+=>   25:     executeBufferCommands2(&processor, logFile, &dumpInfo);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in HPEN__* {anonymous}::TX::txSetColor(COLORREF, double, HDC) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:13352:
+
+  13350: HPEN txSetColor (COLORREF color, double thickness /*= 1*/, HDC dc /*= txDC()*/)
+  13351:     {
+=>13352: $1  if (_TX_DEFAULT_HDC_FAILED (dc)) return NULL;
+  13353: 
+  13354: $   HPEN pen = Win32::CreatePen ((color == TX_TRANSPARENT? PS_NULL : PS_SOLID), ROUND (thickness), color);
+
+# 1 in void drawRam(int*) at PROCESSOR/processorFunctions.cpp:277:
+
+    275: void drawRam (int* ram) {
+    276:     assert(ram);
+=>  277:     txSetColor (TX_DARKGRAY);
+    278: 
+    279:     int x = 0;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 18 2025 12:32:26, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 18 2025 12:32:30
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\processor.exe, файл: c:\users\admin\downloads\codeblocks\mingw\include\txlib.h, строка: 8800, функция: HWND__* {anonymous}::TX::txCreateWindow(double, double, bool),
+
+Сообщение: Окно рисования уже создано!
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F4ADC (32-bit), Flags: CMdRe0, Thread: 0x388C (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x004612CF in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: (anonymous namespace)::TX::txCreateWindow() at c:/users/admin/downloads/codeblocks/mingw/include/txlib.h:8800
+
+# 1 0x0048C142 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: executeBufferCommands2() at C:/Users/Admin/Desktop/Stack/PROCESSOR/processorFunctions.cpp:316:
+
+    314: 
+    315:         if (processor->drawON)
+=>  316:             txCreateWindow (900, 900);
+    317: 
+    318:         if (stopExecution)
+
+# 2 0x004014A5 in C:\Users\Admin\Desktop\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/Stack/PROCESSOR/main.cpp:25:
+
+     23: 
+     24: 
+=>   25:     executeBufferCommands2(&processor, logFile, &dumpInfo);
+     26: 
+     27:     processorDtor(&processor);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in HWND__* {anonymous}::TX::txCreateWindow(double, double, bool) at c:\users\admin\downloads\codeblocks\mingw\include\txlib.h:8800:
+
+   8798:         {
+   8799: $       SetLastErrorEx (ERROR_INVALID_DATA, 0);
+=> 8800: $       _TX_ON_DEBUG (TX_ERROR ("\a" "Окно рисования уже создано!"));
+   8801: $       return wnd;
+   8802:         }
+
+# 1 in int executeBufferCommands2(spu*, FILE*, info*) at PROCESSOR/processorFunctions.cpp:316:
+
+    314: 
+    315:         if (processor->drawON)
+=>  316:             txCreateWindow (900, 900);
+    317: 
+    318:         if (stopExecution)
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 18 2025 12:34:51, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 18 2025 12:34:54
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------

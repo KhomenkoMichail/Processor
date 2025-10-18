@@ -12,18 +12,19 @@ int main (void) {
     const char* inputFile = "circle.asm";
     const char* outputTextFile = "textByteCode.txt";
     const char* outputBinFile = "binByteCode.bin";
+    const char* listingFile = "asmListing.lst";
 
     struct assembler Asm = {};
 
-    assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile);
+    assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile, listingFile);
 
-    if (commandRewriter2(&Asm)) {
+    if (compileCommands(&Asm)) {
         assemblerDtor(&Asm);
         return 1;
     }
 
 
-    if (commandRewriter2(&Asm)) {
+    if (compileCommands(&Asm)) {
         assemblerDtor(&Asm);
         return 1;
     }

@@ -22,137 +22,9 @@ void processorCtor (struct spu* processor, const char* processorName, const char
     STACK_CTOR(processor->regAddr, stackInfo, 10);
 
     processor->commandCode = makeCommandBuffer(nameOfByteCodeFile);
-}
 
-
-int executeBufferCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile) {
-    assert(dumpFile);
-    assert(dumpInfo);
-
-    int errorCode = noErrors;
-
-    txCreateWindow (900, 900);
-
-    for (processor->pc = 0; ; ) {
-        PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
-
-        switch ((processor->commandCode)[processor->pc + 3]) {
-            case PUSHcmd:
-                errorCode = pushCmd (processor, dumpFile, dumpInfo);
-                break;
-
-            case PUSHREGcmd:
-                errorCode = pushRegCmd (processor, dumpFile, dumpInfo);
-                break;
-
-            case POPREGcmd:
-                errorCode = popRegCmd (processor, dumpFile, dumpInfo);
-                break;
-
-            case ADDcmd:
-                errorCode = stackAdd(&(processor->stk), dumpFile, dumpInfo);
-                processor->pc++;
-                break;
-
-            case SUBcmd:
-                errorCode = stackSub(&(processor->stk), dumpFile, dumpInfo);
-                processor->pc++;
-                break;
-
-            case MULcmd:
-                errorCode = stackMul(&(processor->stk), dumpFile, dumpInfo);
-                processor->pc++;
-                break;
-
-            case MODcmd:
-                errorCode = stackMod(&(processor->stk), dumpFile, dumpInfo);
-                processor->pc++;
-                break;
-
-            case DIVcmd:
-                errorCode = stackDiv(&(processor->stk), dumpFile, dumpInfo);
-                processor->pc++;
-                break;
-
-            case POWcmd:
-                errorCode = stackPow(&(processor->stk), dumpFile, dumpInfo);
-                processor->pc++;
-                break;
-
-            case SQRTcmd:
-                errorCode = stackSqrt(&(processor->stk), dumpFile, dumpInfo);
-                processor->pc++;
-                break;
-
-            case OUTcmd:
-                errorCode = stackOut(&(processor->stk), dumpFile, dumpInfo);
-                processor->pc++;
-                break;
-
-            case INcmd:
-                errorCode = inCmd (processor, dumpFile, dumpInfo);
-                break;
-
-            case JMPcmd:
-                errorCode = jumpCmd (processor, dumpFile, dumpInfo);
-                break;
-
-            case JBcmd:
-                errorCode = jumpB(processor, dumpFile, dumpInfo);
-                break;
-
-            case JBEcmd:
-                errorCode = jumpBE(processor, dumpFile, dumpInfo);
-                break;
-
-            case JAcmd:
-                errorCode = jumpA(processor, dumpFile, dumpInfo);
-                break;
-
-            case JAEcmd:
-                errorCode = jumpAE(processor, dumpFile, dumpInfo);
-                break;
-
-            case JEcmd:
-                errorCode = jumpE(processor, dumpFile, dumpInfo);
-                break;
-
-            case JNEcmd:
-                errorCode = jumpNE(processor, dumpFile, dumpInfo);
-                break;
-
-            case CALLcmd:
-                errorCode = callCmd(processor, dumpFile, dumpInfo);
-                break;
-
-            case RETcmd:
-                errorCode = retCmd(processor, dumpFile, dumpInfo);
-                break;
-
-            case PUSHMcmd:
-                errorCode = pushMCmd(processor, dumpFile, dumpInfo);
-                break;
-
-            case POPMcmd:
-                errorCode = popMCmd(processor, dumpFile, dumpInfo);
-                break;
-
-            case HLTcmd:
-                return 0;
-                break;
-
-            default:
-                printf("ERROR! UNKNOWN COMMAND: \"%d\" number %d from %s\n", (processor->commandCode)[processor->pc + 3], processor->pc + 3, nameOfBinCodeFile);
-                processor->spuErrorCode |= unknownCommand;
-                break;
-        }
-        PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
-
-        if (errorCode)
-            return errorCode;
-    }
-
-    return 0;
+    processor->ram = (int*)calloc(3*100*100, sizeof(int));
+    processor->drawON = 0;
 }
 
 int processorVerifier (struct spu* processor) {
@@ -242,7 +114,7 @@ void fprintfCommandCode(struct spu* processor, FILE* file) {
         fprintf(file, "(BAD PROCESSOR VERSION!)\n");
 
     fprintf (file, "Command code:\n");
-    for(size_t numOfElement = 3; (processor->commandCode)[numOfElement] != END_OF_COMMANDS; numOfElement++)
+    for(size_t numOfElement = 3; (processor->commandCode)[numOfElement] != HLTcmd; numOfElement++)
         fprintf(file, "%05d ", (processor->commandCode)[numOfElement]);
 
     fprintf (file, "\n");
@@ -269,7 +141,7 @@ void processorDtor(struct spu* processor) {
     free(processor->stk.data);
 }
 
-void drawRam (int ram[30000]) {
+void drawRam (int* ram) {
     assert(ram);
     txSetColor (TX_DARKGRAY);
 
@@ -286,35 +158,32 @@ void drawRam (int ram[30000]) {
     }
 }
 
-///////
-
-int executeBufferCommands2 (struct spu* processor, FILE* dumpFile, struct info* dumpInfo, const char* nameOfBinCodeFile) {
+int executeCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
     assert(dumpFile);
     assert(dumpInfo);
 
     int stopExecution = 0;
+    int txWindowCreated = 0;
     int numOfCmd = 0;
-
-    txCreateWindow (900, 900);
 
     #include "../COMMON/commandsArray.h"
 
     for (processor->pc = 0; ; ) {
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
 
-        for (numOfCmd = 0; numOfCmd < NUMBER_OF_COMMANDS; numOfCmd++) {
+        for (numOfCmd = 0; numOfCmd < NUMBER_OF_COMMANDS - 1; numOfCmd++) {
             if ((processor->commandCode)[processor->pc + 3] == (comandsArray[numOfCmd]).commandCode)
                 break;
         }
 
-        //printf("numOfCmd == %d\n", numOfCmd);
-        //printf("(comandsArray[numOfCmd]).commandCode == %d\n", (comandsArray[numOfCmd]).commandCode);
-
         stopExecution = (*((comandsArray[numOfCmd]).commandFunc))((comandsArray[numOfCmd]).commandCode, processor, dumpFile, dumpInfo);
 
-        //processorDump(processor, stdout, *dumpInfo);
-        //getchar();
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
+
+        if ((processor->drawON) && (!txWindowCreated)) {
+            txCreateWindow (900, 900);
+            txWindowCreated = 1;
+        }
 
         if (stopExecution)
             break;

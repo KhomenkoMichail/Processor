@@ -71,7 +71,9 @@ struct spu {
     int spuErrorCode;
 
     stack_t regAddr;
-    int ram[100*100 * 3];
+
+    int* ram;
+    int drawON;
 };
 
 #endif
