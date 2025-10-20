@@ -13,16 +13,20 @@ int getNumberOfReg(const char* nameOfReg);
 
 void commentsCleaner(char* str);
 
-int getCmdRegArg (struct assembler* Asm, int offset, char* commandString, FILE* listingFile);
+int getCmdRegArg (struct assembler* Asm, int offset, char* commandString);
 
-int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString, FILE* listingFile);
+int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString);
 
-int getCmdNumArg (struct assembler* Asm, int offset, char* commandString, FILE* listingFile);
+int getCmdNumArg (struct assembler* Asm, int offset, char* commandString);
 
-int compileCommands(struct assembler* Asm);
-
-int getCmdArg (arguments argType, struct assembler* Asm, int offset, char* commandString, FILE* listingFile);
+int getCmdArg (arguments argType, struct assembler* Asm, int offset, char* commandString);
 
 int getLabel (const char* commandString, struct assembler* Asm);
+
+int structCommandComparator(const void* firstStruct, const void* secondStruct);
+
+int bsearchComparator(const void* commandHash, const void* structCommand);
+
+int compileCommands(struct assembler* Asm);
 
 #endif

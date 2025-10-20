@@ -5,4 +5,6 @@ const size_t MAX_BUFFER_SIZE = 500;
 
 int* makeCommandBuffer (const char* nameOfBinCodeFile);
 
+unsigned long long getCommandHash(const char* commandName);
+
 #endif

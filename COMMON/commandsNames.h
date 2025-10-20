@@ -43,4 +43,15 @@ enum arguments {
     numArg = 3,
 };
 
+typedef int (*processorFunc_t)(commandsNames executableCommand, struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
+struct command {
+    const char* name;
+    commandsNames commandCode;
+    arguments argType;
+    processorFunc_t commandFunc;
+    unsigned long long commandHash;
+};
+
+
 #endif

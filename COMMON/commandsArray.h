@@ -1,45 +1,30 @@
-#ifndef COMMANDS_ARRAY_H
-#define COMMANDS_ARRAY_H
-
 const int NUMBER_OF_COMMANDS = 27;
 
+struct command commandsArray[NUMBER_OF_COMMANDS] = { { "",        emptyString,      noArg,     &errorMessageFunc,  getCommandHash("")        },
+                                                     { "PUSH",    PUSHcmd,          numArg,    &pushFunc,          getCommandHash("PUSH")    },
+                                                     { "ADD",     ADDcmd,           noArg,     &calcFunc,          getCommandHash("ADD")     },
+                                                     { "SUB",     SUBcmd,           noArg,     &calcFunc,          getCommandHash("SUB")     },
+                                                     { "MUL",     MULcmd,           noArg,     &calcFunc,          getCommandHash("MUL")     },
+                                                     { "DIV",     DIVcmd,           noArg,     &calcFunc,          getCommandHash("DIV")     },
+                                                     { "POW",     POWcmd,           noArg,     &calcFunc,          getCommandHash("POW")     },
+                                                     { "SQRT",    SQRTcmd,          noArg,     &sqrtFunc,          getCommandHash("SQRT")    },
+                                                     { "OUT",     OUTcmd,           noArg,     &outFunc,           getCommandHash("OUT")     },
+                                                     { "HLT",     HLTcmd,           noArg,     &hltFunc,           getCommandHash("HLT")     },
+                                                     { "PUSHREG", PUSHREGcmd,       regArg,    &pushFunc,          getCommandHash("PUSHREG") },
+                                                     { "POPREG",  POPREGcmd,        regArg,    &popFunc,           getCommandHash("POPREG")  },
+                                                     { "IN",      INcmd,            noArg,     &inFunc,            getCommandHash("IN")      },
+                                                     { "JMP",     JMPcmd,           labelArg,  &jumpAndCallFunc,   getCommandHash("JMP")     },
+                                                     { "JB",      JBcmd,            labelArg,  &comparingJumpFunc, getCommandHash("JB")      },
+                                                     { "JBE",     JBEcmd,           labelArg,  &comparingJumpFunc, getCommandHash("JBE")     },
+                                                     { "JA",      JAcmd,            labelArg,  &comparingJumpFunc, getCommandHash("JA")      },
+                                                     { "JAE",     JAEcmd,           labelArg,  &comparingJumpFunc, getCommandHash("JAE")     },
+                                                     { "JE",      JEcmd,            labelArg,  &comparingJumpFunc, getCommandHash("JE")      },
+                                                     { "JNE",     JNEcmd,           labelArg,  &comparingJumpFunc, getCommandHash("JNE")     },
+                                                     { "CALL",    CALLcmd,          labelArg,  &jumpAndCallFunc,   getCommandHash("CALL")    },
+                                                     { "RET",     RETcmd,           noArg,     &retFunc,           getCommandHash("RET")     },
+                                                     { "PUSHM",   PUSHMcmd,         regArg,    &pushFunc,          getCommandHash("PUSHM")   },
+                                                     { "POPM",    POPMcmd,          regArg,    &popFunc,           getCommandHash("POPM")    },
+                                                     { "MOD",     MODcmd,           regArg,    &calcFunc,          getCommandHash("MOD")     },
+                                                     { "DRAW",    DRAWcmd,          noArg,     &drawFunc,          getCommandHash("DRAW")    },
+                                                     { "ERROR",   ERROR_COMMANDcmd, noArg,     &errorMessageFunc,  getCommandHash("ERROR")   } };
 
-typedef int (*processorFunc_t)(commandsNames executableCommand, struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
-
-struct command {
-    const char* name;
-    commandsNames commandCode;
-    arguments argType;
-    processorFunc_t commandFunc;
-};
-
-struct command comandsArray[NUMBER_OF_COMMANDS] = { { "",        emptyString,      noArg,     &errorMessageFunc  },
-                                                    { "PUSH",    PUSHcmd,          numArg,    &pushFunc          },
-                                                    { "ADD",     ADDcmd,           noArg,     &calcFunc          },
-                                                    { "SUB",     SUBcmd,           noArg,     &calcFunc          },
-                                                    { "MUL",     MULcmd,           noArg,     &calcFunc          },
-                                                    { "DIV",     DIVcmd,           noArg,     &calcFunc          },
-                                                    { "POW",     POWcmd,           noArg,     &calcFunc          },
-                                                    { "SQRT",    SQRTcmd,          noArg,     &sqrtFunc          },
-                                                    { "OUT",     OUTcmd,           noArg,     &outFunc           },
-                                                    { "HLT",     HLTcmd,           noArg,     &hltFunc           },
-                                                    { "PUSHREG", PUSHREGcmd,       regArg,    &pushFunc          },
-                                                    { "POPREG",  POPREGcmd,        regArg,    &popFunc           },
-                                                    { "IN",      INcmd,            noArg,     &inFunc            },
-                                                    { "JMP",     JMPcmd,           labelArg,  &jumpAndCallFunc   },
-                                                    { "JB",      JBcmd,            labelArg,  &comparingJumpFunc },
-                                                    { "JBE",     JBEcmd,           labelArg,  &comparingJumpFunc },
-                                                    { "JA",      JAcmd,            labelArg,  &comparingJumpFunc },
-                                                    { "JAE",     JAEcmd,           labelArg,  &comparingJumpFunc },
-                                                    { "JE",      JEcmd,            labelArg,  &comparingJumpFunc },
-                                                    { "JNE",     JNEcmd,           labelArg,  &comparingJumpFunc },
-                                                    { "CALL",    CALLcmd,          labelArg,  &jumpAndCallFunc   },
-                                                    { "RET",     RETcmd,           noArg,     &retFunc           },
-                                                    { "PUSHM",   PUSHMcmd,         regArg,    &pushFunc          },
-                                                    { "POPM",    POPMcmd,          regArg,    &popFunc           },
-                                                    { "MOD",     MODcmd,           regArg,    &calcFunc          },
-                                                    { "DRAW",    DRAWcmd,          noArg,     &drawFunc          },
-                                                    { "ERROR",   ERROR_COMMANDcmd, noArg,     &errorMessageFunc  } };
-
-
-#endif

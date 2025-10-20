@@ -148,12 +148,12 @@ void drawRam (int* ram) {
     int x = 0;
     int y = 0;
 
-    for (int i = 0; i < 30000; i += 3) {
+    for (int bit = 0; bit < 30000; bit += 3) {
 
-        x = i/3 % 100;
-        y = i/3 / 100;
+        x = bit/3 % 100;
+        y = bit/3 / 100;
 
-        txSetFillColor (RGB (ram[i], ram[i+1], ram[i+2]));
+        txSetFillColor (RGB (ram[bit], ram[bit+1], ram[bit+2]));
         txRectangle (x*10, y*10, x*10+15, y*10+15);
     }
 }
@@ -172,11 +172,11 @@ int executeCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInf
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
 
         for (numOfCmd = 0; numOfCmd < NUMBER_OF_COMMANDS - 1; numOfCmd++) {
-            if ((processor->commandCode)[processor->pc + 3] == (comandsArray[numOfCmd]).commandCode)
+            if ((processor->commandCode)[processor->pc + 3] == (commandsArray[numOfCmd]).commandCode)
                 break;
         }
 
-        stopExecution = (*((comandsArray[numOfCmd]).commandFunc))((comandsArray[numOfCmd]).commandCode, processor, dumpFile, dumpInfo);
+        stopExecution = (*((commandsArray[numOfCmd]).commandFunc))((commandsArray[numOfCmd]).commandCode, processor, dumpFile, dumpInfo);
 
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
 

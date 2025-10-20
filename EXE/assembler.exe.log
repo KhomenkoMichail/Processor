@@ -898,3 +898,377 @@ Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
 Directory:	C:\Users\Admin\Desktop\Stack
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe,
+
+ВНЕЗАПНО: signal (22, 0x00): SIGABRT: Аварийное завершение программы, вызвана функция abort(). 
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F5ADC (32-bit), Flags: Cmdre0, Thread: 0x4984 (Main), GetLastError(): 2 (Не удается найти указанный файл), errno: 2 (No such file or directory), _doserrno: 2 (No such file or directory). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00470CF4 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: (anonymous namespace)::TX::_txOnSignal() at c:/users/admin/downloads/codeblocks/mingw/include/txlib.h:11173
+# 1 0x75178F03 in C:\WINDOWS\System32\msvcrt.dll: raise()
+# 2 0x7517D3CB in C:\WINDOWS\System32\msvcrt.dll: abort()
+# 3 0x75179D47 in C:\WINDOWS\System32\msvcrt.dll: assert()
+
+# 4 0x0040242B in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: getStructComands() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/textTools.cpp:48:
+
+     46: 
+     47:     char* buffer = copyFileContent(structAddress, fileName);
+=>   48:     assert(buffer);
+     49: 
+     50:     size_t numberOfStrings    = getNumberOfSymbols(buffer, '\n');
+
+# 5 0x00401615 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: assemblerCtor() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:29:
+
+     27:     }
+     28: 
+=>   29:     getStructComands (&(Asm->cmds), inputFile);
+     30:     Asm->numOfLine = 0;
+     31: 
+
+# 6 0x0040145B in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:19:
+
+     17:     struct assembler Asm = {};
+     18: 
+=>   19:     assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile, listingFile);
+     20: 
+     21:     if (compileCommands(&Asm)) {
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 19 2025 22:37:11, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 19 2025 22:37:15
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x751AE609 в функции strcmp(). Попытка прочесть данные по адресу NULL в модуле C:\WINDOWS\System32\msvcrt.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F5ADC (32-bit), Flags: Cmdre0, Thread: 0x5418 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x751AE609 in C:\WINDOWS\System32\msvcrt.dll: strcmp()
+
+# 1 0x004022FD in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: getCmdArg() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:263:
+
+    261: 
+    262:     if (argType == labelArg)
+=>  263:         if  (getCmdLabelArg (Asm, offset, commandString))
+    264:             return 1;
+    265: 
+
+# 2 0x00402190 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: compileCommands() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:236:
+
+    234:         (Asm->commandBuffer)[Asm->commandCounter++] = (comandsArray[numOfCmd]).commandCode;
+    235: 
+=>  236:         if (getCmdArg ((comandsArray[numOfCmd]).argType, Asm, offset, commandString))
+    237:             return 1;
+    238: 
+
+# 3 0x0040148F in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:27:
+
+     25: 
+     26: 
+=>   27:     if (compileCommands(&Asm)) {
+     28:         assemblerDtor(&Asm);
+     29:         return 1;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 20 2025 16:56:33, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 20 2025 16:56:37
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x751AE609 в функции strcmp(). Попытка прочесть данные по адресу NULL в модуле C:\WINDOWS\System32\msvcrt.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F5ADC (32-bit), Flags: Cmdre0, Thread: 0x5418 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x751AE609 in C:\WINDOWS\System32\msvcrt.dll: strcmp()
+
+# 1 0x004022FD in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: getCmdArg() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:263:
+
+    261: 
+    262:     if (argType == labelArg)
+=>  263:         if  (getCmdLabelArg (Asm, offset, commandString))
+    264:             return 1;
+    265: 
+
+# 2 0x00402190 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: compileCommands() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:236:
+
+    234:         (Asm->commandBuffer)[Asm->commandCounter++] = (comandsArray[numOfCmd]).commandCode;
+    235: 
+=>  236:         if (getCmdArg ((comandsArray[numOfCmd]).argType, Asm, offset, commandString))
+    237:             return 1;
+    238: 
+
+# 3 0x0040148F in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:27:
+
+     25: 
+     26: 
+=>   27:     if (compileCommands(&Asm)) {
+     28:         assemblerDtor(&Asm);
+     29:         return 1;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 20 2025 16:56:33, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 20 2025 16:56:37
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0040340C в функции compileCommands22() в файле C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp на строке 392. Попытка прочесть данные по адресу 0x00000004 в модуле C:\Users\Admin\Desktop\Stack\EXE\assembler.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F7ADC (32-bit), Flags: Cmdre0, Thread: 0x4C70 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0040340C in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: compileCommands22() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:392:
+
+    390:         struct command* searchedCommand = (struct command*)bsearch(&commandStringHash, commandsArray, NUMBER_OF_COMMANDS, sizeof(struct command), bsearchComparator);
+    391: 
+=>  392:         if (searchedCommand->commandCode == emptyString)
+    393:             continue;
+    394: 
+
+# 1 0x00401467 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:21:
+
+     19:     assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile, listingFile);
+     20: 
+=>   21:     if (compileCommands22(&Asm)) {
+     22:         assemblerDtor(&Asm);
+     23:         return 1;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 20 2025 19:50:12, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 20 2025 19:50:16
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0040340C в функции compileCommands22() в файле C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp на строке 392. Попытка прочесть данные по адресу 0x00000004 в модуле C:\Users\Admin\Desktop\Stack\EXE\assembler.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F7ADC (32-bit), Flags: Cmdre0, Thread: 0x4C70 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0040340C in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: compileCommands22() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:392:
+
+    390:         struct command* searchedCommand = (struct command*)bsearch(&commandStringHash, commandsArray, NUMBER_OF_COMMANDS, sizeof(struct command), bsearchComparator);
+    391: 
+=>  392:         if (searchedCommand->commandCode == emptyString)
+    393:             continue;
+    394: 
+
+# 1 0x00401467 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:21:
+
+     19:     assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile, listingFile);
+     20: 
+=>   21:     if (compileCommands22(&Asm)) {
+     22:         assemblerDtor(&Asm);
+     23:         return 1;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 20 2025 19:50:12, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 20 2025 19:50:16
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0040340C в функции compileCommands22() в файле C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp на строке 392. Попытка прочесть данные по адресу 0x00000004 в модуле C:\Users\Admin\Desktop\Stack\EXE\assembler.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F7ADC (32-bit), Flags: Cmdre0, Thread: 0x1BD0 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0040340C in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: compileCommands22() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:392:
+
+    390:         struct command* searchedCommand = (struct command*)bsearch(&commandStringHash, commandsArray, NUMBER_OF_COMMANDS, sizeof(struct command), bsearchComparator);
+    391: 
+=>  392:         if (searchedCommand->commandCode == emptyString)
+    393:             continue;
+    394: 
+
+# 1 0x00401467 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:21:
+
+     19:     assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile, listingFile);
+     20: 
+=>   21:     if (compileCommands22(&Asm)) {
+     22:         assemblerDtor(&Asm);
+     23:         return 1;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 20 2025 19:51:18, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 20 2025 19:51:22
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x0040340C в функции compileCommands22() в файле C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp на строке 392. Попытка прочесть данные по адресу 0x00000004 в модуле C:\Users\Admin\Desktop\Stack\EXE\assembler.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F7ADC (32-bit), Flags: Cmdre0, Thread: 0x1BD0 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0040340C in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: compileCommands22() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:392:
+
+    390:         struct command* searchedCommand = (struct command*)bsearch(&commandStringHash, commandsArray, NUMBER_OF_COMMANDS, sizeof(struct command), bsearchComparator);
+    391: 
+=>  392:         if (searchedCommand->commandCode == emptyString)
+    393:             continue;
+    394: 
+
+# 1 0x00401467 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:21:
+
+     19:     assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile, listingFile);
+     20: 
+=>   21:     if (compileCommands22(&Asm)) {
+     22:         assemblerDtor(&Asm);
+     23:         return 1;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 20 2025 19:51:18, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 20 2025 19:51:22
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------

@@ -5,12 +5,19 @@
 #include "../COMMON/commandsNames.h"
 
 const int NUM_OF_LABELS = 10;
+const int NUM_OF_STRING_LABELS = 10;
+
+struct stringLabel {
+    char labelName[15];
+    int labelAddress;
+};
 
 struct assembler {
     const char* nameOfInputFile;
     const char* nameOfOutputTextFile;
     const char* nameOfOutputBinFile;
-    const char* nameOfListingFile;
+
+    FILE* listingFile;
 
     struct comands cmds;
     size_t numOfLine;
@@ -19,6 +26,9 @@ struct assembler {
     size_t commandCounter;
 
     int labels[NUM_OF_LABELS];
+
+    struct stringLabel stringLabels[NUM_OF_STRING_LABELS];
+    size_t stringLabelCounter;
 };
 
 #endif

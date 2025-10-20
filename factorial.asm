@@ -6,22 +6,22 @@ OUT
 HLT
 
 :1
-    PUSHREG Bx
-    PUSH 1
-    JE :2
-    PUSHREG Bx
-    PUSHREG Bx
-    PUSH 1
-    SUB
-    POPREG Bx
-    CALL :1
-    PUSHREG Ax
-    MUL
-    POPREG Ax
+PUSHREG Bx
+PUSH 1
+JE :2
+PUSHREG Bx
+PUSHREG Bx
+PUSH 1
+SUB
+POPREG Bx
+CALL :1
+PUSHREG Ax
+MUL
+POPREG Ax
 RET
 
 
-    :2
-        PUSH 1
-        POPREG Ax
-    RET
+:2
+PUSH 1
+POPREG Ax
+RET

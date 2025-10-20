@@ -30,3 +30,13 @@ int* makeCommandBuffer (const char* nameOfBinCodeFile) {
 
     return commandBuffer;
 }
+
+unsigned long long getCommandHash(const char* commandName) {
+    assert(commandName);
+    unsigned long long hash = 5381;
+
+    for(ssize_t numOfElement = 0; commandName[numOfElement] != '\0'; numOfElement++)
+        hash = ((hash << 5) + hash) + (unsigned long long)(commandName[numOfElement]);
+
+    return hash;
+}
