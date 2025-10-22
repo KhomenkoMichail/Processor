@@ -37,6 +37,8 @@ void drawRam (int* ram);
 
 int executeCommands(struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
 
+int badCommandCode(int commandCode, int maxAvailableCommandCode);
+
 #endif
 
 

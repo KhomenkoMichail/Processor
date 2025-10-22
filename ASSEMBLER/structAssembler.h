@@ -10,6 +10,7 @@ const int NUM_OF_STRING_LABELS = 10;
 struct stringLabel {
     char labelName[15];
     int labelAddress;
+    unsigned long long stringLabelHash;
 };
 
 struct assembler {

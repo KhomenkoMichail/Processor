@@ -25,8 +25,18 @@ int getLabel (const char* commandString, struct assembler* Asm);
 
 int structCommandComparator(const void* firstStruct, const void* secondStruct);
 
-int bsearchComparator(const void* commandHash, const void* structCommand);
+int bsearchCmdComparator(const void* commandHash, const void* structCommand);
 
 int compileCommands(struct assembler* Asm);
+
+void writeSignature (struct assembler* Asm);
+
+int getCmdRamArg (struct assembler* Asm, int offset, char* commandString);
+
+int bsearchLabelComparator(const void* firstParam, const void* secondParam);
+
+int structLabelComparator(const void* firstStruct, const void* secondStruct);
+
+int badCommand (struct command* searchedCommand, const char* commandString, struct assembler* Asm);
 
 #endif

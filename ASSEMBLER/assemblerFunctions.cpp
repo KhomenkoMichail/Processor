@@ -102,9 +102,6 @@ int getNumberOfReg(const char* nameOfReg) {
     char firstLetter = 0;
     sscanf(nameOfReg, "%c", &firstLetter);
 
-    if (firstLetter == '[')
-        sscanf(nameOfReg + 1, "%c", &firstLetter);
-
     return (int)(firstLetter - 'A');
 }
 
@@ -130,9 +127,15 @@ int getCmdRegArg (struct assembler* Asm, int offset, char* commandString) {
         return 1;
     }
 
-    int commandNumber = getNumberOfReg(regNameString);
-    fprintf(Asm->listingFile, "%7d  | ", commandNumber);
-    (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
+    int numOfReg = getNumberOfReg(regNameString);
+
+    if((numOfReg < 0) || (numOfReg >= NUM_OF_REGS) || (regNameString[1] != 'x')) {
+        printf("ERROR! %s:%d: bad registrArgrument: %s\n", Asm->nameOfInputFile, (Asm->numOfLine + 1), regNameString);
+        return 1;
+    };
+
+    fprintf(Asm->listingFile, "%7d  | ", numOfReg);
+    (Asm->commandBuffer)[Asm->commandCounter++] = numOfReg;
 
     return 0;
 }
@@ -141,30 +144,30 @@ int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString) {
     assert(Asm);
     assert(commandString);
 
-    int commandNumber = 0;
+    int numericLabel = 0;
     char labelName[15] = {};
 
-    if(sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, "%d", &commandNumber) != 1) {
+    if(sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, "%d", &numericLabel) != 1) {
 
-        if (sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, " :%d", &commandNumber) == 1) {
-            (Asm->commandBuffer)[Asm->commandCounter++] = (Asm->labels)[commandNumber];
-            fprintf(Asm->listingFile, "%7d  | ", commandNumber);
+        if (sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, " :%d", &numericLabel) == 1) {
+            (Asm->commandBuffer)[Asm->commandCounter++] = (Asm->labels)[numericLabel];
+            fprintf(Asm->listingFile, "%7d  | ", numericLabel);
             return 0;
         }
 
         else if (sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, " :%s", labelName) == 1) {
-            size_t numOfLabel = 0;
+            int labelAddress = -1;
 
-            for(; numOfLabel < Asm->stringLabelCounter; numOfLabel++)
-                if (strcmp(labelName, ((Asm->stringLabels)[numOfLabel]).labelName) == 0)
-                    break;
+            unsigned long long labelHash = getStringHash(labelName);
+            struct stringLabel* searchedLabel = (struct stringLabel*)bsearch(&labelHash, Asm->stringLabels, NUM_OF_LABELS, sizeof(struct stringLabel), bsearchLabelComparator);
 
-            if (numOfLabel == NUM_OF_STRING_LABELS)
-                (Asm->commandBuffer)[Asm->commandCounter++] = -1;
-            else
-                (Asm->commandBuffer)[Asm->commandCounter++] = ((Asm->stringLabels)[numOfLabel]).labelAddress;
+            if ((searchedLabel != NULL))
+                if(strcmp(labelName, searchedLabel->labelName) == 0)
+                    labelAddress = searchedLabel->labelAddress;
 
-            fprintf(Asm->listingFile, "%7d  | ", ((Asm->stringLabels)[numOfLabel]).labelAddress);
+            (Asm->commandBuffer)[Asm->commandCounter++] = labelAddress;
+
+            fprintf(Asm->listingFile, "%7d  | ", labelAddress);
             return 0;
         }
 
@@ -174,8 +177,8 @@ int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString) {
         }
     }
 
-    fprintf(Asm->listingFile, "%7d  | ", commandNumber);
-    (Asm->commandBuffer)[Asm->commandCounter++] = commandNumber;
+    fprintf(Asm->listingFile, "%7d  | ", numericLabel);
+    (Asm->commandBuffer)[Asm->commandCounter++] = numericLabel;
     return 0;
 }
 
@@ -212,6 +215,10 @@ int getCmdArg (arguments argType, struct assembler* Asm, int offset, char* comma
         if  (getCmdRegArg (Asm, offset, commandString))
             return 1;
 
+    if (argType == ramArg)
+        if  (getCmdRamArg (Asm, offset, commandString))
+            return 1;
+
     if (argType == labelArg)
         if  (getCmdLabelArg (Asm, offset, commandString))
             return 1;
@@ -228,7 +235,7 @@ int getLabel (const char* commandString, struct assembler* Asm) {
         char labelName[15] = {};
 
         if(sscanf(commandString, ":%d", &numOfLabel) == 1) {
-            (Asm->labels)[numOfLabel] = Asm->commandCounter - 3;
+            (Asm->labels)[numOfLabel] = Asm->commandCounter - signSize;
             return 1;
         }
 
@@ -239,12 +246,22 @@ int getLabel (const char* commandString, struct assembler* Asm) {
                 return 0;
             }
 
-            for (numOfLabel = 0; numOfLabel < Asm->stringLabelCounter; numOfLabel++)
-                if(((Asm->stringLabels)[numOfLabel]).labelAddress == (int)(Asm->commandCounter - 3))
-                    return 1;
+            unsigned long long labelHash = getStringHash(labelName);
+            struct stringLabel* searchedLabel = (struct stringLabel*)bsearch(&labelHash, Asm->stringLabels, NUM_OF_LABELS, sizeof(struct stringLabel), bsearchLabelComparator);
 
-            strcpy(((Asm->stringLabels)[Asm->stringLabelCounter]).labelName, labelName);
-            ((Asm->stringLabels)[Asm->stringLabelCounter++]).labelAddress = Asm->commandCounter - 3;
+            if((searchedLabel != NULL) && (strcmp(searchedLabel->labelName, labelName) == 0))
+                return 1;
+
+            strcpy(((Asm->stringLabels)[0]).labelName, labelName);
+            ((Asm->stringLabels)[0]).labelAddress = Asm->commandCounter - signSize;
+            ((Asm->stringLabels)[0]).stringLabelHash = labelHash;
+
+            qsort(Asm->stringLabels, NUM_OF_LABELS, sizeof(struct stringLabel), structLabelComparator);
+
+            //for(int i = 0; i < 10; i++)
+            //    printf("((Asm->stringLabels)[%d]).labelName == %s\n", i, ((Asm->stringLabels)[i]).labelName);
+
+            Asm->stringLabelCounter++;
             return 1;
         }
     }
@@ -259,40 +276,36 @@ int structCommandComparator(const void* firstStruct, const void* secondStruct) {
     const struct command* firstCommand = (const struct command*)firstStruct;
     const struct command* secondCommand = (const struct command*)secondStruct;
 
-    if (firstCommand->commandHash < secondCommand->commandHash)
-        return -1;
-
-    if (firstCommand->commandHash == secondCommand->commandHash)
-        return 0;
-
-    return 1;
+    return (int)(firstCommand->commandHash - secondCommand->commandHash);
 }
 
-int bsearchComparator(const void* firstParam, const void* secondParam) {
+int bsearchCmdComparator(const void* firstParam, const void* secondParam) {
     assert(firstParam);
     assert(secondParam);
 
     const unsigned long long* commandHash = (const unsigned long long*)firstParam;
     const struct command* command = (const struct command*)secondParam;
 
-    if (*commandHash < command->commandHash)
-        return -1;
+    return (int)(*commandHash - command->commandHash);
+}
 
-    if (*commandHash == command->commandHash)
-        return 0;
+int bsearchLabelComparator(const void* firstParam, const void* secondParam) {
+    assert(firstParam);
+    assert(secondParam);
 
-    return 1;
+    const unsigned long long* labelHash = (const unsigned long long*)firstParam;
+    const struct stringLabel* searchedLabel = (const struct stringLabel*)secondParam;
+
+    return (int)(*labelHash - searchedLabel->stringLabelHash);
 }
 
 int compileCommands(struct assembler* Asm) {
     assert(Asm);
 
-    Asm->commandBuffer = (int*)calloc(((Asm->cmds).numberOfStrings)*2 + 4, sizeof(int));
-    Asm->commandCounter = 3;
+    Asm->commandBuffer = (int*)calloc(((Asm->cmds).numberOfStrings)*2 + signSize, sizeof(int));
+    Asm->commandCounter = signSize;
 
-    Asm->commandBuffer[0] = signature;
-    Asm->commandBuffer[1] = signature;
-    Asm->commandBuffer[2] = version;
+    writeSignature(Asm);
 
     #include"../COMMON/commandsArray.h"
     qsort(commandsArray, NUMBER_OF_COMMANDS, sizeof(struct command), structCommandComparator);
@@ -307,13 +320,11 @@ int compileCommands(struct assembler* Asm) {
         if (getLabel (commandString, Asm))
             continue;
 
-        unsigned long long commandStringHash = getCommandHash(commandString);
-        struct command* searchedCommand = (struct command*)bsearch(&commandStringHash, commandsArray, NUMBER_OF_COMMANDS, sizeof(struct command), bsearchComparator);
+        unsigned long long commandStringHash = getStringHash(commandString);
+        struct command* searchedCommand = (struct command*)bsearch(&commandStringHash, commandsArray, NUMBER_OF_COMMANDS, sizeof(struct command), bsearchCmdComparator);
 
-        if ((searchedCommand == NULL) || (searchedCommand->commandCode == ERROR_COMMANDcmd)) {
-            printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS! %s:%d\n", commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
+        if (badCommand (searchedCommand, commandString, Asm))
             return 1;
-        }
 
         if (searchedCommand->commandCode == emptyString)
             continue;
@@ -327,6 +338,65 @@ int compileCommands(struct assembler* Asm) {
 
         fprintf(Asm->listingFile, "%s\n", (((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString);
     }
+
+    return 0;
+}
+
+void writeSignature (struct assembler* Asm) {
+
+    Asm->commandBuffer[0] = signature;
+    Asm->commandBuffer[1] = signature;
+    Asm->commandBuffer[2] = version;
+}
+
+int getCmdRamArg (struct assembler* Asm, int offset, char* commandString) {
+    assert(Asm);
+    assert(commandString);
+
+    char ramArgString[5] = {};
+
+    if(sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, "%s", ramArgString) != 1) {
+        printf("ERROR %s COMMAND! BAD OR NO %s VALUE! %s:%d\n",commandString, commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
+        return 1;
+    }
+
+    int numOfReg = getNumberOfReg(ramArgString + 1);
+
+    if ((numOfReg < 0) || (numOfReg >= NUM_OF_REGS) || (ramArgString[0] != '[')
+                       || (ramArgString[2] != 'x')|| (ramArgString[3] != ']')) {
+        printf("ERROR! %s:%d bad ramCommandArgrument: %s\n", Asm->nameOfInputFile, (Asm->numOfLine + 1), ramArgString);
+        return 1;
+    };
+
+    fprintf(Asm->listingFile, "%7d  | ", numOfReg);
+    (Asm->commandBuffer)[Asm->commandCounter++] = numOfReg;
+
+    return 0;
+}
+
+int structLabelComparator(const void* firstStruct, const void* secondStruct) {
+    assert(firstStruct);
+    assert(secondStruct);
+
+    const struct stringLabel* firstLabel = (const struct stringLabel*)firstStruct;
+    const struct stringLabel* secondLabel = (const struct stringLabel*)secondStruct;
+
+    return (int)(firstLabel->stringLabelHash - secondLabel->stringLabelHash);
+}
+
+int badCommand (struct command* searchedCommand, const char* commandString, struct assembler* Asm) {
+    assert(commandString);
+    assert(Asm);
+
+    if (searchedCommand == NULL) {
+            printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS! %s:%d\n", commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
+            return 1;
+        }
+
+    if (strcmp(searchedCommand->name, commandString) != 0) {
+            printf("ERROR! UNKNOWN COMMAND: \"%s\" ENTER ONLY AVAILABLE COMANDS! %s:%d\n", commandString, Asm->nameOfInputFile, (Asm->numOfLine+1));
+            return 1;
+        }
 
     return 0;
 }

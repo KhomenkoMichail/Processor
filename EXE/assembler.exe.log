@@ -1272,3 +1272,133 @@ Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
 Directory:	C:\Users\Admin\Desktop\Stack
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe,
+
+ВНЕЗАПНО: Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00401DA9 в функции getCmdLabelArg() в файле C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp на строке 173. Попытка прочесть данные по адресу 0x00000010 в модуле C:\Users\Admin\Desktop\Stack\EXE\assembler.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F6ADC (32-bit), Flags: Cmdre0, Thread: 0x2F68 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00401DA9 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: getCmdLabelArg() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:173:
+
+    171:             struct stringLabel* searchedLabel = (struct stringLabel*)bsearch(&labelHash, Asm->stringLabels, NUM_OF_LABELS, sizeof(struct stringLabel), bsearchLabelComparator);
+    172: 
+=>  173:             (Asm->commandBuffer)[Asm->commandCounter++] = searchedLabel->labelAddress;
+    174: 
+    175:             //(Asm->commandBuffer)[Asm->commandCounter++] = ((Asm->stringLabels)[numOfLabel]).labelAddress;
+
+# 1 0x0040206C in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: getCmdArg() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:230:
+
+    228: 
+    229:     if (argType == labelArg)
+=>  230:         if  (getCmdLabelArg (Asm, offset, commandString))
+    231:             return 1;
+    232: 
+
+# 2 0x00402C26 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: compileCommands() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:338:
+
+    336:         (Asm->commandBuffer)[Asm->commandCounter++] = searchedCommand->commandCode;
+    337: 
+=>  338:         if (getCmdArg (searchedCommand->argType, Asm, offset, commandString))
+    339:             return 1;
+    340: 
+
+# 3 0x0040148E in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:23:
+
+     21:     assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile, listingFile);
+     22: 
+=>   23:     if (compileCommands(&Asm)) {
+     24:         assemblerDtor(&Asm);
+     25:         return 1;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 22 2025 13:40:09, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 22 2025 13:40:13
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\Stack\EXE\assembler.exe,
+
+ВНЕЗАПНО: signal (11, 0x00): SIGSEGV: Доступ по неверному указателю. Ставьте ассерты! 
+
+Нарушение доступа к памяти.
+
+#1: Исключение EXCEPTION_ACCESS_VIOLATION (0xC0000005) при выполнении кода по адресу 0x00401DA9 в функции getCmdLabelArg() в файле C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp на строке 173. Попытка прочесть данные по адресу 0x00000010 в модуле C:\Users\Admin\Desktop\Stack\EXE\assembler.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400], Instance: 0x005F6ADC (32-bit), Flags: Cmdre0, Thread: 0x2F68 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00401DA9 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: getCmdLabelArg() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:173:
+
+    171:             struct stringLabel* searchedLabel = (struct stringLabel*)bsearch(&labelHash, Asm->stringLabels, NUM_OF_LABELS, sizeof(struct stringLabel), bsearchLabelComparator);
+    172: 
+=>  173:             (Asm->commandBuffer)[Asm->commandCounter++] = searchedLabel->labelAddress;
+    174: 
+    175:             //(Asm->commandBuffer)[Asm->commandCounter++] = ((Asm->stringLabels)[numOfLabel]).labelAddress;
+
+# 1 0x0040206C in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: getCmdArg() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:230:
+
+    228: 
+    229:     if (argType == labelArg)
+=>  230:         if  (getCmdLabelArg (Asm, offset, commandString))
+    231:             return 1;
+    232: 
+
+# 2 0x00402C26 in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: compileCommands() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/assemblerFunctions.cpp:338:
+
+    336:         (Asm->commandBuffer)[Asm->commandCounter++] = searchedCommand->commandCode;
+    337: 
+=>  338:         if (getCmdArg (searchedCommand->argType, Asm, offset, commandString))
+    339:             return 1;
+    340: 
+
+# 3 0x0040148E in C:\Users\Admin\Desktop\Stack\EXE\assembler.exe: main() at C:/Users/Admin/Desktop/Stack/ASSEMBLER/mainAssembler.cpp:23:
+
+     21:     assemblerCtor(&Asm, inputFile, outputTextFile, outputBinFile, listingFile);
+     22: 
+=>   23:     if (compileCommands(&Asm)) {
+     24:         assemblerDtor(&Asm);
+     25:         return 1;
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-03 17:59:06 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\admin\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Oct 22 2025 13:40:09, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Oct 22 2025 13:40:13
+
+Run file:	C:\Users\Admin\Desktop\Stack\EXE\assembler.exe
+Directory:	C:\Users\Admin\Desktop\Stack
+
+--------------------------------------------------

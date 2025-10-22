@@ -18,24 +18,24 @@ int pushFunc(commandsNames executableCommand, struct spu* processor, FILE* dumpF
     processor->pc++;
 
     if (executableCommand == PUSHcmd) {
-        STACK_PUSH(&(processor->stk), (processor->commandCode)[processor->pc + 3], dumpFile, dumpInfo);
+        STACK_PUSH(&(processor->stk), (processor->commandCode)[processor->pc + signSize], dumpFile, dumpInfo);
     }
 
     if (executableCommand == PUSHREGcmd) {
-        STACK_PUSH(&(processor->stk), (processor->regs)[((processor->commandCode)[processor->pc + 3])], dumpFile, dumpInfo);
+        STACK_PUSH(&(processor->stk), (processor->regs)[((processor->commandCode)[processor->pc + signSize])], dumpFile, dumpInfo);
     }
 
     if (executableCommand == PUSHMcmd) {
-        int numOfReg = (processor->commandCode)[processor->pc + 3];
+        int numOfReg = (processor->commandCode)[processor->pc + signSize];
         int numOfRamElem = (processor->regs)[numOfReg];
 
         STACK_PUSH(&(processor->stk), (processor->ram)[numOfRamElem], dumpFile, dumpInfo);
 
-        if (processor->drawON)
-            drawRam(processor->ram);
+        //if (processor->drawON)
+            //drawRam(processor->ram);
     }
 
-    processor->pc++;
+  processor->pc++;
 
     return 0;
 }
@@ -45,19 +45,19 @@ int popFunc(commandsNames executableCommand, struct spu* processor, FILE* dumpFi
     assert(dumpFile);
     assert(dumpInfo);
 
-    processor->pc++;
+  processor->pc++;
 
     if (executableCommand == POPREGcmd) {
-        STACK_POP(&(processor->stk), (processor->regs) + (processor->commandCode)[processor->pc + 3], dumpFile, dumpInfo);
+        STACK_POP(&(processor->stk), (processor->regs) + (processor->commandCode)[processor->pc + signSize], dumpFile, dumpInfo);
     }
 
     if (executableCommand == POPMcmd) {
-        int numOfReg = (processor->commandCode)[processor->pc + 3];
+        int numOfReg = (processor->commandCode)[processor->pc + signSize];
         int numOfRamElem = (processor->regs)[numOfReg];
         STACK_POP(&(processor->stk), (processor->ram) + numOfRamElem, dumpFile, dumpInfo);
 
-        if (processor->drawON)
-            drawRam(processor->ram);
+        //if (processor->drawON)
+            //drawRam(processor->ram);
     }
 
     processor->pc++;
@@ -194,7 +194,7 @@ int jumpAndCallFunc(commandsNames executableCommand, struct spu* processor, FILE
 
     processor->pc++;
 
-    if (((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+    if (((processor->commandCode)[processor->pc + signSize] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + signSize] < 0)){
         fprintf(dumpFile, "ERROR JMP COMMAND! BAD NO JMP VALUE!\n");
         printf("ERROR JMP COMMAND! BAD OR NO JMP VALUE!\n");
         return 1;
@@ -204,7 +204,7 @@ int jumpAndCallFunc(commandsNames executableCommand, struct spu* processor, FILE
         STACK_PUSH(&(processor->regAddr), (processor->pc + 1), dumpFile, dumpInfo);
     }
 
-    processor->pc = (processor->commandCode)[processor->pc + 3];
+    processor->pc = (processor->commandCode)[processor->pc + signSize];
     return 0;
 }
 
@@ -213,8 +213,8 @@ int comparingJumpFunc(commandsNames executableCommand, struct spu* processor, FI
     assert(dumpFile);
     assert(dumpInfo);
 
-    processor->pc++;
-    if (((processor->commandCode)[processor->pc + 3] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + 3] < 0)){
+  processor->pc++;
+    if (((processor->commandCode)[processor->pc + signSize] >= (int)MAX_BUFFER_SIZE) || ((processor->commandCode)[processor->pc + signSize] < 0)){
         printf("ERROR COMPARING JUMP COMMAND! BAD OR NO COMPARING JUMP VALUE!\n");
         return 1;
     }
@@ -227,37 +227,37 @@ int comparingJumpFunc(commandsNames executableCommand, struct spu* processor, FI
 
     if (executableCommand == JBcmd) {
         if (a < b)
-            processor->pc = (processor->commandCode)[processor->pc + 3];
+            processor->pc = (processor->commandCode)[processor->pc + signSize];
         else processor->pc++;
     }
 
     if (executableCommand ==  JBEcmd) {
         if (a <= b)
-            processor->pc = (processor->commandCode)[processor->pc + 3];
+            processor->pc = (processor->commandCode)[processor->pc + signSize];
         else processor->pc++;
     }
 
     if (executableCommand == JAcmd) {
         if (a > b)
-            processor->pc = (processor->commandCode)[processor->pc + 3];
+            processor->pc = (processor->commandCode)[processor->pc + signSize];
         else processor->pc++;
     }
 
     if (executableCommand == JAEcmd) {
         if (a >= b)
-            processor->pc = (processor->commandCode)[processor->pc + 3];
+            processor->pc = (processor->commandCode)[processor->pc + signSize];
         else processor->pc++;
     }
 
     if (executableCommand == JEcmd) {
         if (a == b)
-            processor->pc = (processor->commandCode)[processor->pc + 3];
+            processor->pc = (processor->commandCode)[processor->pc + signSize];
         else processor->pc++;
     }
 
     if (executableCommand == JNEcmd) {
         if (a != b)
-            processor->pc = (processor->commandCode)[processor->pc + 3];
+            processor->pc = (processor->commandCode)[processor->pc + signSize];
         else processor->pc++;
     }
 
@@ -312,6 +312,20 @@ int drawFunc (commandsNames executableCommand, struct spu* processor, FILE* dump
         processor->drawON = 1;
 
     processor->pc++;
+    return 0;
+}
+
+int updateFunc (commandsNames executableCommand, struct spu* processor,
+                FILE* dumpFile, struct info* dumpInfo) {
+    (void)executableCommand;
+    (void)dumpFile;
+    (void)dumpInfo;
+
+    if (processor->drawON)
+            drawRam(processor->ram);
+
+    processor->pc++;
+
     return 0;
 }
 

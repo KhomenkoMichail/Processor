@@ -1,5 +1,3 @@
-PUSH 15
-PUSH 4
-MOD
-OUT
-HLT
+POPREG [Ax]
+POPM Ax
+

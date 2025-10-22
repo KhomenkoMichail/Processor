@@ -7,9 +7,11 @@
 #include "textTools.h"
 
 
-int main (void) {
+int main (int argc, const char* argv[]) {
 
-    const char* inputFile = "circle.asm";
+    if (argc != 2) return printf("Usage: %s source.asm\n", argv[0]), 1;
+
+    const char* inputFile = argv[1];
     const char* outputTextFile = "textByteCode.txt";
     const char* outputBinFile = "binByteCode.bin";
     const char* listingFile = "asmListing.lst";

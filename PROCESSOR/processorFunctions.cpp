@@ -148,6 +148,8 @@ void drawRam (int* ram) {
     int x = 0;
     int y = 0;
 
+    txBegin();
+
     for (int bit = 0; bit < 30000; bit += 3) {
 
         x = bit/3 % 100;
@@ -156,6 +158,7 @@ void drawRam (int* ram) {
         txSetFillColor (RGB (ram[bit], ram[bit+1], ram[bit+2]));
         txRectangle (x*10, y*10, x*10+15, y*10+15);
     }
+    txEnd();
 }
 
 int executeCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInfo) {
@@ -164,19 +167,19 @@ int executeCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInf
 
     int stopExecution = 0;
     int txWindowCreated = 0;
-    int numOfCmd = 0;
 
     #include "../COMMON/commandsArray.h"
 
     for (processor->pc = 0; ; ) {
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
 
-        for (numOfCmd = 0; numOfCmd < NUMBER_OF_COMMANDS - 1; numOfCmd++) {
-            if ((processor->commandCode)[processor->pc + 3] == (commandsArray[numOfCmd]).commandCode)
-                break;
-        }
+        int executableCommandCode = (processor->commandCode)[processor->pc + signSize];
 
-        stopExecution = (*((commandsArray[numOfCmd]).commandFunc))((commandsArray[numOfCmd]).commandCode, processor, dumpFile, dumpInfo);
+        if (badCommandCode(executableCommandCode, NUMBER_OF_COMMANDS))
+            return 1;
+
+        struct command executableCommand = commandsArray[executableCommandCode];
+        stopExecution = (*(executableCommand.commandFunc))(executableCommand.commandCode, processor, dumpFile, dumpInfo);
 
         PROCESSOR_ERRORS_CHECK(processor, dumpFile, dumpInfo);
 
@@ -191,3 +194,14 @@ int executeCommands (struct spu* processor, FILE* dumpFile, struct info* dumpInf
 
     return 0;
 }
+
+int badCommandCode(int commandCode, int maxAvailableCommandCode) {
+
+    if ((commandCode < 0) || commandCode >= maxAvailableCommandCode) {
+        printf("ERROR! unknown command %d. This command is not supported!\n", commandCode);
+        return 1;
+    }
+
+    return 0;
+}
+

@@ -28,4 +28,6 @@ int errorMessageFunc(commandsNames executableCommand, struct spu* processor, FIL
 
 int drawFunc (commandsNames executableCommand, struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
 
+int updateFunc (commandsNames executableCommand, struct spu* processor, FILE* dumpFile, struct info* dumpInfo);
+
 #endif

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <typeinfo>
 #include <stdlib.h>
+#include <txLib.h>
 
 #include "structsAndEnums.h"
 #include "stackFunctions.h"
