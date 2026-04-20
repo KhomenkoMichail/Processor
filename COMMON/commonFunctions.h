@@ -1,7 +1,7 @@
 #ifndef COMMON_FUNCTIONS_H
 #define COMMON_FUNCTIONS_H
 
-const size_t MAX_BUFFER_SIZE = 500;
+const size_t MAX_BUFFER_SIZE = 2048;
 
 int* makeCommandBuffer (const char* nameOfBinCodeFile);
 

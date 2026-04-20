@@ -1,5 +1,0 @@
-PUSH 3
-PUSH 3
-OUT
-OUT
-HLT

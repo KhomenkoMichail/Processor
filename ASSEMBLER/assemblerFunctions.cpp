@@ -145,7 +145,7 @@ int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString) {
     assert(commandString);
 
     int numericLabel = 0;
-    char labelName[15] = {};
+    char labelName[30] = {};
 
     if(sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString + offset, "%d", &numericLabel) != 1) {
 
@@ -159,7 +159,7 @@ int getCmdLabelArg (struct assembler* Asm, int offset, char* commandString) {
             int labelAddress = -1;
 
             unsigned long long labelHash = getStringHash(labelName);
-            struct stringLabel* searchedLabel = (struct stringLabel*)bsearch(&labelHash, Asm->stringLabels, NUM_OF_LABELS, sizeof(struct stringLabel), bsearchLabelComparator);
+            struct stringLabel* searchedLabel = (struct stringLabel*)bsearch(&labelHash, Asm->stringLabels, Asm->stringLabelCounter, sizeof(struct stringLabel), bsearchLabelComparator);
 
             if ((searchedLabel != NULL))
                 if(strcmp(labelName, searchedLabel->labelName) == 0)
@@ -232,7 +232,7 @@ int getLabel (const char* commandString, struct assembler* Asm) {
 
     if (commandString[0] == ':') {
         size_t numOfLabel = 0;
-        char labelName[15] = {};
+        char labelName[30] = {};
 
         if(sscanf(commandString, ":%d", &numOfLabel) == 1) {
             (Asm->labels)[numOfLabel] = Asm->commandCounter - signSize;
@@ -247,21 +247,19 @@ int getLabel (const char* commandString, struct assembler* Asm) {
             }
 
             unsigned long long labelHash = getStringHash(labelName);
-            struct stringLabel* searchedLabel = (struct stringLabel*)bsearch(&labelHash, Asm->stringLabels, NUM_OF_LABELS, sizeof(struct stringLabel), bsearchLabelComparator);
+            struct stringLabel* searchedLabel = (struct stringLabel*)bsearch(&labelHash, Asm->stringLabels, Asm->stringLabelCounter, sizeof(struct stringLabel), bsearchLabelComparator);
 
             if((searchedLabel != NULL) && (strcmp(searchedLabel->labelName, labelName) == 0))
                 return 1;
 
-            strcpy(((Asm->stringLabels)[0]).labelName, labelName);
-            ((Asm->stringLabels)[0]).labelAddress = Asm->commandCounter - signSize;
-            ((Asm->stringLabels)[0]).stringLabelHash = labelHash;
-
-            qsort(Asm->stringLabels, NUM_OF_LABELS, sizeof(struct stringLabel), structLabelComparator);
-
-            //for(int i = 0; i < 10; i++)
-            //    printf("((Asm->stringLabels)[%d]).labelName == %s\n", i, ((Asm->stringLabels)[i]).labelName);
+            strcpy(((Asm->stringLabels)[Asm->stringLabelCounter]).labelName, labelName);
+            ((Asm->stringLabels)[Asm->stringLabelCounter]).labelAddress = Asm->commandCounter - signSize;
+            ((Asm->stringLabels)[Asm->stringLabelCounter]).stringLabelHash = labelHash;
 
             Asm->stringLabelCounter++;
+
+            qsort(Asm->stringLabels, Asm->stringLabelCounter, sizeof(struct stringLabel), structLabelComparator);
+
             return 1;
         }
     }
@@ -289,14 +287,15 @@ int bsearchCmdComparator(const void* firstParam, const void* secondParam) {
     return (int)(*commandHash - command->commandHash);
 }
 
-int bsearchLabelComparator(const void* firstParam, const void* secondParam) {
-    assert(firstParam);
-    assert(secondParam);
+int bsearchLabelComparator(const void* key, const void* element) {
+    unsigned long long keyHash = *(unsigned long long*)key;
+    const struct stringLabel* label = (struct stringLabel*)element;
 
-    const unsigned long long* labelHash = (const unsigned long long*)firstParam;
-    const struct stringLabel* searchedLabel = (const struct stringLabel*)secondParam;
-
-    return (int)(*labelHash - searchedLabel->stringLabelHash);
+    if (keyHash < label->stringLabelHash)
+        return -1;
+    if (keyHash > label->stringLabelHash)
+        return 1;
+    return 0;
 }
 
 int compileCommands(struct assembler* Asm) {
@@ -312,7 +311,7 @@ int compileCommands(struct assembler* Asm) {
 
     for (Asm->numOfLine = 0; Asm->numOfLine < (Asm->cmds).numberOfStrings; Asm->numOfLine++) {
 
-        char commandString[10] = {};
+        char commandString[30] = {};
         int offset = 0;
 
         sscanf((((Asm->cmds).arrOfStringStructs)[Asm->numOfLine]).ptrToString, "%s%n", commandString, &offset);
@@ -373,7 +372,7 @@ int getCmdRamArg (struct assembler* Asm, int offset, char* commandString) {
 
     return 0;
 }
-
+/*
 int structLabelComparator(const void* firstStruct, const void* secondStruct) {
     assert(firstStruct);
     assert(secondStruct);
@@ -382,6 +381,21 @@ int structLabelComparator(const void* firstStruct, const void* secondStruct) {
     const struct stringLabel* secondLabel = (const struct stringLabel*)secondStruct;
 
     return (int)(firstLabel->stringLabelHash - secondLabel->stringLabelHash);
+}*/
+int structLabelComparator(const void* firstStruct, const void* secondStruct) {
+    assert(firstStruct);
+    assert(secondStruct);
+
+    const struct stringLabel* firstLabel = (const struct stringLabel*)firstStruct;
+    const struct stringLabel* secondLabel = (const struct stringLabel*)secondStruct;
+
+    // Правильное сравнение 64-битных чисел
+    if (firstLabel->stringLabelHash < secondLabel->stringLabelHash)
+        return -1;
+    else if (firstLabel->stringLabelHash > secondLabel->stringLabelHash)
+        return 1;
+    else
+        return 0;
 }
 
 int badCommand (struct command* searchedCommand, const char* commandString, struct assembler* Asm) {

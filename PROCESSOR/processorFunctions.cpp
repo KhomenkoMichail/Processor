@@ -1,6 +1,6 @@
+#include <TXLib.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <TXLib.h>
 
 #include "processorFunctions.h"
 #include "stackFunctions.h"

@@ -5,10 +5,10 @@
 #include "../COMMON/commandsNames.h"
 
 const int NUM_OF_LABELS = 10;
-const int NUM_OF_STRING_LABELS = 10;
+const int NUM_OF_STRING_LABELS = 100;
 
 struct stringLabel {
-    char labelName[15];
+    char labelName[30];
     int labelAddress;
     unsigned long long stringLabelHash;
 };

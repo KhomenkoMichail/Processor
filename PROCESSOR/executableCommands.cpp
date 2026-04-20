@@ -1,7 +1,7 @@
+#include <TXLib.h>
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-#include <TXLib.h>
 
 #include "stackFunctions.h"
 #include "structsAndEnums.h"

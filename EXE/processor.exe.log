@@ -1686,3 +1686,443 @@ Run file:	C:\Users\Admin\Desktop\Stack\EXE\processor.exe
 Directory:	C:\Users\Admin\Desktop\Stack
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: #1: РљСѓС‡Р° Р±С‹Р»Р° РїРѕРІСЂРµР¶РґРµРЅР°. (0xC0000374) при выполнении кода по адресу 0x00007FF8F6237885 в функции RtlpMuiRegCreateRegistryInfo() в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+Ой, всё (EXCEPTION_NONCONTINUABLE).
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400], Instance: 0x00007FF6914AA090 (64-bit), Flags: Cmdre0, Thread: 0x5C04 (Main), GetLastError(): 183 (РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р», С‚Р°Рє РєР°Рє РѕРЅ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF8F6237885 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlpMuiRegCreateRegistryInfo()
+# 2 0x00007FF8F6146742 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlSetProcessPreferredUILanguages()
+# 3 0x00007FF8F623D9AA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlLengthCurrentClearRunForwardEx()
+# 4 0x00007FF8F613ED2B in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 5 0x00007FF8F61993BA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 6 0x00007FF8F3D5E0FB in C:\WINDOWS\System32\ucrtbase.dll: free_base()
+
+# 7 0x00007FF6913A525B in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/processorFunctions.cpp:141:
+
+    139: 
+    140:     free(processor->commandCode);
+=>  141:     free(processor->stk.data);
+    142: }
+    143: 
+
+# 8 0x00007FF69131074D in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/main.cpp:27:
+
+     25:     executeCommands(&processor, logFile, &dumpInfo);
+     26: 
+=>   27:     processorDtor(&processor);
+     28:     fclose(logFile);
+     29: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	C:\Users\Admin\Downloads\CodeBlocks\TX\TXLib.h
+Compiled:	Dec 13 2025 00:31:35, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 13 2025 15:30:06
+
+Run file:	C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\prodva\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: #1: РљСѓС‡Р° Р±С‹Р»Р° РїРѕРІСЂРµР¶РґРµРЅР°. (0xC0000374) при выполнении кода по адресу 0x00007FF8F6237885 в функции RtlpMuiRegCreateRegistryInfo() в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+Ой, всё (EXCEPTION_NONCONTINUABLE).
+
+С помощью функции _set_se_translator() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400], Instance: 0x00007FF6914AA090 (64-bit), Flags: Cmdre0, Thread: 0x5C04 (Main), GetLastError(): 183 (РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р», С‚Р°Рє РєР°Рє РѕРЅ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF8F6237885 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlpMuiRegCreateRegistryInfo()
+# 2 0x00007FF8F6146742 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlSetProcessPreferredUILanguages()
+# 3 0x00007FF8F623D9AA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlLengthCurrentClearRunForwardEx()
+# 4 0x00007FF8F613ED2B in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 5 0x00007FF8F61993BA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 6 0x00007FF8F3D5E0FB in C:\WINDOWS\System32\ucrtbase.dll: free_base()
+
+# 7 0x00007FF6913A525B in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/processorFunctions.cpp:141:
+
+    139: 
+    140:     free(processor->commandCode);
+=>  141:     free(processor->stk.data);
+    142: }
+    143: 
+
+# 8 0x00007FF69131074D in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/main.cpp:27:
+
+     25:     executeCommands(&processor, logFile, &dumpInfo);
+     26: 
+=>   27:     processorDtor(&processor);
+     28:     fclose(logFile);
+     29: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	C:\Users\Admin\Downloads\CodeBlocks\TX\TXLib.h
+Compiled:	Dec 13 2025 00:31:35, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 13 2025 15:30:06
+
+Run file:	C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\prodva\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: #1: РљСѓС‡Р° Р±С‹Р»Р° РїРѕРІСЂРµР¶РґРµРЅР°. (0xC0000374) при выполнении кода по адресу 0x00007FFB548B76B5 в функции RtlpMuiRegCreateRegistryInfo() в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+Ой, всё (EXCEPTION_NONCONTINUABLE).
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400], Instance: 0x00007FF75C16A090 (64-bit), Flags: Cmdre0, Thread: 0x531C (Main), GetLastError(): 183 (РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р», С‚Р°Рє РєР°Рє РѕРЅ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FFB548B76B5 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlpMuiRegCreateRegistryInfo()
+# 2 0x00007FFB547C6742 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlSetProcessPreferredUILanguages()
+# 3 0x00007FFB548BD89A in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlLengthCurrentClearRunForwardEx()
+# 4 0x00007FFB547BED2B in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 5 0x00007FFB548193BA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 6 0x00007FFB518DE0FB in C:\WINDOWS\System32\ucrtbase.dll: free_base()
+
+# 7 0x00007FF75C06525B in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/processorFunctions.cpp:141:
+
+    139: 
+    140:     free(processor->commandCode);
+=>  141:     free(processor->stk.data);
+    142: }
+    143: 
+
+# 8 0x00007FF75BFD074D in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/main.cpp:27:
+
+     25:     executeCommands(&processor, logFile, &dumpInfo);
+     26: 
+=>   27:     processorDtor(&processor);
+     28:     fclose(logFile);
+     29: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	C:\Users\Admin\Downloads\CodeBlocks\TX\TXLib.h
+Compiled:	Dec 13 2025 00:31:35, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 15 2025 10:52:06
+
+Run file:	C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\prodva\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: #1: РљСѓС‡Р° Р±С‹Р»Р° РїРѕРІСЂРµР¶РґРµРЅР°. (0xC0000374) при выполнении кода по адресу 0x00007FFB548B76B5 в функции RtlpMuiRegCreateRegistryInfo() в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+Ой, всё (EXCEPTION_NONCONTINUABLE).
+
+С помощью функции _set_se_translator() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400], Instance: 0x00007FF75C16A090 (64-bit), Flags: Cmdre0, Thread: 0x531C (Main), GetLastError(): 183 (РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р», С‚Р°Рє РєР°Рє РѕРЅ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FFB548B76B5 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlpMuiRegCreateRegistryInfo()
+# 2 0x00007FFB547C6742 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlSetProcessPreferredUILanguages()
+# 3 0x00007FFB548BD89A in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlLengthCurrentClearRunForwardEx()
+# 4 0x00007FFB547BED2B in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 5 0x00007FFB548193BA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 6 0x00007FFB518DE0FB in C:\WINDOWS\System32\ucrtbase.dll: free_base()
+
+# 7 0x00007FF75C06525B in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/processorFunctions.cpp:141:
+
+    139: 
+    140:     free(processor->commandCode);
+=>  141:     free(processor->stk.data);
+    142: }
+    143: 
+
+# 8 0x00007FF75BFD074D in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/main.cpp:27:
+
+     25:     executeCommands(&processor, logFile, &dumpInfo);
+     26: 
+=>   27:     processorDtor(&processor);
+     28:     fclose(logFile);
+     29: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	C:\Users\Admin\Downloads\CodeBlocks\TX\TXLib.h
+Compiled:	Dec 13 2025 00:31:35, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 15 2025 10:52:06
+
+Run file:	C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\prodva\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: #1: РљСѓС‡Р° Р±С‹Р»Р° РїРѕРІСЂРµР¶РґРµРЅР°. (0xC0000374) при выполнении кода по адресу 0x00007FFB548B76B5 в функции RtlpMuiRegCreateRegistryInfo() в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+Ой, всё (EXCEPTION_NONCONTINUABLE).
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400], Instance: 0x00007FF75C16A090 (64-bit), Flags: Cmdre0, Thread: 0x2DDC (Main), GetLastError(): 183 (РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р», С‚Р°Рє РєР°Рє РѕРЅ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FFB548B76B5 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlpMuiRegCreateRegistryInfo()
+# 2 0x00007FFB547C6742 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlSetProcessPreferredUILanguages()
+# 3 0x00007FFB548BD89A in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlLengthCurrentClearRunForwardEx()
+# 4 0x00007FFB547BED2B in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 5 0x00007FFB548193BA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 6 0x00007FFB518DE0FB in C:\WINDOWS\System32\ucrtbase.dll: free_base()
+
+# 7 0x00007FF75C06525B in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/processorFunctions.cpp:141:
+
+    139: 
+    140:     free(processor->commandCode);
+=>  141:     free(processor->stk.data);
+    142: }
+    143: 
+
+# 8 0x00007FF75BFD074D in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/main.cpp:27:
+
+     25:     executeCommands(&processor, logFile, &dumpInfo);
+     26: 
+=>   27:     processorDtor(&processor);
+     28:     fclose(logFile);
+     29: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	C:\Users\Admin\Downloads\CodeBlocks\TX\TXLib.h
+Compiled:	Dec 13 2025 00:31:35, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 15 2025 10:52:20
+
+Run file:	C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\prodva\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: #1: РљСѓС‡Р° Р±С‹Р»Р° РїРѕРІСЂРµР¶РґРµРЅР°. (0xC0000374) при выполнении кода по адресу 0x00007FFB548B76B5 в функции RtlpMuiRegCreateRegistryInfo() в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+Ой, всё (EXCEPTION_NONCONTINUABLE).
+
+С помощью функции _set_se_translator() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400], Instance: 0x00007FF75C16A090 (64-bit), Flags: Cmdre0, Thread: 0x2DDC (Main), GetLastError(): 183 (РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р», С‚Р°Рє РєР°Рє РѕРЅ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FFB548B76B5 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlpMuiRegCreateRegistryInfo()
+# 2 0x00007FFB547C6742 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlSetProcessPreferredUILanguages()
+# 3 0x00007FFB548BD89A in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlLengthCurrentClearRunForwardEx()
+# 4 0x00007FFB547BED2B in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 5 0x00007FFB548193BA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 6 0x00007FFB518DE0FB in C:\WINDOWS\System32\ucrtbase.dll: free_base()
+
+# 7 0x00007FF75C06525B in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/processorFunctions.cpp:141:
+
+    139: 
+    140:     free(processor->commandCode);
+=>  141:     free(processor->stk.data);
+    142: }
+    143: 
+
+# 8 0x00007FF75BFD074D in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/main.cpp:27:
+
+     25:     executeCommands(&processor, logFile, &dumpInfo);
+     26: 
+=>   27:     processorDtor(&processor);
+     28:     fclose(logFile);
+     29: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	C:\Users\Admin\Downloads\CodeBlocks\TX\TXLib.h
+Compiled:	Dec 13 2025 00:31:35, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 15 2025 10:52:21
+
+Run file:	C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\prodva\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: #1: РљСѓС‡Р° Р±С‹Р»Р° РїРѕРІСЂРµР¶РґРµРЅР°. (0xC0000374) при выполнении кода по адресу 0x00007FFB548B76B5 в функции RtlpMuiRegCreateRegistryInfo() в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+Ой, всё (EXCEPTION_NONCONTINUABLE).
+
+#1: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400], Instance: 0x00007FF75C16A090 (64-bit), Flags: Cmdre0, Thread: 0x31B4 (Main), GetLastError(): 183 (РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р», С‚Р°Рє РєР°Рє РѕРЅ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FFB548B76B5 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlpMuiRegCreateRegistryInfo()
+# 2 0x00007FFB547C6742 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlSetProcessPreferredUILanguages()
+# 3 0x00007FFB548BD89A in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlLengthCurrentClearRunForwardEx()
+# 4 0x00007FFB547BED2B in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 5 0x00007FFB548193BA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 6 0x00007FFB518DE0FB in C:\WINDOWS\System32\ucrtbase.dll: free_base()
+
+# 7 0x00007FF75C06525B in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/processorFunctions.cpp:141:
+
+    139: 
+    140:     free(processor->commandCode);
+=>  141:     free(processor->stk.data);
+    142: }
+    143: 
+
+# 8 0x00007FF75BFD074D in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/main.cpp:27:
+
+     25:     executeCommands(&processor, logFile, &dumpInfo);
+     26: 
+=>   27:     processorDtor(&processor);
+     28:     fclose(logFile);
+     29: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	C:\Users\Admin\Downloads\CodeBlocks\TX\TXLib.h
+Compiled:	Dec 13 2025 00:31:35, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 15 2025 10:52:46
+
+Run file:	C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\prodva\Stack
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe,
+
+ВНЕЗАПНО: #1: РљСѓС‡Р° Р±С‹Р»Р° РїРѕРІСЂРµР¶РґРµРЅР°. (0xC0000374) при выполнении кода по адресу 0x00007FFB548B76B5 в функции RtlpMuiRegCreateRegistryInfo() в модуле C:\WINDOWS\SYSTEM32\ntdll.dll. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+Ой, всё (EXCEPTION_NONCONTINUABLE).
+
+С помощью функции _set_se_translator() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400], Instance: 0x00007FF75C16A090 (64-bit), Flags: Cmdre0, Thread: 0x31B4 (Main), GetLastError(): 183 (РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р», С‚Р°Рє РєР°Рє РѕРЅ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FFB548B76B5 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlpMuiRegCreateRegistryInfo()
+# 2 0x00007FFB547C6742 in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlSetProcessPreferredUILanguages()
+# 3 0x00007FFB548BD89A in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlLengthCurrentClearRunForwardEx()
+# 4 0x00007FFB547BED2B in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlAllocateHeap()
+# 5 0x00007FFB548193BA in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlFreeHeap()
+# 6 0x00007FFB518DE0FB in C:\WINDOWS\System32\ucrtbase.dll: free_base()
+
+# 7 0x00007FF75C06525B in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: processorDtor() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/processorFunctions.cpp:141:
+
+    139: 
+    140:     free(processor->commandCode);
+=>  141:     free(processor->stk.data);
+    142: }
+    143: 
+
+# 8 0x00007FF75BFD074D in C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe: main() at C:/Users/Admin/Desktop/prodva/Stack/PROCESSOR/main.cpp:27:
+
+     25:     executeCommands(&processor, logFile, &dumpInfo);
+     26: 
+=>   27:     processorDtor(&processor);
+     28:     fclose(logFile);
+     29: 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 174, Date: 2025-08-17 06:00:49 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	C:\Users\Admin\Downloads\CodeBlocks\TX\TXLib.h
+Compiled:	Dec 13 2025 00:31:35, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 15 2025 10:52:46
+
+Run file:	C:\Users\Admin\Desktop\prodva\Stack\EXE\processor.exe
+Directory:	C:\Users\Admin\Desktop\prodva\Stack
+
+--------------------------------------------------

@@ -1,3 +1,0 @@
-POPREG [Ax]
-POPM Ax
-
