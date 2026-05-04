@@ -33,7 +33,6 @@ void writeSignature (struct assembler* Asm);
 
 int getCmdRamArg (struct assembler* Asm, int offset, char* commandString);
 
-//int bsearchLabelComparator(const void* firstParam, const void* secondParam);
 int bsearchLabelComparator(const void* key, const void* element);
 
 int structLabelComparator(const void* firstStruct, const void* secondStruct);
